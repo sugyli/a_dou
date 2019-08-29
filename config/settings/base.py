@@ -78,14 +78,14 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "django_celery_beat",
     "quanbenxiaoshuo.DjangoUeditor",
-    "quanbenxiaoshuo.xadmin",
+    #"quanbenxiaoshuo.xadmin",
     "taggit",
     'sorl.thumbnail'
 ]
 #自己编写的应用
 LOCAL_APPS = [
     "quanbenxiaoshuo.users.apps.UsersConfig",
-    #"quanbenxiaoshuo.xadmin.apps.XAdminConfig",
+    "quanbenxiaoshuo.xadmin.apps.XAdminConfig",
     "quanbenxiaoshuo.articles.apps.ArticlesConfig",
     "quanbenxiaoshuo.albums.apps.AlbumsConfig",
     "quanbenxiaoshuo.operation.apps.OperationConfig",
