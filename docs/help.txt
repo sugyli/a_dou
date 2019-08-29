@@ -1,0 +1,126 @@
+"""
+null 是针对数据库而言，如果 null=True, 表示数据库的该字段可以为空。
+blank 是针对表单的，如果 blank=True，表示你的表单填写该字段的时候可以不填，
+日期类型(DateField、TimeField、DateTimeField)和数字类型(IntegerField、DecimalField、FloatField)不能接受空字符串，因此这两种类型类型的字段如果要设置为可空，则需要同时设置null=True,blank=True;
+
+"""
+
+
+'''
+on_delete=None,               # 删除关联表中的数据时,当前表与其关联的field的行为
+on_delete=models.CASCADE,     # 删除关联数据,与之关联也删除
+on_delete=models.DO_NOTHING,  # 删除关联数据,什么也不做
+on_delete=models.PROTECT,     # 删除关联数据,引发错误ProtectedError
+# models.ForeignKey('关联表', on_delete=models.SET_NULL, blank=True, null=True)
+on_delete=models.SET_NULL,    # 删除关联数据,与之关联的值设置为null（前提FK字段需要设置为可空,一对一同理）
+# models.ForeignKey('关联表', on_delete=models.SET_DEFAULT, default='默认值')
+on_delete=models.SET_DEFAULT, # 删除关联数据,与之关联的值设置为默认值（前提FK字段需要设置默认值,一对一同理）
+on_delete=models.SET,         # 删除关联数据,
+ a. 与之关联的值设置为指定值,设置：models.SET(值)
+ b. 与之关联的值设置为可执行对象的返回值,设置：models.SET(可执行对象)
+'''
+
+"""
+list_display 控制列表展示的字段
+search_fields 控制可以通过搜索框搜索的字段名称，xadmin使用的是模糊查询
+list_filter 可以进行过滤操作的列
+ordering 默认排序的字段
+readonly_fields 在编辑页面的只读字段
+exclude 在编辑页面隐藏的字段
+list_editable 在列表页可以快速直接编辑的字段
+show_detail_fileds 在列表页提供快速显示详情信息
+refresh_times 指定列表页的定时刷新
+list_export 控制列表页导出数据的可选格式
+show_bookmarks 控制是否显示书签功能
+data_charts 控制显示图标的样式
+model_icon 控制菜单的图标
+"""
+
+from django.views.decorators.cache import cache_page
+cache参数可以设置使用CACHES中的哪一个cache系统，默认是default：
+@cache_page(60 * 15, cache="special_cache")
+
+
+
+request对象的属性
+
+request.scheme
+
+代表请求的方案,http或者https
+
+request.path
+
+请求的路径,比如请求127.0.0.1/org/list,那这个值就是/org/list
+
+request.method
+
+表示请求使用的http方法,GET或者POST请求
+
+request.encoding
+
+表示提交数据的编码方式
+
+request.GET
+
+获取GET请求
+
+request.POST
+
+获取post的请求,比如前端提交的用户密码,可以通过request.POST.get()来获取
+
+另外：如果使用 POST 上传文件的话，文件信息将包含在 FILES 属性中
+
+request.COOKIES
+
+包含所有的cookie
+
+request.META
+
+一个标准的Python 字典，包含所有的HTTP 首部。具体的头部信息取决于客户端和服务器，下面是一些示例：
+
+CONTENT_LENGTH —— 请求的正文的长度（是一个字符串）。
+CONTENT_TYPE —— 请求的正文的MIME 类型。
+HTTP_ACCEPT —— 响应可接收的Content-Type。
+HTTP_ACCEPT_ENCODING —— 响应可接收的编码。
+HTTP_ACCEPT_LANGUAGE —— 响应可接收的语言。
+HTTP_HOST —— 客服端发送的HTTP Host 头部。
+HTTP_REFERER —— Referring 页面。
+HTTP_USER_AGENT —— 客户端的user-agent 字符串。
+QUERY_STRING —— 单个字符串形式的查询字符串（未解析过的形式）。
+REMOTE_ADDR —— 客户端的IP 地址。
+REMOTE_HOST —— 客户端的主机名。
+REMOTE_USER —— 服务器认证后的用户。
+REQUEST_METHOD —— 一个字符串，例如"GET" 或"POST"。
+SERVER_NAME —— 服务器的主机名。
+SERVER_PORT —— 服务器的端口（是一个字符串）
+request.user
+
+
+
+
+
+
+```
+一个 AUTH_USER_MODEL 类型的对象，表示当前登录的用户。
+
+如果用户当前没有登录，user 将设置为 django.contrib.auth.models.AnonymousUser 的一个实例。你可以通过 is_authenticated() 区分它们
+
+把request传给前端的时候,前端可以通过 {%  if request.user.is_authenticated  %}判断用户时候登录
+
+request.session
+
+一个既可读又可写的类似于字典的对象，表示当前的会话
+
+django orm 不等于 （exclude）
+
+__gt 大于
+
+__gte 大于等于
+
+__lt 小于
+
+__lte 小于等于
+
+```
+
+不需要获取的字段 用 defer()  只需要的字段only()

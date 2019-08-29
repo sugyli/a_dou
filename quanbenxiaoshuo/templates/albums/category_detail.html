@@ -1,0 +1,58 @@
+{% extends 'base/base.html' %}
+{% load thumbnail %}
+{% block title %}{{ category.title }}{% endblock %}
+{% block keywords %}{{ category.keywords }}{% endblock %}
+{% block description %}{{ category.description }}{% endblock %}
+{% block head %}
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ category.get_category_url }}" />
+{% endblock %}
+
+{% block content %}
+  <body>
+    {% include 'base/header.html' %}
+    {% include 'base/nav.html' %}
+    <div class="breadcrumb clearfix">{% include 'base/breadcrumb.html' with name=category.name link=category.get_category_url %}</div>
+    <div id="content-list" class="clearfix">
+      <article class="post clearfix">
+        <h1 class="cat-title bb">{{ category.name }}</h1>
+		  </article>
+      <div class="pop-books2 clearfix">
+        <ol>
+          {% for album in albums %}
+            <li class="pop-book2">
+              <a href="{{ album.get_album_url }}" title="{{ album.name }}">
+                {% thumbnail album.image "120x150" crop="center" as im %}
+                  <img alt="{{ album.name }}" src="{{ im.url }}"/>
+                  {% empty %}
+                  <img alt="{{ album.name }}" src="http://placehold.it/120x150" />
+                {% endthumbnail %}
+              </a>
+              <a href="{{ album.get_album_url }}" title="{{ album.name }}">
+                <h2 class="pop-tit">{{ album.name }}</h2>
+                <span class="pop-intro">专辑</span>
+              </a>
+            </li>
+          {% endfor %}
+          {% for novel in novels %}
+            <li class="pop-book2">
+              <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">
+                {% thumbnail novel.image "120x150" crop="center" as im %}
+                  <img alt="{{ novel.name }}" src="{{ im.url }}"/>
+                  {% empty %}
+                  <img alt="{{ novel.name }}" src="http://placehold.it/120x150" />
+                {% endthumbnail %}
+              </a>
+              <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">
+                <h2 class="pop-tit">{{ novel.name }}</h2>
+                <span class="pop-intro">小说</span>
+              </a>
+            </li>
+          {% endfor %}
+        </ol>
+      </div>
+      <div id="lxfoot" class="copyright bt clearfix">
+      {% include 'base/footer.html' %}
+      </div>
+    </div>
+  </body>
+{% endblock %}

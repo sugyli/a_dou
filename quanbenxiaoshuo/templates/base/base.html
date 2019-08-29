@@ -1,0 +1,39 @@
+{% spaceless %}
+{% load static compress %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="keywords" content="{% block keywords %}{% endblock %}">
+    <meta name="description" content="{% block description %}{% endblock %}" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="applicable-device" content="pc,mobile">
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
+    {% block css %}
+      <link rel="stylesheet" href="{% static 'css/global.css' %}" type="text/css" />
+    {% endblock %}
+    {% block js %}
+      {% compress js %}
+      <script src="{% static 'js/jquery1.42.min.js' %}"></script>
+      <script src="{% static 'js/utils.js' %}"></script>
+      {% endcompress %}
+    {% endblock %}
+    {% block head %}
+    {% endblock %}
+  </head>
+  {% block content %}
+  {% endblock %}
+  {% block end %}
+    {% compress js %}
+    <script src="{% static 'js/jquery.sidr.min.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+    {% endcompress %}
+  {% endblock %}
+  {% block footer %}
+  {% endblock %}
+</html>
+{% endspaceless %}

@@ -1,0 +1,11 @@
+{% load utils %}
+<nav id="sidr" class="sidr left nav">
+  <ul id="main-nav" class="clearfix main-nav menu">
+      <li class="cat-item current-cat-parent"><a href="/">首页</a></li>
+      {% for navigation in 'navigations'|navigations %}
+      <li>
+        <a class="pr" href="{{ navigation.get_category_url }}" title="{{ navigation.name }}">{{ navigation.name }}</a>
+      </li>
+      {% endfor %}
+  </ul>
+</nav>

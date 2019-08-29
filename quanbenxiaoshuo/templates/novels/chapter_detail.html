@@ -1,0 +1,66 @@
+{% extends 'base/base.html' %}
+{% load static utils compress %}
+{% block title %}{{ chapter.name }}{% endblock %}
+{% block keywords %}{{ chapter.novel.name }},{{ chapter.novel.author }},{{ chapter.name }}{% endblock %}
+{% block description %}{% description content %}{% endblock %}
+{% block head %}
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ chapter.get_chapter_url }}" />
+{% endblock %}
+
+{% block content %}
+  <body id="nr_body" class="lx">
+    <div id="pagewrap">
+      <header id="header2" class="clearfix">
+        <h1 id="logo"><a href="/">{{ WEBNAME }}</a></h1>
+        <span id="s-menu" onclick="ChangeDivShow(this)"></span>
+        <nav id="bcrumb" class="bcrumb">
+          <span><a href="/">返回首页</a></span>
+          <span>&gt;</span>
+          <span><a href="{{ chapter.novel.get_novel_url }}" rel="category tag">返回目录</a></span>
+          <span>&gt;</span>
+          <span><a href="{{ chapter.get_chapter_url }}">{{ chapter.name }}</a>&nbsp;</span>
+        </nav>
+      </header>
+      <article class="post clearfix">
+        <header id="posthead" class="post-header clearfix">
+          <h1 id="nr_title" class="post-title">{{ chapter.name }}</h1>
+          <p class="post-time"><b>{{ chapter.novel.author }}</b>{{ chapter.updated_at|date:"Y-m-d" }}<i id="tipsA">Ctrl+D 收藏本站</i></p>
+          <div id="mydiv" class="nr_set">
+              <span id="lightdiv" class="set1" onclick="nr_setbg('light')">关灯</span>
+              <span style="display:none;" id="huyandiv" class="set1" onclick="nr_setbg('huyan')">护眼</span>
+              <span id="fontsmall"  class="set1" onclick="nr_setbg('small')">小</span>
+              <span id="fontmiddle"  class="set1" onclick="nr_setbg('middle')">中</span>
+              <span id="fontbig"  class="set1" onclick="nr_setbg('big')">大</span>
+              <span class="set1"><a id="st" href="javascript:st();void 0;">繁</a></span>
+              <span class="set1" ><a href="#anchor">直达底部</a></span>
+          </div>
+        </header>
+        <nav class="nav2 bbn mb2 clearfix">
+          {% include 'base/page.html' with prevchapter=prevchapter nextchapter=nextchapter chapter=chapter %}
+        </nav>
+        <div id="nr1">
+        {{ content|safe }}
+        </div>
+        <div id="anchor" class="ccdd clearfix">&nbsp;</div>
+        <nav class="nav2 bbn mb4 clearfix">
+          {% include 'base/page.html' with prevchapter=prevchapter nextchapter=nextchapter chapter=chapter %}
+        </nav>
+        <div class="mt4 clearfix"></div>
+        <div id="comments" style="display:none;">
+          <div id="comment" style="display:none;"></div>
+          <div id="submit" style="display:none;"></div>
+          <div id="author" style="display:none;"></div>
+        </div>
+      </article>
+      <div id="lxbottom" class="copyright copyright-s bt clearfix">
+        {% include 'base/footer.html' %}
+      </div>
+    </div>
+  </body>
+{% endblock %}
+{% block end %}
+  {% compress js %}
+  <script src="{% static 'js/translate.js' %}"></script>
+  <script src="{% static 'js/content.js' %}"></script>
+  {% endcompress %}
+{% endblock %}

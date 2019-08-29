@@ -1,0 +1,67 @@
+{% extends 'base/base.html' %}
+{% load thumbnail %}
+{% block title %}{{ novel.title }}{% endblock %}
+{% block keywords %}{{ novel.keywords }}{% endblock %}
+{% block description %}{{ novel.description }}{% endblock %}
+{% block head %}
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ novel.get_novel_url }}" />
+{% endblock %}
+
+{% block content %}
+  <body>
+    {% include 'base/header.html' %}
+    {% include 'base/nav.html' %}
+    <div class="breadcrumb clearfix">{% include 'base/breadcrumb.html' with name=novel.name link=novel.get_novel_url %}</div>
+    <div id="content-list" class="clearfix">
+      <div class="book-intro clearfix">
+        <div class="book-img">
+          {% thumbnail album.image "120x150" crop="center" as im %}
+          <img alt="{{ novel.name }}" src="{{ im.url }}" />
+          {% empty %}
+          <img alt="{{ novel.name }}" src="http://placehold.it/120x150" />
+          {% endthumbnail %}
+        </div>
+        <span class="scrolltobt">
+          <a rel="nofollow" id="scrolltobt" href="javascript:void(0)">直达底部</a>
+        </span>
+        <div class="book-describe">
+          <h1>{{ novel.name }}</h1>
+          <p>作者：{{ novel.author }}</p>
+          <p>类型：{% for tag in novel.tags.all %}{% if forloop.last %}<a href="javascript:void(0)" title="{{ tag }}">{{ tag }}</a>{% else %}<a href="javascript:void(0)" title="{{ tag }}">{{ tag }}</a>&nbsp;{% endif %}{% endfor %}</p>
+          <p>状态：{{ novel.get_is_full }}</p>
+          <p>最近更新：{{ novel.updated_at|timesince }}之前</p>
+          {% if lastchapter %}<p>最新章节：<a href="{{ lastchapter.get_chapter_url }}" title="{{ lastchapter.name }}">{{ lastchapter.name }}</a></p>{% endif %}
+          <p>作品简介：</p>
+          <div class="describe-html">
+            {{ novel.info|safe }}
+          </div>
+        </div>
+      </div>
+      <h2 class="ac clearfix" id="tithook">
+        <span class="pattern-left"></span>
+        <span class="tit">章节列表</span>
+        <span class="pattern-right"></span>
+      </h2>
+      {% for item in sections %}
+        <div class="title clearfix">
+          <h3 id="gcd-1" class="acin">
+            <a href="javascript:">{{ item.sectionname }}</a>
+          </h3>
+        </div>
+        <div class="book-list clearfix">
+        <ul>
+          {% for chapter in item.chapter %}
+          <li>
+            <a title="{{ chapter.name }}" href="{{ chapter.get_chapter_url }}">{{ chapter.name }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+      <div class="mt4 clearfix"></div>
+      <div id="lxfoot" class="copyright bt clearfix">
+      {% include 'base/footer.html' %}
+      </div>
+    </div>
+  </body>
+{% endblock %}

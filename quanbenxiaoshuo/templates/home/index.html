@@ -1,0 +1,56 @@
+{% extends 'base/base.html' %}
+{% load static thumbnail %}
+{% block title %}故事全集_古诗词全集_小说全集_全本小说网_古诗词大全_故事大全{% endblock %}
+{% block keywords %}故事全集,古诗词全集,小说全集,全本小说网,古诗词大全,故事大全{% endblock %}
+{% block description %}本站聚合故事全集,古诗词全集,小说全集,全本小说网,古诗词大全,故事大全等相关资料,方便读者在线免费阅读{% endblock %}
+{% block head %}
+{#幻灯片使用#}
+  <script src="{% static 'js/TouchSlide.1.1.js' %}"></script>
+{% endblock %}
+{% block content %}
+  <body class="bgw">
+    {% include 'base/header.html' %}
+    {% include 'base/nav.html' %}
+    <div id="content">
+		  <div class="title clearfix">
+        <h3>编辑推荐</h3>
+      </div>
+		  <div class="pop-books mb clearfix">
+        <ol>
+          {% for album in albums %}
+          <li class="pop-book">
+            <a href="{{ album.get_album_url }}" title="{{ album.name }}">
+              {% thumbnail album.image "120x150" crop="center" as im %}
+                <img alt="{{ album.name }}" src="{{ im.url }}" />
+                {% empty %}
+                <img alt="{{ album.name }}" src="http://placehold.it/120x150" />
+              {% endthumbnail %}
+            </a>
+            <a href="{{ album.get_album_url }}" title="{{ album.name }}">
+              <h2 class="pop-tit">{{ album.name }}</h2>
+              <span class="pop-intro" title="{{ album.category.name }}">{{ album.category.name }}</span>
+            </a>
+          </li>
+          {% endfor %}
+        </ol>
+		  </div>
+      <div class="hot-books clearfix">
+        <ol>
+          <li class="hot-book-tit">
+            <h2>最新专栏：</h2>
+          </li>
+          {% for album in newalbums %}
+          <li class="hot-book">
+            <a href="{{ album.get_album_url }}" title="{{ album.name }}">
+              <h2 class="pop-tit">{{ album.name }}</h2>
+            </a>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+      <div id="lxfoot" class="copyright bt clearfix">
+      {% include 'base/footer.html' %}
+      </div>
+    </div>
+  </body>
+{% endblock %}
