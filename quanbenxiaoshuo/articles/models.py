@@ -96,7 +96,7 @@ class Article(models.Model):
         if self.is_notice:
             self.album = ''
 
-        if not hasattr(self,'slug'):
+        if not hasattr(self,'slug') or not self.slug:
             # 根据作者和标题生成文章在URL中的别名
             self.slug = slugify(self.name)
 
