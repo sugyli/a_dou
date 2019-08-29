@@ -2,9 +2,9 @@
 Base settings to build other settings files upon.
 """
 
-import environ
+import environ,sys
 
-
+print(sys.path)
 ROOT_DIR = (
     environ.Path(__file__) - 3
 )  # (quanbenxiaoshuo/config/settings/base.py - 3 = quanbenxiaoshuo/)
