@@ -1,12 +1,15 @@
 import sys
 import os
 import django
-#from slugify import slugify
 
 
 
-
+thispath = os.path.dirname(os.path.realpath(__file__))
+parent_thispath = os.path.dirname(thispath)
+sys.path.insert(0, parent_thispath)
+sys.path.insert(0, os.path.join(parent_thispath, 'quanbenxiaoshuo'))
 print(sys.path)
+
 # #获取当前文件路径
 # parent = os.path.dirname(os.path.realpath(__file__))
 # #父路径
