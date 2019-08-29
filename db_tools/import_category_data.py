@@ -4,11 +4,12 @@ import django
 #from slugify import slugify
 
 DJANGO_PROJECT_PATH = os.path.abspath("..")
+
 #/Users/sugyil/quanbenxiaoshuo
-DJANGO_SETTINGS_MODULE = 'config.settings.production'
+#DJANGO_SETTINGS_MODULE = 'config.settings.production'
 sys.path.insert(0, DJANGO_PROJECT_PATH)
-#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.local")
-os.environ['DJANGO_SETTINGS_MODULE'] = DJANGO_SETTINGS_MODULE
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
+#os.environ['DJANGO_SETTINGS_MODULE'] = DJANGO_SETTINGS_MODULE
 django.setup()
 
 from albums.models import Category
