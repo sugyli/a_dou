@@ -11,7 +11,7 @@ APPS_DIR = ROOT_DIR.path("quanbenxiaoshuo")
 
 
 env = environ.Env()
-
+# 使用.env，此项设置为True
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
