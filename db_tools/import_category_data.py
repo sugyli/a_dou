@@ -3,8 +3,8 @@ import os
 import django
 #from slugify import slugify
 
-#DJANGO_PROJECT_PATH = os.path.abspath("..")
-
+DJANGO_PROJECT_PATH = os.path.abspath("..")
+print(DJANGO_PROJECT_PATH)
 #/Users/sugyil/quanbenxiaoshuo
 #DJANGO_SETTINGS_MODULE = 'config.settings.production'
 #sys.path.insert(0, DJANGO_PROJECT_PATH)
