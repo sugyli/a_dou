@@ -1,0 +1,1 @@
+quanbenxiaoshuo 下面创建 django_cache  media 文件
