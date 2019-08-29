@@ -1,1 +1,5 @@
 quanbenxiaoshuo 下面创建 django_cache  media 文件
+根目录下复制  .env
+
+DjangoUeditor  直接复制安装
+主要有个坑 见 https://www.jianshu.com/p/02cbb1b96c8f
