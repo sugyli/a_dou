@@ -11,7 +11,7 @@ DJANGO_PROJECT_PATH = os.path.dirname(parent)
 
 # #/Users/sugyil/quanbenxiaoshuo
 # #DJANGO_SETTINGS_MODULE = 'config.settings.production'
-# #sys.path.insert(0, DJANGO_PROJECT_PATH)
+sys.path.insert(0, DJANGO_PROJECT_PATH)
 #
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 # #os.environ['DJANGO_SETTINGS_MODULE'] = DJANGO_SETTINGS_MODULE
