@@ -4,6 +4,7 @@ Base settings to build other settings files upon.
 
 import environ
 
+
 ROOT_DIR = (
     environ.Path(__file__) - 3
 )  # (quanbenxiaoshuo/config/settings/base.py - 3 = quanbenxiaoshuo/)
@@ -16,6 +17,7 @@ READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
 if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
     env.read_env(str(ROOT_DIR.path(".env")))
+
 
 # GENERAL
 # ------------------------------------------------------------------------------
