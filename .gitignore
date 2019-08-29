@@ -336,6 +336,7 @@ pip-selfcheck.json
 ### Project template
 
 quanbenxiaoshuo/media/
+quanbenxiaoshuo/django_cache/
 
 .pytest_cache/
 
