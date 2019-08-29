@@ -3,8 +3,13 @@ import os
 import django
 #from slugify import slugify
 
-DJANGO_PROJECT_PATH = os.path.abspath("..")
-print(DJANGO_PROJECT_PATH)
+#获取当前文件路径
+parent = os.path.dirname(os.path.realpath(__file__))
+garder = os.path.dirname(parent)
+
+
+#DJANGO_PROJECT_PATH = os.path.abspath("..")
+print(garder)
 # #/Users/sugyil/quanbenxiaoshuo
 # #DJANGO_SETTINGS_MODULE = 'config.settings.production'
 # #sys.path.insert(0, DJANGO_PROJECT_PATH)
