@@ -55,9 +55,9 @@ class Album(models.Model):
 
     info = UEditorField('简介', height=500, width=800,
                          default=u'',
-                         imagePath="uploads/images/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s",
+                         imagePath="uploads/albums/images/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s",
                          toolbars='full',
-                         filePath='uploads/files/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s')
+                         filePath='uploads/albums/files/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s')
 
     slug=models.SlugField(max_length=255, blank=True, verbose_name='(URL)别名',unique=True,default=u'')
 

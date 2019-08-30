@@ -59,9 +59,9 @@ class Novel(models.Model):
 
     info=UEditorField('简介', height=300, width=800,
                       default=u'',
-                      imagePath="uploads/images/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s",
+                      imagePath="uploads/novels/images/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s",
                       toolbars='full',
-                      filePath='uploads/files/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s')
+                      filePath='uploads/novels/files/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s')
 
     title=models.CharField(max_length=255, verbose_name='标题(seo)', default=u'',
                            help_text="title")

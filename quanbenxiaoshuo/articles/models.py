@@ -56,8 +56,8 @@ class Article(models.Model):
     slug = models.SlugField(max_length=255,blank=True, verbose_name='(URL)别名',unique=True,default=u'')
     status = models.CharField(max_length=1, choices=STATUS, default='D', verbose_name='状态')  # 默认存入草稿箱
     content = UEditorField('内容', height=500, width=800,
-                         default=u'', blank=False, imagePath="uploads/images/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s",
-                         toolbars='full', filePath='uploads/files/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s')
+                         default=u'', blank=False, imagePath="uploads/articles/images/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s",
+                         toolbars='full', filePath='uploads/articles/files/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s')
 
     title=models.CharField(max_length=255, verbose_name='标题(seo)', default=u'',
                            help_text="title")
