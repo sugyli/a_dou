@@ -2,7 +2,7 @@
 Base settings to build other settings files upon.
 """
 
-import environ
+import environ,sys
 
 
 ROOT_DIR = (
@@ -18,7 +18,7 @@ if READ_DOT_ENV_FILE:
     # OS environment variables take precedence over variables from .env
     env.read_env(str(ROOT_DIR.path(".env")))
 
-
+print(sys.path)
 
 # GENERAL
 # ------------------------------------------------------------------------------
