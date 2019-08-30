@@ -242,7 +242,7 @@ X_FRAME_OPTIONS = "DENY"
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.
-ADMIN_URL =  'sugyliadmin/'
+ADMIN_URL = env.str('DJANGO_ADMIN_URL')
 
 # # https://docs.djangoproject.com/en/dev/ref/settings/#admins
 # ADMINS = [("""sugyli""", "sugyli@example.com")]
