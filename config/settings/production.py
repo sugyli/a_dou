@@ -13,7 +13,7 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["example.com"])
 # ------------------------------------------------------------------------------
 DATABASES["default"] = env.db("DATABASE_URL")  # noqa F405
 DATABASES["default"]["ATOMIC_REQUESTS"] = True  # noqa F405
-DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=90)  # noqa F405
+DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # noqa F405
 
 # CACHES
 # ------------------------------------------------------------------------------
@@ -49,10 +49,10 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
 # # https://docs.djangoproject.com/en/dev/ref/settings/#session-cookie-secure
 #是否对会话cookie使用安全cookie。如果设置为 True，则cookie将被标记为“安全”，这意味着浏览器可以确保cookie仅在HTTPS连接下发送。
-SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = env.bool("DJANGO_SESSION_COOKIE_SECURE", default=False)
 # # https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-secure
 #是否为CSRF cookie使用安全cookie。如果设置为True，则cookie将被标记为“安全”，这意味着浏览器可以确保仅使用HTTPS连接发送cookie。
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = env.bool("DJANGO_CSRF_COOKIE_SECURE", default=False)
 # # https://docs.djangoproject.com/en/dev/topics/security/#ssl-https
 # # https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-seconds
 # # TODO: set this to 60 seconds first and then to 518400 once you prove the former works
