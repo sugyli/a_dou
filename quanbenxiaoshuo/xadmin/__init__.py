@@ -1,7 +1,7 @@
 
 VERSION = (0,6,0)
 
-from quanbenxiaoshuo.xadmin.sites import AdminSite, site
+from xadmin.sites import AdminSite, site
 
 class Settings(object):
     pass
