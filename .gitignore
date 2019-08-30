@@ -337,6 +337,7 @@ pip-selfcheck.json
 
 quanbenxiaoshuo/media/
 quanbenxiaoshuo/django_cache/
+db_tools/import_old_data.py
 .idea/
 
 .pytest_cache/
