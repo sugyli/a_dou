@@ -339,6 +339,7 @@ quanbenxiaoshuo/media/
 quanbenxiaoshuo/django_cache/
 db_tools/import_old_data.py
 .idea/
+deploy/
 
 .pytest_cache/
 

@@ -242,7 +242,7 @@ EMAIL_BACKEND = env(
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.
-ADMIN_URL = "sugyli_admin/"
+ADMIN_URL =  env.str('ADMIN_URL')
 # # https://docs.djangoproject.com/en/dev/ref/settings/#admins
 # ADMINS = [("""sugyli""", "sugyli@example.com")]
 # # https://docs.djangoproject.com/en/dev/ref/settings/#managers

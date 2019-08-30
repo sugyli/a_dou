@@ -12,3 +12,4 @@ django-anymail[mailgun]==6.0.1  # https://github.com/anymail/django-anymail
 
 
 
+uwsgi

@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /ueditor/
+Disallow: /sugyli_admin/
