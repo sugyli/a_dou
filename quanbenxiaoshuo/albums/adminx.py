@@ -26,6 +26,7 @@ class AlbumAdmin(object):
     list_display = ["name"]
     exclude = ["slug"]
     style_fields={"info": "ueditor"}
+    ordering=['-updated_at']
     relfield_style='fk-ajax'
 
 
