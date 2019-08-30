@@ -12,4 +12,3 @@ django-anymail[mailgun]==6.0.1  # https://github.com/anymail/django-anymail
 
 
 
-django-debug-toolbar==1.11  # https://github.com/jazzband/django-debug-toolbar
