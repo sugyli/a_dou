@@ -26,7 +26,7 @@ class Category(models.Model):
 
     push= models.BooleanField(default=False
                                   , verbose_name="推送"
-                                  , help_text="推送给熊掌")
+                                  , help_text="是否已经推送给熊掌")
 
     created_at=models.DateTimeField(db_index=True,auto_now_add=True,verbose_name='创建时间')
 
@@ -75,7 +75,7 @@ class Album(models.Model):
 
     push=models.BooleanField(default=False
                              , verbose_name="推送"
-                             , help_text="推送给熊掌")
+                             , help_text="是否已经推送给熊掌")
 
     created_at=models.DateTimeField(db_index=True,auto_now_add=True,verbose_name='创建时间')
 
