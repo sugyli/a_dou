@@ -15,7 +15,7 @@
     <div id="content-list" class="clearfix">
       <div class="book-intro clearfix">
         <div class="book-img">
-          {% thumbnail album.image "120x150" crop="center" as im %}
+          {% thumbnail novel.image "120x150" crop="center" as im %}
           <img alt="{{ novel.name }}" src="{{ im.url }}" />
           {% empty %}
           <img alt="{{ novel.name }}" src="http://placehold.it/120x150" />

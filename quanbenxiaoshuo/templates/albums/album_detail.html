@@ -39,7 +39,7 @@
             {% for novel in novels %}
             <li class="pop-book2">
               <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">
-              {% thumbnail album.image "120x150" crop="center" as im %}
+              {% thumbnail novel.image "120x150" crop="center" as im %}
                 <img alt="{{ novel.name }}" src="{{ im.url }}"/></a>
               {% empty %}
                 <img alt="{{ novel.name }}" src="http://placehold.it/120x150"/></a>
