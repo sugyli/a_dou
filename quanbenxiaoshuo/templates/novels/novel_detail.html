@@ -33,7 +33,7 @@
           {% if lastchapter %}<p>最新章节：<a href="{{ lastchapter.get_chapter_url }}" title="{{ lastchapter.name }}">{{ lastchapter.name }}</a></p>{% endif %}
           <p>作品简介：</p>
           <div class="describe-html">
-            {{ novel.info|safe }}
+            {{ novel.get_info|safe }}
           </div>
         </div>
       </div>

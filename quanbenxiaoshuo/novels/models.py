@@ -125,6 +125,9 @@ class Novel(models.Model):
         else:
             return self.description
 
+    def get_info(self):
+        return helpers.contentreplace(self.info,out=True)
+
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -132,9 +135,11 @@ class Novel(models.Model):
             self.slug = slugify(str(self.name)+str(self.author))
 
         if hasattr(self,'info') and self.info.strip():
-            self.info = helpers.contentreplace(self.info)
+
+            self.info = helpers.contentreplace(self.info,out=False)
 
         super(Novel, self).save(*args, **kwargs)
+
 
 
 
@@ -198,11 +203,8 @@ class Chapter(models.Model):
 
     def get_chapter_content(self):
         #获取内容
-        content  = Content.objects.filter(chapter=self).first()
-        if content:
-            return content.content
-        else:
-            return '<p>内容正在添加的路上</p>'
+        return Content.objects.filter(chapter=self).only('content').first()
+
 
     def save(self, *args, **kwargs):
 
@@ -242,9 +244,16 @@ class Content(models.Model):
     def __str__(self):
         return f'{self.chapter.name} 的内容'
 
+    def get_content(self):
+        return helpers.contentreplace(self.content,out=True)
+
     def save(self, *args, **kwargs):
 
         if hasattr(self,'content') and self.content.strip():
-            self.content = helpers.contentreplace(self.content)
+
+            self.content = helpers.contentreplace(self.content,out=False)
 
         super(Content, self).save(*args, **kwargs)
+
+
+

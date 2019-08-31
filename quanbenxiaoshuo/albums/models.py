@@ -4,7 +4,7 @@ from django.db import models
 from django.shortcuts import reverse
 from django.conf import settings
 
-from DjangoUeditor.models import UEditorField
+#from DjangoUeditor.models import UEditorField
 from slugify import slugify
 from quanbenxiaoshuo.storage import ImageStorage
 from quanbenxiaoshuo import helpers
@@ -98,15 +98,17 @@ class Album(models.Model):
         else:
             return self.description
 
+    def get_info(self):
+        return helpers.contentreplace(self.info,out=True)
+
 
     def save(self, *args, **kwargs):
         if not self.slug:
             # 根据作者和标题生成文章在URL中的别名
             self.slug = slugify(self.name)
 
-
         if hasattr(self,'info') and self.info.strip():
-            self.info = helpers.contentreplace(self.info)
+            self.info = helpers.contentreplace(self.info,out=False)
 
         super(Album, self).save(*args, **kwargs)
 

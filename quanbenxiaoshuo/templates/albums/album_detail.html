@@ -26,7 +26,7 @@
         <div class="book-describe">
           <h1 class="author">{{ album.name }}</h1>
           <div class="describe-html">
-            {{ album.info|safe }}
+            {{ album.get_info|safe }}
           </div>
         </div>
         <h2 class="ac clearfix" id="tithook">

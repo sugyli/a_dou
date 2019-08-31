@@ -15,6 +15,7 @@ import xadmin
 from .models import Novel,Chapter,Content
 
 
+
 class ChapterInline(object):
     model = Chapter
     exclude=['slug']
@@ -29,11 +30,9 @@ class ContentInline(object):
     extra = 0
 
 
-
-
-
 class NovelAdmin(object):
     list_display = ["name","author",'album','category','apply_prove']
+    #fields=('name', 'author')
     exclude = ["slug"]
     style_fields={
         'album':'m2m_transfer',
@@ -62,7 +61,6 @@ class ChapterAdmin(object):
     apply_prove.short_description='操作'
     #是否转义
     apply_prove.allow_tags=True
-
 
 
     # def has_add_permission(self):

@@ -34,7 +34,7 @@ def descriptionreplace(htmlstr):
 
 
 
-def contentreplace(text):
+def contentreplace(text ,out = True):
     if not isinstance(text,str):
         return text
     elif not text.strip():
@@ -48,6 +48,10 @@ def contentreplace(text):
         row = row.strip()
         row = descriptionreplace(row)
         if row:
-            html+=f"<p>{row}</p>"
+            if out:
+                html+=f"<p>{row}</p>"
+            else:
+                html+=f"{row}\n"
 
     return html
+

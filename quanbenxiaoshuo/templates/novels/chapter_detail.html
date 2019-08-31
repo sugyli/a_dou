@@ -2,7 +2,7 @@
 {% load static utils compress %}
 {% block title %}{{ chapter.name }}{% endblock %}
 {% block keywords %}{{ chapter.novel.name }},{{ chapter.novel.author }},{{ chapter.name }}{% endblock %}
-{% block description %}{% description content %}{% endblock %}
+{% block description %}{% description contentobj.content %}{% endblock %}
 {% block head %}
 <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ chapter.get_chapter_url }}" />
 {% endblock %}
@@ -39,7 +39,7 @@
           {% include 'base/page.html' with prevchapter=prevchapter nextchapter=nextchapter chapter=chapter %}
         </nav>
         <div id="nr1">
-        {{ content|safe }}
+        {{ contentobj.get_content|safe }}
         </div>
         <div id="anchor" class="ccdd clearfix">&nbsp;</div>
         <nav class="nav2 bbn mb4 clearfix">
