@@ -23,6 +23,11 @@ class Category(models.Model):
     title = models.CharField(max_length=255, verbose_name='标题(seo)', default=u'',help_text="title")
     keywords = models.CharField(max_length=255, verbose_name='关键字(seo)', default=u'',help_text="keywords")
     description =models.CharField(max_length=255, verbose_name='描述(seo)', default=u'',help_text="description")
+
+    push= models.BooleanField(default=False
+                                  , verbose_name="推送"
+                                  , help_text="推送给熊掌")
+
     created_at=models.DateTimeField(db_index=True,auto_now_add=True,verbose_name='创建时间')
 
     class Meta:
@@ -67,6 +72,11 @@ class Album(models.Model):
 
     is_tab=models.BooleanField(default=False,
                                verbose_name="显示在首页", help_text="首页编辑推荐显示")
+
+    push=models.BooleanField(default=False
+                             , verbose_name="推送"
+                             , help_text="推送给熊掌")
+
     created_at=models.DateTimeField(db_index=True,auto_now_add=True,verbose_name='创建时间')
 
     updated_at=models.DateTimeField(db_index=True

@@ -82,6 +82,11 @@ class Novel(models.Model):
                           , default=u'')
 
     is_full = models.BooleanField(default=False, verbose_name='是否完本')
+
+    push=models.BooleanField(default=False
+                             , verbose_name="推送"
+                             , help_text="推送给熊掌")
+
     created_at=models.DateTimeField(db_index=True,auto_now_add=True,verbose_name='创建时间')
     updated_at=models.DateTimeField(db_index=True,auto_now=True, verbose_name='更新时间')
 

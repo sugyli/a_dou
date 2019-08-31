@@ -72,6 +72,10 @@ class Article(models.Model):
                                     ,verbose_name="公告消息"
                                     ,help_text="不是文章而是站内公告")
 
+    push=models.BooleanField(default=False
+                             , verbose_name="推送"
+                             , help_text="推送给熊掌")
+
     created_at = models.DateTimeField(db_index=True,auto_now_add=True, verbose_name='创建时间')
     updated_at = models.DateTimeField(db_index=True,auto_now=True, verbose_name='更新时间')
     objects = ArticleQuerySet.as_manager()
