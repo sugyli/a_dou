@@ -17,9 +17,15 @@ from .models import Category,Album,TabAlbum
 
 
 class CategoryAdmin(object):
-    list_display = ["name"]
+    list_display = ["name","apply_prove"]
     exclude = ["slug"]
     relfield_style='fk-ajax'
+
+    def apply_prove(self, obj):
+        return f"<a href='{obj.get_category_url()}' target='_blank'>前台</a>"
+    apply_prove.short_description='操作'
+    # 是否转义
+    apply_prove.allow_tags=True
 
 
 class AlbumAdmin(object):
@@ -32,7 +38,6 @@ class AlbumAdmin(object):
 
     def apply_prove(self, obj):
         return f"<a href='{obj.get_album_url()}' target='_blank'>前台</a>"
-
     apply_prove.short_description='操作'
     # 是否转义
     apply_prove.allow_tags=True
