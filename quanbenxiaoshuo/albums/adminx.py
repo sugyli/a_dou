@@ -29,10 +29,10 @@ class CategoryAdmin(object):
 
 
 class AlbumAdmin(object):
-    list_display = ["name","updated_at","apply_prove"]
+    list_display = ["name","is_tab","updated_at","apply_prove"]
     exclude = ["slug"]
     style_fields={"info": "ueditor"}
-    ordering=['-updated_at']
+    list_editable=["is_tab"]
     relfield_style='fk-ajax'
 
 
@@ -44,7 +44,7 @@ class AlbumAdmin(object):
 
 
 class TabAlbuAdmin(object):
-    list_display = ['name',"is_tab"]
+    list_display = ['name',"is_tab","updated_at"]
     exclude=["slug"]
     list_editable = ["is_tab"]
     #ordering = ['-created_at']
