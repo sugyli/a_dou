@@ -30,11 +30,12 @@ class ContentInline(object):
 
 
 
+
+
 class NovelAdmin(object):
-    list_display = ["name",'album','category','apply_prove']
+    list_display = ["name","author",'album','category','apply_prove']
     exclude = ["slug"]
     style_fields={
-        "info": "ueditor",
         'album':'m2m_transfer',
         'category':'m2m_transfer'
     }
@@ -61,6 +62,7 @@ class ChapterAdmin(object):
     apply_prove.short_description='操作'
     #是否转义
     apply_prove.allow_tags=True
+
 
 
     # def has_add_permission(self):

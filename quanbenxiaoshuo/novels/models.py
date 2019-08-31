@@ -5,11 +5,12 @@ from django.db import models
 from django.shortcuts import reverse
 
 from albums.models import Album,Category
-from DjangoUeditor.models import UEditorField
+#from DjangoUeditor.models import UEditorField
 from slugify import slugify
 from taggit.managers import TaggableManager
 from quanbenxiaoshuo.storage import ImageStorage
 from quanbenxiaoshuo import helpers
+
 
 @python_2_unicode_compatible
 class NovelQuerySet(models.query.QuerySet):
@@ -57,11 +58,8 @@ class Novel(models.Model):
                             , null=True
                             , blank=True)
 
-    info=UEditorField('简介', height=300, width=800,
-                      default=u'',
-                      imagePath="uploads/novels/images/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s",
-                      toolbars='full',
-                      filePath='uploads/novels/files/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s')
+    info = models.TextField(verbose_name=u"简介")
+
 
     title=models.CharField(max_length=255, verbose_name='标题(seo)', default=u'',
                            help_text="title")
@@ -129,9 +127,13 @@ class Novel(models.Model):
 
 
     def save(self, *args, **kwargs):
-        if not hasattr(self,'slug') or not self.slug:
+        if not self.slug:
             # 根据作者和标题生成文章在URL中的别名
             self.slug = slugify(str(self.name)+str(self.author))
+
+        if hasattr(self,'info') and self.info.strip():
+            self.info = helpers.contentreplace(self.info)
+
         super(Novel, self).save(*args, **kwargs)
 
 
@@ -211,7 +213,7 @@ class Chapter(models.Model):
         else:
             self.order = 1
 
-        if not hasattr(self,'slug') or not self.slug:
+        if not self.slug:
             # 根据作者和标题生成文章在URL中的别名
             self.slug = slugify(self.name)
 
@@ -239,3 +241,10 @@ class Content(models.Model):
 
     def __str__(self):
         return f'{self.chapter.name} 的内容'
+
+    def save(self, *args, **kwargs):
+
+        if hasattr(self,'content') and self.content.strip():
+            self.content = helpers.contentreplace(self.content)
+
+        super(Content, self).save(*args, **kwargs)

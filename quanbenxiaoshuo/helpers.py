@@ -32,3 +32,22 @@ def descriptionreplace(htmlstr):
 
     return htmlstr
 
+
+
+def contentreplace(text):
+    if not isinstance(text,str):
+        return text
+    elif not text.strip():
+        return text
+
+    text=text.replace('\r', '')
+    text=text.replace('\t', '')
+    text=text.split('\n')
+    html=''
+    for row in text:
+        row = row.strip()
+        row = descriptionreplace(row)
+        if row:
+            html+=f"<p>{row}</p>"
+
+    return html

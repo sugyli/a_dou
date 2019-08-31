@@ -13,5 +13,7 @@ def navigations(f):
 
 @register.simple_tag
 def description(n):
-    return helpers.descriptionreplace(n)
+    n=str(helpers.descriptionreplace(n))
+    n=n[0:150]
+    return n
 

@@ -42,7 +42,7 @@ class Category(models.Model):
         return reverse('albums:category', args=[self.slug])
 
     def save(self, *args, **kwargs):
-        if not hasattr(self,'slug') or not self.slug:
+        if not self.slug:
             # 根据作者和标题生成文章在URL中的别名
             self.slug = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
@@ -58,11 +58,8 @@ class Album(models.Model):
     image=models.ImageField(upload_to='album/%Y/%m', storage=ImageStorage(),
                             verbose_name='专辑封面', null=True, blank=True)
 
-    info = UEditorField('简介', height=500, width=800,
-                         default=u'',
-                         imagePath="uploads/albums/images/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s",
-                         toolbars='full',
-                         filePath='uploads/albums/files/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s')
+    info=models.TextField(verbose_name=u"简介")
+
 
     slug=models.SlugField(max_length=255, blank=True, verbose_name='(URL)别名',unique=True,default=u'')
 
@@ -103,9 +100,14 @@ class Album(models.Model):
 
 
     def save(self, *args, **kwargs):
-        if not hasattr(self,'slug') or not self.slug:
+        if not self.slug:
             # 根据作者和标题生成文章在URL中的别名
             self.slug = slugify(self.name)
+
+
+        if hasattr(self,'info') and self.info.strip():
+            self.info = helpers.contentreplace(self.info)
+
         super(Album, self).save(*args, **kwargs)
 
 
