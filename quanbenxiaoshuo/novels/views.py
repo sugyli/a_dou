@@ -42,6 +42,8 @@ class NovelDetailView(DetailView):
 class ChapterDetailView(DetailView):
     model=Chapter
     template_name="novels/chapter_detail.html"
+    slug_field = 'pk'
+    slug_url_kwarg = 'pk'
 
     def get_context_data(self, *args, **kwargs):
         context=super(ChapterDetailView, self).get_context_data(*args, **kwargs)
