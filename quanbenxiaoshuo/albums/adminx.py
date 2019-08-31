@@ -44,9 +44,10 @@ class AlbumAdmin(object):
 
 
 class TabAlbuAdmin(object):
-    list_display = ['name']
+    list_display = ['name',"is_tab"]
     exclude=["slug"]
-    ordering = ['-created_at']
+    list_editable = ["is_tab"]
+    #ordering = ['-created_at']
 
     def queryset(self):
         qs = super(TabAlbuAdmin, self).queryset()

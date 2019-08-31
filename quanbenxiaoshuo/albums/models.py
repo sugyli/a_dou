@@ -33,7 +33,7 @@ class Category(models.Model):
     class Meta:
         verbose_name="分类"
         verbose_name_plural=verbose_name
-        ordering=("created_at",)
+        #ordering=("created_at",)
 
     def __str__(self):
         return self.name
@@ -71,7 +71,7 @@ class Album(models.Model):
     description=models.CharField(max_length=255,null=True, blank=True, verbose_name='描述(seo)',default=u'', help_text="description")
 
     is_tab=models.BooleanField(default=False,
-                               verbose_name="显示在首页", help_text="首页编辑推荐显示")
+                               verbose_name="编辑推荐", help_text="首页编辑推荐显示")
 
     push=models.BooleanField(default=False
                              , verbose_name="推送"
@@ -86,7 +86,7 @@ class Album(models.Model):
     class Meta:
         verbose_name="专辑"
         verbose_name_plural=verbose_name
-        ordering=("-created_at",)
+        ordering=("-updated_at",)
 
     def __str__(self):
         return self.name
