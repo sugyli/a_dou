@@ -2,7 +2,7 @@
 {% load thumbnail %}
 {% block title %}{{ album.title }}{% endblock %}
 {% block keywords %}{{ album.keywords }}{% endblock %}
-{% block description %}{{ album.description }}{% endblock %}
+{% block description %}{{ album.get_description }}{% endblock %}
 {% block head %}
 <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ album.get_album_url }}" />
 {% endblock %}

@@ -7,7 +7,7 @@ from django.conf import settings
 from DjangoUeditor.models import UEditorField
 from slugify import slugify
 from quanbenxiaoshuo.storage import ImageStorage
-
+from quanbenxiaoshuo import helpers
 
 
 
@@ -93,6 +93,15 @@ class Album(models.Model):
 
     def get_album_url(self):
         return reverse('albums:album', args=[self.slug])
+
+    def get_description(self):
+
+        if not self.description:
+
+            return helpers.descriptionreplace(self.info)
+
+        else:
+            return self.description
 
 
     def save(self, *args, **kwargs):
