@@ -31,12 +31,18 @@ model_icon 控制菜单的图标
 
 
 class ArticleAdmin(object):
-    list_display = ["name"]
+    list_display = ["name",'apply_prove']
     style_fields={
         "content": "ueditor",
         "album": "m2m_transfer"
     }
     exclude=["slug",'user']
+
+    def apply_prove(self, obj):
+        return f"<a href='{obj.get_article_url()}' target='_blank'>前台</a>"
+    apply_prove.short_description='操作'
+    # 是否转义
+    apply_prove.allow_tags=True
 
     def save_models(self):
         obj = self.new_obj

@@ -68,7 +68,7 @@ class Album(models.Model):
 
     title=models.CharField(max_length=255, verbose_name='标题(seo)', default=u'',help_text="title")
     keywords=models.CharField(max_length=255, verbose_name='关键字(seo)',default=u'', help_text="keywords")
-    description=models.CharField(max_length=255, verbose_name='描述(seo)',default=u'', help_text="description")
+    description=models.CharField(max_length=255,null=True, blank=True, verbose_name='描述(seo)',default=u'', help_text="description")
 
     is_tab=models.BooleanField(default=False,
                                verbose_name="显示在首页", help_text="首页编辑推荐显示")
@@ -97,9 +97,7 @@ class Album(models.Model):
     def get_description(self):
 
         if not self.description:
-
             return helpers.descriptionreplace(self.info)
-
         else:
             return self.description
 

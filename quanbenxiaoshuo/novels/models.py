@@ -69,6 +69,7 @@ class Novel(models.Model):
                               default=u'', help_text="keywords")
 
     description=models.CharField(max_length=255
+                                 , null=True
                                  , blank=True
                                  , verbose_name='描述(seo)'
                                  , default=u''
@@ -122,9 +123,7 @@ class Novel(models.Model):
     def get_description(self):
 
         if not self.description:
-
             return helpers.descriptionreplace(self.info)
-
         else:
             return self.description
 

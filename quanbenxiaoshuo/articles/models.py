@@ -11,6 +11,7 @@ from taggit.managers import TaggableManager
 # from markdownx.utils import markdownify
 from DjangoUeditor.models import UEditorField
 from albums.models import Album
+from quanbenxiaoshuo import helpers
 
 
 @python_2_unicode_compatible
@@ -63,8 +64,12 @@ class Article(models.Model):
                            help_text="title")
     keywords=models.CharField(max_length=255, verbose_name='关键字(seo)',
                               default=u'', help_text="keywords")
-    description=models.CharField(max_length=255, verbose_name='描述(seo)',
-                                 default=u'', help_text="description")
+    description=models.CharField(max_length=255
+                                 , null=True
+                                 , blank=True
+                                 , verbose_name='描述(seo)'
+                                 , default=u''
+                                 , help_text="description")
 
     tags = TaggableManager(help_text='多个标签使用,(英文)隔开',blank=True, verbose_name='标签')
 
@@ -94,6 +99,12 @@ class Article(models.Model):
     def get_article_url(self):
         return reverse('articles:article', args=[self.slug])
 
+    def get_description(self):
+
+        if not self.description:
+            return helpers.descriptionreplace(self.content)
+        else:
+            return self.description
 
 
     def save(self, *args, **kwargs):
