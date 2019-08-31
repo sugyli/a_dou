@@ -36,7 +36,7 @@ class AlbumAdmin(object):
     apply_prove.short_description='操作'
     # 是否转义
     apply_prove.allow_tags=True
-    
+
 
 class TabAlbuAdmin(object):
     list_display = ['name']

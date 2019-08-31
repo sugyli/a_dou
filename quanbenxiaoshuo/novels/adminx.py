@@ -31,7 +31,7 @@ class ContentInline(object):
 
 
 class NovelAdmin(object):
-    list_display = ["name",'album']
+    list_display = ["name",'album','category','apply_prove']
     exclude = ["slug"]
     style_fields={
         "info": "ueditor",
@@ -39,6 +39,13 @@ class NovelAdmin(object):
         'category':'m2m_transfer'
     }
     inlines=[ChapterInline]
+
+    def apply_prove(self, obj):
+        return f"<a href='{obj.get_novel_url()}' target='_blank'>前端</a>"
+
+    apply_prove.short_description='操作'
+    #是否转义
+    apply_prove.allow_tags=True
 
 
 class ChapterAdmin(object):

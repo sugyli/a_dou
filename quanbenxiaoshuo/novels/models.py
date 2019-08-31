@@ -67,8 +67,12 @@ class Novel(models.Model):
                            help_text="title")
     keywords=models.CharField(max_length=255, verbose_name='关键字(seo)',
                               default=u'', help_text="keywords")
-    description=models.CharField(max_length=255, verbose_name='描述(seo)',
-                                 default=u'', help_text="description")
+
+    description=models.CharField(max_length=255
+                                 , blank=True
+                                 , verbose_name='描述(seo)'
+                                 , default=u''
+                                 , help_text="description")
 
     status=models.CharField(max_length=1
                             , choices=STATUS
@@ -114,6 +118,15 @@ class Novel(models.Model):
 
     def get_novel_url(self):
         return reverse('novels:novel', args=[self.slug])
+
+    def get_description(self):
+
+        if not self.description:
+
+            return helpers.descriptionreplace(self.info)
+
+        else:
+            return self.description
 
 
     def save(self, *args, **kwargs):

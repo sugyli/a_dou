@@ -18,6 +18,9 @@ def __basereplace(htmlstr):
 def descriptionreplace(htmlstr):
     if not isinstance(htmlstr,str):
         return htmlstr
+    elif not htmlstr.strip():
+        return htmlstr
+
     htmlstr = __basereplace(htmlstr)
     re_script = re.compile('<\s*script[^>]*>[^<]*<\s*/\s*script\s*>',re.I)  # Script
     re_style = re.compile('<\s*style[^>]*>[^<]*<\s*/\s*style\s*>', re.I)  # style

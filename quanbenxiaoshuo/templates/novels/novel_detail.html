@@ -2,7 +2,7 @@
 {% load thumbnail %}
 {% block title %}{{ novel.title }}{% endblock %}
 {% block keywords %}{{ novel.keywords }}{% endblock %}
-{% block description %}{{ novel.description }}{% endblock %}
+{% block description %}{{ novel.get_description }}{% endblock %}
 {% block head %}
 <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ novel.get_novel_url }}" />
 {% endblock %}
