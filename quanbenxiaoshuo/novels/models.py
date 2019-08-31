@@ -189,7 +189,8 @@ class Chapter(models.Model):
 
     class Meta:
         index_together=[
-            ('novel','id')
+            ('novel','id'),
+            ('novel', 'order')
         ]
         verbose_name = u"章节"
         verbose_name_plural = verbose_name

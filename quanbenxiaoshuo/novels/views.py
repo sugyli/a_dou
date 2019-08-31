@@ -49,9 +49,9 @@ class ChapterDetailView(DetailView):
         context=super(ChapterDetailView, self).get_context_data(*args, **kwargs)
 
         context['nextchapter'] = \
-            Chapter.objects.filter(order__gt=context['chapter'].order).first()
+            Chapter.objects.filter(novel=context['chapter'].novel ,order__gt=context['chapter'].order).first()
         context['prevchapter']= \
-            Chapter.objects.filter(order__lt=context['chapter'].order).first()
+            Chapter.objects.filter(novel=context['chapter'].novel ,order__lt=context['chapter'].order).first()
 
         context['contentobj']= context['chapter'].get_chapter_content()
 
