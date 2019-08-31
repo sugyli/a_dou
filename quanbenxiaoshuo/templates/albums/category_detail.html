@@ -2,7 +2,7 @@
 {% load thumbnail %}
 {% block title %}{{ category.title }}{% endblock %}
 {% block keywords %}{{ category.keywords }}{% endblock %}
-{% block description %}{{ category.description }}{% endblock %}
+{% block description %}{{ category.description|truncatechars:150 }}{% endblock %}
 {% block head %}
 <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ category.get_category_url }}" />
 {% endblock %}
