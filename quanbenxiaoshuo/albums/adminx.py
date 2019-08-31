@@ -29,7 +29,7 @@ class CategoryAdmin(object):
 
 
 class AlbumAdmin(object):
-    list_display = ["name","apply_prove"]
+    list_display = ["name","updated_at","apply_prove"]
     exclude = ["slug"]
     style_fields={"info": "ueditor"}
     ordering=['-updated_at']
