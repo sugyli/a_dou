@@ -32,7 +32,7 @@ class NovelDetailView(DetailView):
         context['sections'] = sections
         context['lastchapter'] = None
         if chapters.count()>0:
-            context['lastchapter'] = chapters.last()
+            context['lastchapter'] = chapters.defer('created_at','updated_at').last()
         return context
 
     def get_queryset(self, **kwargs):
@@ -49,9 +49,9 @@ class ChapterDetailView(DetailView):
         context=super(ChapterDetailView, self).get_context_data(*args, **kwargs)
 
         context['nextchapter'] = \
-            Chapter.objects.filter(novel=context['chapter'].novel ,order__gt=context['chapter'].order).first()
+            Chapter.objects.filter(novel=context['chapter'].novel ,order__gt=context['chapter'].order).defer('created_at','updated_at').first()
         context['prevchapter']= \
-            Chapter.objects.filter(novel=context['chapter'].novel ,order__lt=context['chapter'].order).first()
+            Chapter.objects.filter(novel=context['chapter'].novel ,order__lt=context['chapter'].order).defer('created_at','updated_at').first()
 
         context['contentobj']= context['chapter'].get_chapter_content()
 
@@ -59,4 +59,4 @@ class ChapterDetailView(DetailView):
 
 
     def get_queryset(self, **kwargs):
-        return Chapter.objects.get_published()
+        return Chapter.objects.get_published().defer('insert')
