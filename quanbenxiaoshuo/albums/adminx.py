@@ -29,7 +29,7 @@ class CategoryAdmin(object):
 
 
 class AlbumAdmin(object):
-    list_display = ["name","is_tab","updated_at","apply_prove"]
+    list_display = ["name","is_tab","updated_at","push","apply_prove"]
     exclude = ["slug"]
     style_fields={"info": "ueditor"}
     list_editable=["is_tab"]
