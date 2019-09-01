@@ -52,7 +52,7 @@
         <ul>
           {% for chapter in item.chapter %}
           <li>
-            <a title="{{ chapter.name }}" href="{{ chapter.get_chapter_url }}">{{ chapter.name }}</a>
+            <a title="{{ chapter.name }} {{ novel.name }} {{ novel.author }}" href="{{ chapter.get_chapter_url }}">{{ chapter.name }}</a>
           </li>
           {% endfor %}
         </ul>

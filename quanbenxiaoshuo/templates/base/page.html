@@ -1,12 +1,12 @@
 <ul>
   {% if prevchapter %}
-    <li class="prev">上一章：<a href="{{ prevchapter.get_chapter_url }}" rel="prev">{{ prevchapter.name }}</a></li>
+    <li class="prev">上一章：<a href="{{ prevchapter.get_chapter_url }}" title="{{ prevchapter.name }}" rel="prev">{{ prevchapter.name }}</a></li>
   {% else %}
-    <li class="prev">到头了：<a href="{{ chapter.novel.get_novel_url }}" rel="prev">返回目录</a></li>
+    <li class="prev">到头了：<a href="{{ chapter.novel.get_novel_url }}" title="{{ chapter.novel.name }}" rel="prev">返回目录</a></li>
   {% endif %}
   {% if nextchapter %}
-    <li class="next">下一章：<a href="{{ nextchapter.get_chapter_url }}" rel="next">{{ nextchapter.name }}</a></li>
+    <li class="next">下一章：<a href="{{ nextchapter.get_chapter_url }}" title="{{ nextchapter.name }}" rel="next">{{ nextchapter.name }}</a></li>
   {% else %}
-    <li class="next">到尾了：<a href="{{ chapter.novel.get_novel_url }}" rel="next">返回目录</a></li>
+    <li class="next">到尾了：<a href="{{ chapter.novel.get_novel_url }}" title="{{ chapter.novel.name }}" rel="next">返回目录</a></li>
   {% endif %}
 </ul>
