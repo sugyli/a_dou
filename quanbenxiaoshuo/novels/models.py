@@ -183,6 +183,7 @@ class Chapter(models.Model):
                                      ,help_text='插入章节order')
 
     slug=models.SlugField(max_length=255
+                          , unique=True
                           , blank=True
                           , verbose_name='(URL)别名'
                           , default=u'')
@@ -197,7 +198,7 @@ class Chapter(models.Model):
 
     class Meta:
         index_together=[
-            ('novel','id','is_tab'),
+            ('novel','slug','is_tab'),
             ('novel', 'order','is_tab')
         ]
         verbose_name = u"章节"
@@ -208,7 +209,7 @@ class Chapter(models.Model):
         return self.name
 
     def get_chapter_url(self):
-        return reverse('novels:chapter', args=[self.id])
+        return reverse('novels:chapter', args=[self.slug])
 
     def get_chapter_content(self):
         #获取内容
@@ -217,16 +218,16 @@ class Chapter(models.Model):
 
     def save(self, *args, **kwargs):
 
-        chapter=Chapter.objects.filter(novel=self.novel).order_by('-order').first()
-
-        if chapter:
-            self.order = chapter.order + 1
-        else:
-            self.order = 1
+        if not self.order:
+            chapter=Chapter.objects.filter(novel=self.novel).order_by('-order').first()
+            if chapter:
+                self.order=chapter.order+1
+            else:
+                self.order=1
 
         if not self.slug:
             # 根据作者和标题生成文章在URL中的别名
-            self.slug = slugify(self.name)
+            self.slug =f"{slugify(self.novel.slug)}_{self.order}"
 
         super(Chapter, self).save(*args, **kwargs)
 

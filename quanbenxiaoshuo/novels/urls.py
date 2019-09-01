@@ -9,7 +9,7 @@ app_name = 'novels'
 if settings.DEBUG:
     urlpatterns = [
         path('<str:slug>/', views.NovelDetailView.as_view(), name='novel'),
-        path('chapter/<int:pk>/', views.ChapterDetailView.as_view(), name='chapter')
+        path('chapter/<str:slug>/', views.ChapterDetailView.as_view(), name='chapter')
     ]
 else:
     urlpatterns = [
@@ -17,7 +17,7 @@ else:
              , cache_page(60 * 240)(views.NovelDetailView.as_view())
              , name='novel'),
 
-        path('chapter/<int:pk>/'
+        path('chapter/<str:slug>/'
              , cache_page(60 * 240)(views.ChapterDetailView.as_view())
              , name='chapter')
     ]
