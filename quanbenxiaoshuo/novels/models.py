@@ -39,7 +39,18 @@ class Novel(models.Model):
     STATUS=(("D", "不公开"), ("P", "公开"))
 
     name = models.CharField(max_length=255,null=False,blank=False,verbose_name='标题')
-    author = models.CharField(max_length=255,null=False,blank=False,verbose_name=u"作者")
+    author=models.CharField(max_length=255
+                            , null=False
+                            , blank=False
+                            , verbose_name=u"作者")
+
+    image=models.ImageField(upload_to='novel/%Y/%m'
+                            , storage=ImageStorage()
+                            , verbose_name='小说封面'
+                            , null=True
+                            , blank=True)
+
+
     tags=TaggableManager(help_text='多个标签使用,(英文)隔开', verbose_name='小说类型')
     album = models.ManyToManyField(Album
                                    ,blank=True
@@ -50,13 +61,6 @@ class Novel(models.Model):
                                       ,blank=True
                                       ,related_name="category_novel"
                                       ,verbose_name='类别')
-
-
-    image=models.ImageField(upload_to='novel/%Y/%m'
-                            , storage=ImageStorage()
-                            , verbose_name='小说封面'
-                            , null=True
-                            , blank=True)
 
     info = models.TextField(verbose_name=u"简介")
 
