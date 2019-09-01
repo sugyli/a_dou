@@ -150,8 +150,8 @@ class Novel(models.Model):
 @python_2_unicode_compatible
 class ChapterQuerySet(models.query.QuerySet):
     def get_published(self):
-        """返回已发表的文章"""
-        return self.filter(novel__status="P").select_related('novel')
+
+        return self.filter(novel__status="P",is_tab=0).select_related('novel')
 
 class Chapter(models.Model):
 
@@ -197,8 +197,8 @@ class Chapter(models.Model):
 
     class Meta:
         index_together=[
-            ('novel','id'),
-            ('novel', 'order')
+            ('novel','id','is_tab'),
+            ('novel', 'order','is_tab')
         ]
         verbose_name = u"章节"
         verbose_name_plural = verbose_name
