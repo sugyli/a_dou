@@ -29,7 +29,7 @@ def start_urls():
 class LuoxiaxiaoshuoSpider(scrapy.Spider):
     name = 'luoxiaxiaoshuo'
     allowed_domains = ['www.luoxia.com']
-    start_urls = ['https://www.luoxia.com/shujian/']
+    start_urls = ['https://www.luoxia.com/shendiao/']
 
 
     custom_settings = {
