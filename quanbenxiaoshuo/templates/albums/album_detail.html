@@ -29,48 +29,48 @@
             {{ album.get_info|safe }}
           </div>
         </div>
-        <h2 class="ac clearfix" id="tithook">
-          <span class="pattern-left"></span>
-          <span class="tit">作品目录</span>
-          <span class="pattern-right"></span>
-        </h2>
-        <div class="pop-books2 pop-books3 clearfix">
-          <ol>
-            {% for novel in novels %}
-            <li class="pop-book2">
-              <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">
-              {% thumbnail novel.image "120x150" crop="center" as im %}
-                <img alt="{{ novel.name }}" src="{{ im.url }}"/></a>
-              {% empty %}
-                <img alt="{{ novel.name }}" src="http://placehold.it/120x150"/></a>
-              {% endthumbnail %}
-              <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">
-                <h2 class="pop-tit">{{ novel.name }}</h2>
-              </a>
-              <span class="pop-intro" title="{{ novel.author }}">{{ novel.author }}</span>
-            </li>
-            {% endfor %}
-          </ol>
-        </div>
-
-        {% if articles %}
-          <div class="title clearfix">
-            <h3 id="gcd-1" class="acin">
-              <a href="javascript:">单章部分</a>
-            </h3>
-          </div>
-          {% for article in articles %}
-            <div class="book-list clearfix">
-              <ul>
-                <li>
-                  <a title="{{ article.name }}" href="{{ article.get_article_url }}">{{ article.name }}</a>
-                </li>
-              </ul>
-            </div>
-          {% endfor %}
-          <div class="mt4 clearfix"></div>
-        {% endif %}
       </div>
+      <h2 class="ac clearfix" id="tithook">
+        <span class="pattern-left"></span>
+        <span class="tit">作品目录</span>
+        <span class="pattern-right"></span>
+      </h2>
+      <div class="pop-books2 pop-books3 clearfix">
+        <ol>
+          {% for novel in novels %}
+          <li class="pop-book2">
+            <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">
+            {% thumbnail novel.image "120x150" crop="center" as im %}
+              <img alt="{{ novel.name }}" src="{{ im.url }}"/></a>
+            {% empty %}
+              <img alt="{{ novel.name }}" src="http://placehold.it/120x150"/></a>
+            {% endthumbnail %}
+            <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">
+              <h2 class="pop-tit">{{ novel.name }}</h2>
+            </a>
+            <span class="pop-intro" title="{{ novel.author }}">{{ novel.author }}</span>
+          </li>
+          {% endfor %}
+        </ol>
+      </div>
+
+      {% if articles %}
+        <div class="title clearfix">
+          <h3 id="gcd-1" class="acin">
+            <a href="javascript:">单章部分</a>
+          </h3>
+        </div>
+        {% for article in articles %}
+          <div class="book-list clearfix">
+            <ul>
+              <li>
+                <a title="{{ article.name }}" href="{{ article.get_article_url }}">{{ article.name }}</a>
+              </li>
+            </ul>
+          </div>
+        {% endfor %}
+        <div class="mt4 clearfix"></div>
+      {% endif %}
       <div id="lxfoot" class="copyright bt clearfix">
       {% include 'base/footer.html' %}
       </div>
