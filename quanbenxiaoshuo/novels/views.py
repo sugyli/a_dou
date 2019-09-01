@@ -49,9 +49,13 @@ class ChapterDetailView(DetailView):
         context=super(ChapterDetailView, self).get_context_data(*args, **kwargs)
 
         context['nextchapter'] = \
-            Chapter.objects.filter(novel=context['chapter'].novel ,order__gt=context['chapter'].order).defer('created_at','updated_at').first()
+            Chapter.objects.filter(novel=context['chapter'].novel ,
+                                   order__gt=context['chapter'].order
+                                   ,is_tab=0).defer('created_at','updated_at').first()
         context['prevchapter']= \
-            Chapter.objects.filter(novel=context['chapter'].novel ,order__lt=context['chapter'].order).defer('created_at','updated_at').first()
+            Chapter.objects.filter(novel=context['chapter'].novel
+                                   ,order__lt=context['chapter'].order
+                                   ,is_tab=0).defer('created_at','updated_at').first()
 
         context['contentobj']= context['chapter'].get_chapter_content()
 

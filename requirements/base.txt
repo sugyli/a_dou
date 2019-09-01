@@ -41,3 +41,7 @@ six==1.10.0
 xlwt
 xlsxwriter
 
+
+#Scrapy 需要
+scrapy
+
