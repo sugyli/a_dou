@@ -187,6 +187,10 @@ class Chapter(models.Model):
                           , verbose_name='(URL)别名'
                           , default=u'')
 
+    push=models.BooleanField(default=False
+                             , verbose_name="推送"
+                             , help_text="是否已经推送给熊掌")
+
     created_at=models.DateTimeField(db_index=True,auto_now_add=True,verbose_name='创建时间')
     updated_at=models.DateTimeField(db_index=True,auto_now=True, verbose_name='更新时间')
     objects=ChapterQuerySet.as_manager()
