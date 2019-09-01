@@ -105,7 +105,7 @@ def contentreplace(text ,out = True):
     html=''
     i = 0
     l = int(len(text)*0.3)
-    l  = l if l > 2 else 2
+    l  = l if l > 3 else 3
 
     for row in text:
         i += 1

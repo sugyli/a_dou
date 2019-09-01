@@ -52,9 +52,10 @@ class NovelAdmin(object):
 
 
 class ChapterAdmin(object):
-    list_display = ["name",'novel','apply_prove']
+    list_display = ["name",'novel',"push",'apply_prove']
     exclude=["novel",'order','insert','is_tab','slug']
     inlines=[ContentInline]
+    list_editable=["push"]
     ordering=['-updated_at']
 
     def apply_prove(self, obj):
