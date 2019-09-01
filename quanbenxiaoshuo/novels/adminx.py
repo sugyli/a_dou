@@ -31,9 +31,10 @@ class ContentInline(object):
 
 
 class NovelAdmin(object):
-    list_display = ["name","author",'album','category',"push",'apply_prove']
+    list_display = ["name","author",'album','category','is_full',"push",'apply_prove']
     #fields=('name', 'author')
     exclude = ["slug"]
+    list_editable=['is_full',"push"]
     style_fields={
         'album':'m2m_transfer',
         'category':'m2m_transfer'

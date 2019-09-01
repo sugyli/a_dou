@@ -8,6 +8,8 @@ filterstr = \
 落l霞x小x说=Www*luoxia*com
 落`霞-小`说www，luoxia，com
 落·霞^小·说wWW…luoxia…com…
+落l霞x小x说s=www*luoxia*Com
+落#霞#小#说#www#luoxia#com
 落^霞^小^说…
 落l霞x小x说s
 落l霞x小x说
@@ -131,7 +133,8 @@ def contentreplace(text ,out = True):
             ':poodle:',
             ':mouse:',
             ':rat:',
-            ':rabbit:'
+            ':rabbit:',
+            ':red_apple:'
         ]
         html = \
             html.replace('$1',str(random.choice(e))).replace('$2', str(random.choice(e)))
