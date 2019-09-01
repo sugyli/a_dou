@@ -33,6 +33,8 @@ class AlbumAdmin(object):
     exclude = ["slug"]
     #style_fields={"info": "ueditor"}
     list_editable=["is_tab","push"]
+    # 筛选
+    list_filter=['is_tab','push']
     relfield_style='fk-ajax'
 
 
