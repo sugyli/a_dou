@@ -1,4 +1,4 @@
-import html,re,os,sys
+import html,re,emoji,random
 from html.parser import HTMLParser
 
 
@@ -11,16 +11,6 @@ filterstr = \
 Www*luoxia*com
 """
 
-
-def __basereplace(htmlstr):
-    #把HTML转义字符 反转义 html.escape转义
-    htmlstr = html.unescape(htmlstr)
-    htmlstr = htmlstr.replace('\r', '')
-    htmlstr = htmlstr.replace('\t', '')
-    re_stopwords=re.compile('\u3000', re.I)
-    htmlstr =re_stopwords.sub('', htmlstr)
-
-    return htmlstr
 
 
 class MLStripper(HTMLParser):
@@ -54,6 +44,15 @@ def strip_tags(html):
     s.feed(html)
     return s.get_data()
 
+def __basereplace(htmlstr):
+    #把HTML转义字符 反转义 html.escape转义
+    htmlstr = html.unescape(htmlstr)
+    htmlstr = htmlstr.replace('\r', '').replace('\t', '')
+    re_stopwords=re.compile('\u3000', re.I)
+    htmlstr =re_stopwords.sub('', htmlstr)
+
+    return htmlstr
+
 
 def descriptionreplace(htmlstr):
     if not isinstance(htmlstr,str):
@@ -73,11 +72,15 @@ def descriptionreplace(htmlstr):
 
     #过滤HTML
     htmlstr = strip_tags(htmlstr)
+    #过滤emoji
+    htmlstr = emoji.demojize(htmlstr)
+    #过滤空格
     htmlstr = htmlstr.replace(' ', '')
     #遗漏的HTML转义
     htmlstr = html.escape(htmlstr)
 
-    return customfilterstr(htmlstr)
+
+    return htmlstr
 
 
 def contentreplace(text ,out = True):
@@ -96,14 +99,40 @@ def contentreplace(text ,out = True):
 
     text=text.split('\n')
     html=''
+    i = 0
+    l = len(text)*0.4
+    l  = l if i > 0 else 1
     for row in text:
+        i += 1
         row = row.strip()
         row = descriptionreplace(row)
         if row:
             if out:
-                html+=f"<p>{row}</p>"
+                if l == i:
+                    html+=f"<p>$1{row}$2</p>"
+                else:
+                    html+=f"<p>{row}</p>"
             else:
                 html+=f"{row}\n\r"
+
+    if out:
+        html = re.sub(r':[a-zA-Z0-9_]+?:', '', html)
+        html = customfilterstr(html)
+        #emoji的处理
+        e = [
+            ':thumbs_up:',
+            ':ghost:',
+            ':fire:',
+            ':monkey:',
+            ':dog:',
+            ':poodle:',
+            ':mouse:',
+            ':rat:',
+            ':rabbit:'
+        ]
+        html = \
+            html.replace('$1',str(random.choice(e))).replace('$2', str(random.choice(e)))
+        html = emoji.emojize(html)
 
     return html
 
