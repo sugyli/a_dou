@@ -6,9 +6,11 @@ filterstr = \
 """
 落l霞x小x说s=Www*luoxia*com
 落l霞x小x说=Www*luoxia*com
+落`霞-小`说www，luoxia，com
+落·霞^小·说wWW…luoxia…com…
+落^霞^小^说…
 落l霞x小x说s
 落l霞x小x说
-Www*luoxia*com
 """
 
 
@@ -100,8 +102,9 @@ def contentreplace(text ,out = True):
     text=text.split('\n')
     html=''
     i = 0
-    l = len(text)*0.4
-    l  = l if i > 0 else 1
+    l = int(len(text)*0.3)
+    l  = l if l > 0 else 1
+
     for row in text:
         i += 1
         row = row.strip()
