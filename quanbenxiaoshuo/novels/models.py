@@ -15,11 +15,11 @@ from quanbenxiaoshuo import helpers
 @python_2_unicode_compatible
 class NovelQuerySet(models.query.QuerySet):
     def get_published(self):
-        """返回已发表的文章"""
+        """返回已发表的小说"""
         return self.filter(status="P")
 
     def get_drafts(self):
-        """返回草稿箱的文章"""
+        """返回草稿箱的小说"""
         return self.filter(status="D")
 
     def get_counted_tags(self):

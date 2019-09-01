@@ -37,12 +37,24 @@
       <div class="hot-books clearfix">
         <ol>
           <li class="hot-book-tit">
-            <h2>最新专栏：</h2>
+            <h2>最新专辑：</h2>
           </li>
           {% for album in newalbums %}
           <li class="hot-book">
             <a href="{{ album.get_album_url }}" title="{{ album.name }}">
               <h2 class="pop-tit">{{ album.name }}</h2>
+            </a>
+          </li>
+          {% endfor %}
+        </ol>
+        <ol>
+          <li class="hot-book-tit">
+            <h2>最新小说：</h2>
+          </li>
+          {% for newnovel in newnovels %}
+          <li class="hot-book">
+            <a href="{{ newnovel.get_novel_url }}" title="{{ newnovel.name }}">
+              <h2 class="pop-tit">{{ newnovel.name }}</h2>
             </a>
           </li>
           {% endfor %}

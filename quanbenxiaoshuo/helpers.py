@@ -86,7 +86,7 @@ def descriptionreplace(htmlstr):
 
     return htmlstr
 
-
+#使用内容过滤会自动加emoji 输出的时候
 def contentreplace(text ,out = True):
     if not isinstance(text,str):
         return text
