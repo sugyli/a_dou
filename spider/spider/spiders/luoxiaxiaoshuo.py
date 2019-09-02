@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import scrapy,re
+import scrapy
 
 import requests
 from scrapy.selector import Selector
