@@ -114,7 +114,7 @@ def contentreplace(text ,out = True):
         if row:
             if out:
                 if l == i:
-                    html+=f"<p>$1{row}$2</p>"
+                    html+=f"<p>$$$$$$1{row}$$$$$$2</p>"
                 else:
                     html+=f"<p>{row}</p>"
             else:
@@ -137,7 +137,7 @@ def contentreplace(text ,out = True):
             ':red_apple:'
         ]
         html = \
-            html.replace('$1',str(random.choice(e))).replace('$2', str(random.choice(e)))
+            html.replace('$$$$$$1',str(random.choice(e))).replace('$$$$$$2', str(random.choice(e)))
         html = emoji.emojize(html)
 
     return html
