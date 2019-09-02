@@ -36,7 +36,7 @@ class NovelDetailView(DetailView):
         return context
 
     def get_queryset(self, **kwargs):
-        return Novel.objects.get_published()
+        return Novel.objects.get_published().prefetch_related('category','album')
 
 
 class ChapterDetailView(DetailView):

@@ -3,7 +3,7 @@ import os
 import django
 
 
-APPS_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+APPS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, APPS_DIR)
 sys.path.insert(0, os.path.join(APPS_DIR, 'quanbenxiaoshuo'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")

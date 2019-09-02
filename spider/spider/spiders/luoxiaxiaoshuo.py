@@ -29,8 +29,8 @@ def start_urls():
 class LuoxiaxiaoshuoSpider(scrapy.Spider):
     name = 'luoxiaxiaoshuo'
     allowed_domains = ['www.luoxia.com']
-    #start_urls = ['https://www.luoxia.com/shendiao/']
-    start_urls = start_urls()
+    start_urls = ['https://www.luoxia.com/shujian/']
+    #start_urls = start_urls()
 
     custom_settings = {
         #"IMAGES_URLS_FIELD": 'cover',
