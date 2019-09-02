@@ -13,13 +13,14 @@ function nr_setbg(intype) {
         }
     }
     if (intype == "light") {
-        if (light.innerHTML == "关灯") {
+        if (light.innerHTML == "关灯"|| light.innerHTML == '關燈') {
             set("light", "yes");
             document.cookie = "light=yes;path=/"
         } else {
             set("light", "no");
             document.cookie = "light=no;path=/"
         }
+        setst();
     }
     if (intype == "big") {
         set("font", "big");
