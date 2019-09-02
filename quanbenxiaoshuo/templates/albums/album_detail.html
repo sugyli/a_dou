@@ -39,7 +39,7 @@
         <ol>
           {% for novel in novels %}
           <li class="pop-book2">
-            <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">
+            <a href="{{ novel.get_novel_url }}" title="{{ novel.name }} {{ novel.author }}">
             {% thumbnail novel.image "120x150" crop="center" as im %}
               <img alt="{{ novel.name }}" src="{{ im.url }}"/></a>
             {% empty %}
@@ -48,7 +48,7 @@
             <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">
               <h2 class="pop-tit">{{ novel.name }}</h2>
             </a>
-            <span class="pop-intro" title="{{ novel.author }}">{{ novel.author }}</span>
+            <span class="pop-intro">{{ novel.get_is_full }}</span>
           </li>
           {% endfor %}
         </ol>
@@ -56,19 +56,21 @@
 
       {% if articles %}
         <div class="title clearfix">
-          <h3 id="gcd-1" class="acin">
+          <h3 class="acin">
             <a href="javascript:">单章部分</a>
           </h3>
         </div>
-        {% for article in articles %}
-          <div class="book-list clearfix">
-            <ul>
-              <li>
-                <a title="{{ article.name }}" href="{{ article.get_article_url }}">{{ article.name }}</a>
-              </li>
-            </ul>
-          </div>
-        {% endfor %}
+
+        <div class="book-list clearfix">
+          <ul>
+            {% for article in articles %}
+            <li>
+              <a title="{{ article.name }}" href="{{ article.get_article_url }}">{{ article.name }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+
         <div class="mt4 clearfix"></div>
       {% endif %}
       <div id="lxfoot" class="copyright bt clearfix">

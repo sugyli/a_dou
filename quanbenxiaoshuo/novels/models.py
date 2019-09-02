@@ -117,7 +117,7 @@ class Novel(models.Model):
         if self.is_full:
             return '完本'
         else:
-            return '连载'
+            return '连载中'
 
     def get_novel_url(self):
         return reverse('novels:novel', args=[self.slug])
