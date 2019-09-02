@@ -36,11 +36,11 @@
             {{ novel.get_info|safe }}
 
             {% if novel.album.all %}
-              <p>❀ 所属专辑：{% for row in novel.album.all %}{% if forloop.last %}<a href="{{ row.get_album_url }}" title="{{ row.title }}"><b>{{ row.name }}</b></a>{% else %}<a href="{{ row.get_album_url }}" title="{{ row.title }}"><b>{{ row.name }}</b></a> / {% endif %}{% endfor %}</p>
+              <p>❀ 所属专辑：{% for row in novel.album.all %}{% if forloop.last %}<a href="{{ row.get_album_url }}" title="{{ row.name }}"><b>{{ row.name }}</b></a>{% else %}<a href="{{ row.get_album_url }}" title="{{ row.name }}"><b>{{ row.name }}</b></a> / {% endif %}{% endfor %}</p>
             {% endif %}
 
             {% if novel.category.all %}
-              <p>❀ 所属分类：{% for row in novel.category.all %}{% if forloop.last %}<a href="{{ row.get_category_url }}" title="{{ row.title }}"><b>{{ row.name }}</b></a>{% else %}<a href="{{ row.get_category_url }}" title="{{ row.title }}"><b>{{ row.name }}</b></a> / {% endif %}{% endfor %}</p>
+              <p>❀ 所属分类：{% for row in novel.category.all %}{% if forloop.last %}<a href="{{ row.get_category_url }}" title="{{ row.name }}"><b>{{ row.name }}</b></a>{% else %}<a href="{{ row.get_category_url }}" title="{{ row.name }}"><b>{{ row.name }}</b></a> / {% endif %}{% endfor %}</p>
             {% endif %}
 
           </div>
