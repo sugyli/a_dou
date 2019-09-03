@@ -34,7 +34,7 @@ class NovelAdmin(object):
     list_display = ["name","author",'album','category','tags','is_full','status',"push",'apply_prove']
     #fields=('name', 'author')
     exclude = ["slug"]
-    list_editable=['is_full',"push"]
+    list_editable=['is_full',"push",'status']
     # 筛选
     list_filter=['push']
     style_fields={

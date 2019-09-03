@@ -8,7 +8,6 @@
 import scrapy
 
 
-class SpiderItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class NovelInfospiderItem(scrapy.Item):
+    cover = scrapy.Field()
+    novel = scrapy.Field()

@@ -178,5 +178,6 @@ class My2852Spider(scrapy.Spider):
 
 
         except Exception:
+            self.logger.error(response.url+' 出错地址')
             raise Exception(traceback.format_exc())
 
