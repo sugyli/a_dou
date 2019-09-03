@@ -340,7 +340,6 @@ quanbenxiaoshuo/django_cache/
 db_tools/import_old_data.py
 .idea/
 deploy/
-robots.txt
 .pytest_cache/
 Pipfile
 Pipfile.lock

@@ -122,6 +122,9 @@ class Novel(models.Model):
     def get_novel_url(self):
         return reverse('novels:novel', args=[self.slug])
 
+    def get_debug_novel_url(self):
+        return reverse('novels:debugnovel', args=[self.slug])
+
     def get_description(self):
 
         if not self.description:

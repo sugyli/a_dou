@@ -1,4 +1,5 @@
 from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from novels.models import Novel,Chapter
 
@@ -37,6 +38,12 @@ class NovelDetailView(DetailView):
 
     def get_queryset(self, **kwargs):
         return Novel.objects.get_published().prefetch_related('category','album')
+
+
+class DeBugNovelDetailView(LoginRequiredMixin,NovelDetailView):
+
+    def get_queryset(self, **kwargs):
+        return Novel.objects.prefetch_related('category','album')
 
 
 class ChapterDetailView(DetailView):

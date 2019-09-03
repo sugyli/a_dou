@@ -44,7 +44,8 @@ class NovelAdmin(object):
     inlines=[ChapterInline]
 
     def apply_prove(self, obj):
-        return f"<a href='{obj.get_novel_url()}' target='_blank'>前端</a>"
+        return f"<a href='{obj.get_novel_url()}' target='_blank'>前端</a>&nbsp;" \
+               f"<a href='{obj.get_debug_novel_url()}' target='_blank'>调试</a>"
 
     apply_prove.short_description='操作'
     #是否转义

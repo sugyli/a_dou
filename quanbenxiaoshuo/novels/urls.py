@@ -21,3 +21,10 @@ else:
              , cache_page(60 * 240)(views.ChapterDetailView.as_view())
              , name='chapter')
     ]
+
+
+urlpatterns +=[
+    path('debug/<str:slug>/'
+                 , views.DeBugNovelDetailView.as_view()
+                 , name='debugnovel'),
+]
