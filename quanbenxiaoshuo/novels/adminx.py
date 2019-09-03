@@ -77,6 +77,5 @@ class ChapterAdmin(object):
         return qs
 
 
-
 xadmin.site.register(Novel, NovelAdmin)
 xadmin.site.register(Chapter, ChapterAdmin)
