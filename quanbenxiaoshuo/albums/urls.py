@@ -27,3 +27,8 @@ else:
 
     ]
 
+
+urlpatterns +=[
+    path('debug/<str:slug>/', views.DeBugAlbumDetailView.as_view(), name='debugalbum')
+]
+

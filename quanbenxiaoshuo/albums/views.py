@@ -1,4 +1,5 @@
 from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from albums.models import Category,Album
@@ -34,3 +35,6 @@ class AlbumDetailView(DetailView):
         context['novels'] =  Novel.objects.get_published().filter(album=context['album']).defer('info','created_at','updated_at')[:250]
         return context
 
+
+class DeBugAlbumDetailView(LoginRequiredMixin,AlbumDetailView):
+    pass

@@ -91,6 +91,9 @@ class Album(models.Model):
     def get_album_url(self):
         return reverse('albums:album', args=[self.slug])
 
+    def get_debug_album_url(self):
+        return reverse('albums:debugalbum', args=[self.slug])
+
     def get_description(self):
 
         if not self.description:

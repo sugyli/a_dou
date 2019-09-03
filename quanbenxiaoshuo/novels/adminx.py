@@ -36,7 +36,7 @@ class NovelAdmin(object):
     exclude = ["slug"]
     list_editable=['is_full',"push",'status']
     # 筛选
-    list_filter=['push']
+    list_filter=['push','status','is_full']
     style_fields={
         'album':'m2m_transfer',
         'category':'m2m_transfer'

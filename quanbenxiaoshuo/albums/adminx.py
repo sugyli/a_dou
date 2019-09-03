@@ -39,7 +39,9 @@ class AlbumAdmin(object):
 
 
     def apply_prove(self, obj):
-        return f"<a href='{obj.get_album_url()}' target='_blank'>前台</a>"
+        return f"<a href='{obj.get_album_url()}' target='_blank'>前台</a>&nbsp;" \
+               f"<a href='{obj.get_debug_album_url()}' target='_blank'>调试</a>"
+
     apply_prove.short_description='操作'
     # 是否转义
     apply_prove.allow_tags=True
