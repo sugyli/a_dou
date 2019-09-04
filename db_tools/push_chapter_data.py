@@ -23,17 +23,21 @@ host = 'https://www.51xunyue.com'
 if os.path.exists(data_file):
     print(f'{data_file} 文件存在可能没有提交请检查')
 else:
-    with open(data_file, 'w+') as f:
-        chapters= \
-            Chapter.objects.exclude(is_tab=True).filter(push=False).defer(
-                'name')[:1999]
 
-        for chapter in chapters:
-            url=f'{host}{chapter.get_chapter_url()}\n'
-            f.write(url)
-            print(f"写入{url}")
-            chapter.push=True
-            chapter.save()
+    chapters= \
+        Chapter.objects.exclude(is_tab=True).filter(push=False).defer(
+            'name')[:1999]
+
+    if chapters.count():
+        with open(data_file, 'w+') as f:
+            for chapter in chapters:
+                url=f'{host}{chapter.get_chapter_url()}\n'
+                f.write(url)
+                print(f"写入{url}")
+                chapter.push=True
+                chapter.save()
+    else:
+        print('数据库中没有可PUSH的数据不生成urls.txt文件')
 
 
 
