@@ -50,7 +50,7 @@ def strip_tags(html):
 
 def __basereplace(htmlstr):
     #把HTML转义字符 反转义 html.escape转义
-    htmlstr = html.unescape(htmlstr)
+    #htmlstr = html.unescape(htmlstr)
     htmlstr = htmlstr.replace('\r', '').replace('\t', '')
     re_stopwords=re.compile('\u3000', re.I)
     htmlstr =re_stopwords.sub('', htmlstr)
@@ -75,12 +75,13 @@ def descriptionreplace(htmlstr):
     htmlstr = re_a.sub('', htmlstr)
 
     #过滤HTML
-    htmlstr = strip_tags(htmlstr)
+    #htmlstr = strip_tags(htmlstr)
     #过滤emoji
     htmlstr = emoji.demojize(htmlstr)
     #过滤空格
     htmlstr = htmlstr.replace(' ', '')
     #遗漏的HTML转义
+    htmlstr = html.unescape(htmlstr)
     htmlstr = html.escape(htmlstr)
 
 

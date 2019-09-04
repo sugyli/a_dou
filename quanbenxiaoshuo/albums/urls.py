@@ -22,7 +22,7 @@ else:
              , name='category'),
 
         path('<str:slug>/'
-             , cache_page(60 * 240)(views.AlbumDetailView.as_view())
+             , cache_page(60 * 60)(views.AlbumDetailView.as_view())
              , name='album')
 
     ]
