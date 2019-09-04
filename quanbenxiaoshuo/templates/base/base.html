@@ -35,5 +35,8 @@
   {% endblock %}
   {% block footer %}
   {% endblock %}
+  {% compress js %}
+  <script src="{% static 'js/public.js' %}"></script>
+  {% endcompress %}
 </html>
 {% endspaceless %}

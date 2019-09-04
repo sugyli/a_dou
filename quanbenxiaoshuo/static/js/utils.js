@@ -53,8 +53,3 @@ function pushdata(){
         s.parentNode.insertBefore(bp, s);
     })();
 }
-
-
-$(document).ready(function (){
-    tj();
-});
