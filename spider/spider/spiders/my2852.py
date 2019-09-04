@@ -100,6 +100,7 @@ class My2852Spider(scrapy.Spider):
 
                             chapters_dict.append(chapter)
 
+                #处理内容部分
                 i=0
                 allchapter=len(chapters_dict)
                 for item in chapters_dict:
