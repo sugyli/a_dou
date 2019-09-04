@@ -26,7 +26,7 @@ else:
     with open(data_file, 'w+') as f:
         chapters= \
             Chapter.objects.exclude(is_tab=True).filter(push=False).defer(
-                'name')
+                'name')[:1999]
 
         for chapter in chapters:
             url=f'{host}{chapter.get_chapter_url()}\n'
