@@ -59,7 +59,7 @@ class NovelAdmin(object):
 
 
 class ChapterAdmin(object):
-    list_display = ["name",'novel',"push",'apply_prove']
+    list_display = ["name",'novel',"push",'created_at','apply_prove']
     exclude=["novel",'order','insert','is_tab','slug']
     #编辑页面只显示的字段
     fields=('name',)
