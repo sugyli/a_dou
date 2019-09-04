@@ -1,4 +1,4 @@
-import html,re,emoji,random
+import html,re,emoji,random,os,sys
 from html.parser import HTMLParser
 
 
@@ -154,5 +154,3 @@ def customfilterstr(htmlstr,filterstr=filterstr):
         htmlstr = htmlstr.replace(s, '')
 
     return htmlstr
-
-

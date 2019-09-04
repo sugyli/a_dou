@@ -58,6 +58,8 @@ class ChapterAdmin(object):
     inlines=[ContentInline]
     list_editable=["push"]
     ordering=['-updated_at']
+    # 可用来做搜索条件的字段（不用时间格式的字段
+    search_fields=['slug']
 
     def apply_prove(self, obj):
         return f"<a href='{obj.novel.get_novel_url()}' target='_blank'>目录</a>&nbsp;" \
