@@ -52,6 +52,12 @@ class NovelAdmin(object):
     apply_prove.allow_tags=True
 
 
+    def queryset(self):
+        qs = super(NovelAdmin, self).queryset()
+        qs = qs.prefetch_related('category','album','tags')
+        return qs
+
+
 class ChapterAdmin(object):
     list_display = ["name",'novel',"push",'apply_prove']
     exclude=["novel",'order','insert','is_tab','slug']

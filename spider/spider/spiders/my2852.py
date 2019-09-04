@@ -41,8 +41,8 @@ def start_urls():
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://www.my2852.com/wuxia/gulong/lxfcq/index.htm']
-    start_urls=start_urls()
+    start_urls = ['http://www.my2852.com/wuxia/huangyi/dts/index.htm']
+    #start_urls=start_urls()
 
 
     custom_settings = {
@@ -51,6 +51,7 @@ class My2852Spider(scrapy.Spider):
 
 
     def parse(self, response):
+
         try:
             novel_dict={}
             novel_dict['name']=response.css("table .tdw::text").extract()[0].strip()
@@ -76,7 +77,8 @@ class My2852Spider(scrapy.Spider):
                 # 组装分卷和章节
                 for row in chaptertext:
                     selector=Selector(text=row)
-                    muluname=selector.css(".title.clearfix h3 a::text").extract_first("").strip()
+                    muluname=selector.css(".tdw3::text").extract_first("").strip()
+
                     if muluname:
                         chapter=get_chaptet_obj()
                         chapter['ismulu']=True
@@ -85,10 +87,17 @@ class My2852Spider(scrapy.Spider):
 
                     else:
                         chapters=selector.css("a")
+                        i = 0
+                        name = ''
                         for row in chapters:
+                            i+=1
                             chapter=get_chaptet_obj()
-                            chapter['url']=parse.urljoin(response.url, row.css('a::attr(href)').extract()[0].strip())
-                            chapter['name']=row.css('a::text').extract()[0].strip()
+                            chapter['url'] = parse.urljoin(response.url, row.css('a::attr(href)').extract()[0].strip())
+                            if i > 1:
+                                chapter['name']= "{}{}".format(name,row.css('a::text').extract()[0].strip())
+                            else:
+                                name = chapter['name'] = row.css('a::text').extract()[0].strip()
+
                             chapters_dict.append(chapter)
 
                 i=0
