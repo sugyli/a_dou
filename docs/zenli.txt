@@ -1,0 +1,28 @@
+"""
+# import os
+# print(os.getcwd())#获得当前工作目录
+# # print os.path.abspath('.')#获得当前工作目录
+# # print os.path.abspath('..')#获得当前工作目录的父目录
+# # print os.path.abspath(os.curdir)#获得当前工作目录
+"""
+
+"""
+
+'r'：读
+
+'w'：写
+
+'a'：追加
+
+'r+' == r+w（可读可写，文件若不存在就报错(IOError)）
+
+'w+' == w+r（可读可写，文件若不存在就创建）
+
+'a+' ==a+r（可追加可写，文件若不存在就创建）
+
+对应的，如果是二进制文件，就都加一个b就好啦：
+
+'rb'　　'wb'　　'ab'　　'rb+'　　'wb+'　　'ab+'
+
+
+"""
