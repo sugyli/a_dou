@@ -62,7 +62,7 @@ class ChapterDetailView(DetailView):
         context['prevchapter']= \
             Chapter.objects.filter(novel=context['chapter'].novel
                                    ,order__lt=context['chapter'].order
-                                   ,is_tab=0).defer('created_at','updated_at').first()
+                                   ,is_tab=0).defer('created_at','updated_at').order_by("-order").first()
 
         context['contentobj']= context['chapter'].get_chapter_content()
 
