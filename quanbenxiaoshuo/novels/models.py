@@ -149,7 +149,6 @@ class Novel(models.Model):
 
 
 
-
 @python_2_unicode_compatible
 class ChapterQuerySet(models.query.QuerySet):
     def get_published(self):
