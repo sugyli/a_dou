@@ -27,16 +27,15 @@
   </head>
   {% block content %}
   {% endblock %}
-  {% block end %}
-    {% compress js %}
-    <script src="{% static 'js/jquery.sidr.min.js' %}"></script>
-    <script src="{% static 'js/index.js' %}"></script>
-    {% endcompress %}
-  {% endblock %}
-  {% block footer %}
-  {% endblock %}
+
   {% compress js %}
-  <script src="{% static 'js/public.js' %}"></script>
+    {% block end %}
+      <script src="{% static 'js/jquery.sidr.min.js' %}"></script>
+      <script src="{% static 'js/index.js' %}"></script>
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}
+    <script src="{% static 'js/public.js' %}"></script>
   {% endcompress %}
 </html>
 {% endspaceless %}
