@@ -41,7 +41,7 @@ class NovelAdmin(object):
         'album':'m2m_transfer',
         'category':'m2m_transfer'
     }
-    inlines=[ChapterInline]
+    #inlines=[ChapterInline]
 
     def apply_prove(self, obj):
         return f"<a href='{obj.get_novel_url()}' target='_blank'>前端</a>&nbsp;" \
