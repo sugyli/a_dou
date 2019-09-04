@@ -58,7 +58,7 @@ class ChapterAdmin(object):
     inlines=[ContentInline]
     list_editable=["push"]
     ordering=['-updated_at']
-    # 可用来做搜索条件的字段（不用时间格式的字段
+    # 可用来做搜索条件的字段
     search_fields=['slug']
 
     def apply_prove(self, obj):
