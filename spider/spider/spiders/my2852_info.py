@@ -18,14 +18,18 @@ settings = get_project_settings()
 
 def start_urls():
     headers={"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0"}
-    res = requests.get("http://www.my2852.com/wuxia/gulong/index.htm", headers=headers)
+    res = requests.get("http://www.my2852.com/wuxia/huangyi/index.htm", headers=headers)
     if res.status_code == 200:
         selector=Selector(text=res.content.decode('gbk','ignore'))
         all_href = selector.css(".jz table a::attr(href)").extract()
         all_href =  list(set(all_href))
         full_all_href = []
         for href in all_href:
-            full_all_href.append(parse.urljoin('http://www.my2852.com/wuxia/gulong/index.htm', href))
+            if 'index.htm' in href:
+                full_all_href.append(parse.urljoin('http://www.my2852.com/wuxia/huangyi/index.htm', href))
+            else:
+                print(f"这个 {href} 好像不是目录")
+
         return full_all_href
     else:
         raise Exception('start_urls 方法 网络请求失败')
@@ -47,6 +51,7 @@ class My2852InfoSpider(scrapy.Spider):
     }
 
     def parse(self, response):
+
         try:
             novel_dict={}
 
