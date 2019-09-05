@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
-
 import requests,traceback
 from urllib import parse
 from scrapy.selector import Selector
@@ -17,8 +16,9 @@ settings = get_project_settings()
 
 
 def start_urls():
+    url = 'http://www.my2852.com/yq/qiongyao/'
     headers={"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0"}
-    res = requests.get("http://www.my2852.com/wuxia/huangyi/index.htm", headers=headers)
+    res = requests.get(url, headers=headers)
     if res.status_code == 200:
         selector=Selector(text=res.content.decode('gbk','ignore'))
         all_href = selector.css(".jz table a::attr(href)").extract()
@@ -26,7 +26,7 @@ def start_urls():
         full_all_href = []
         for href in all_href:
             if 'index.htm' in href:
-                full_all_href.append(parse.urljoin('http://www.my2852.com/wuxia/huangyi/index.htm', href))
+                full_all_href.append(parse.urljoin(url, href))
             else:
                 print(f"这个 {href} 好像不是目录")
 

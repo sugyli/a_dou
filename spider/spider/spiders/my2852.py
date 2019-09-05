@@ -20,8 +20,9 @@ a b b是a下面所有元素包括孙子辈
 
 
 def start_urls():
+    url = 'http://www.my2852.com/yq/qiongyao/'
     headers={"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0"}
-    res = requests.get("http://www.my2852.com/wuxia/huangyi/index.htm", headers=headers)
+    res = requests.get(url, headers=headers)
     if res.status_code == 200:
         selector=Selector(text=res.content.decode('gbk','ignore'))
         all_href = selector.css(".jz table a::attr(href)").extract()
@@ -29,7 +30,7 @@ def start_urls():
         full_all_href = []
         for href in all_href:
             if 'index.htm' in href:
-                full_all_href.append(parse.urljoin('http://www.my2852.com/wuxia/huangyi/index.htm', href))
+                full_all_href.append(parse.urljoin(url, href))
             else:
                 print(f"这个 {href} 好像不是目录")
 
@@ -41,8 +42,8 @@ def start_urls():
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://www.my2852.com/wuxia/huangyi/xqj/index.htm']
-    start_urls=start_urls()
+    start_urls = ['http://www.my2852.com/yq/qiongyao/hyc/index.htm']
+    #start_urls=start_urls()
 
 
     custom_settings = {
@@ -78,6 +79,8 @@ class My2852Spider(scrapy.Spider):
                 for row in chaptertext:
                     selector=Selector(text=row)
                     muluname=selector.css(".tdw3::text").extract_first("").strip()
+                    if not muluname:
+                        muluname=selector.css("td::text").extract_first("").strip()
 
                     if muluname:
                         chapter=get_chaptet_obj()
