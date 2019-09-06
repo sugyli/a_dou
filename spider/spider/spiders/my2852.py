@@ -42,8 +42,8 @@ def start_urls():
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    start_urls = ['http://www.my2852.com/wuxia/cqy/gb/index.htm']
-    #start_urls=start_urls()
+    #start_urls = ['http://www.my2852.com/wuxia/cqy/gb/index.htm']
+    start_urls=start_urls()
 
 
     custom_settings = {
