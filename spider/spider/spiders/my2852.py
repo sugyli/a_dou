@@ -20,7 +20,7 @@ a b b是a下面所有元素包括孙子辈
 
 
 def start_urls():
-    url = 'http://www.my2852.com/yq/qiongyao/'
+    url = 'http://www.my2852.com/wuxia/cqy/index.htm'
     headers={"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0"}
     res = requests.get(url, headers=headers)
     if res.status_code == 200:
@@ -42,8 +42,8 @@ def start_urls():
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://www.my2852.com/yq/qiongyao/hyc/index.htm']
-    start_urls=start_urls()
+    start_urls = ['http://www.my2852.com/wuxia/cqy/gb/index.htm']
+    #start_urls=start_urls()
 
 
     custom_settings = {

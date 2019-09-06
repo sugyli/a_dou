@@ -16,7 +16,7 @@
     <div id="content">
       <article class="post clearfix">
         <h1 class="notice-title">{{ article.name }}</h1>
-        <p class="post-time"><b>{{ article.user }}</b>发布于&nbsp;{{ article.updated_at|timesince }}之前</p>
+        <p class="post-time"><b>{{ article.user.get_nickname }}</b>发布于&nbsp;{{ article.updated_at|timesince }}之前</p>
         <div class="notice-text" id="dowebok">
           {{ article.content|safe }}
         </div>
