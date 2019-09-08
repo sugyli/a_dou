@@ -5,6 +5,7 @@ import requests,traceback
 from urllib import parse
 from scrapy.selector import Selector
 
+from ..help import start_urls
 from novels.models import Novel,Chapter,Content
 
 from scrapy.utils.project import get_project_settings
@@ -18,25 +19,6 @@ a b b是a下面所有元素包括孙子辈
 
 
 
-
-def start_urls():
-    url = 'http://www.my2852.com/wuxia/cqy/index.htm'
-    headers={"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0"}
-    res = requests.get(url, headers=headers)
-    if res.status_code == 200:
-        selector=Selector(text=res.content.decode('gbk','ignore'))
-        all_href = selector.css(".jz table a::attr(href)").extract()
-        all_href =  list(set(all_href))
-        full_all_href = []
-        for href in all_href:
-            if 'index.htm' in href:
-                full_all_href.append(parse.urljoin(url, href))
-            else:
-                print(f"这个 {href} 好像不是目录")
-
-        return full_all_href
-    else:
-        raise Exception('start_urls 方法 网络请求失败')
 
 
 class My2852Spider(scrapy.Spider):
@@ -55,9 +37,20 @@ class My2852Spider(scrapy.Spider):
 
         try:
             novel_dict={}
-            novel_dict['name']=response.css("table .tdw::text").extract()[0].strip()
+
+
+            novel_dict['name']= \
+                response.css(
+                    "div table tr:nth-child(2) td font::text").extract()[
+                    0].strip()
+
             novel_dict['author']= \
-                response.css("table .tdw2::text").extract()[0].replace('作者：','').strip()
+                response.css(
+                    "div table tr:nth-child(3) td b::text").extract()[
+                    0].replace('作者：', '').strip()
+
+
+
 
             novel=Novel.objects.filter(**novel_dict).first()
 

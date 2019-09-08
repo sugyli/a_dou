@@ -31,7 +31,7 @@ class ContentInline(object):
 
 
 class NovelAdmin(object):
-    list_display = ["name","author",'album','category','tags','is_full','status',"push",'apply_prove']
+    list_display = ["name","author",'album','category','tags','is_full','status',"push",'have_image','apply_prove']
     #fields=('name', 'author')
     exclude = ["slug"]
     list_editable=['is_full',"push",'status']
@@ -42,6 +42,18 @@ class NovelAdmin(object):
         'category':'m2m_transfer'
     }
     #inlines=[ChapterInline]
+
+
+    def have_image(self, obj):
+        if obj.image:
+            return '有'
+
+        return "<font color='red'><b>无</b></font>"
+
+    have_image.short_description='封面'
+    #是否转义
+    have_image.allow_tags=True
+
 
     def apply_prove(self, obj):
         return f"<a href='{obj.get_novel_url()}' target='_blank'>前端</a>&nbsp;" \
