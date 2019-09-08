@@ -5,10 +5,11 @@ import requests,traceback
 from urllib import parse
 from scrapy.selector import Selector
 
-from ..help import start_urls
+from ..help import start_urls,parse_info
 from novels.models import Novel,Chapter,Content
 
 from scrapy.utils.project import get_project_settings
+
 
 
 settings = get_project_settings()
@@ -24,7 +25,7 @@ a b b是a下面所有元素包括孙子辈
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://www.my2852.com/wuxia/cqy/gb/index.htm']
+    #start_urls = ['http://www.my2852.com/wuxia/nk/zqsj/index.htm']
     start_urls=start_urls()
 
 
@@ -36,22 +37,7 @@ class My2852Spider(scrapy.Spider):
     def parse(self, response):
 
         try:
-            novel_dict={}
-
-
-            novel_dict['name']= \
-                response.css(
-                    "div table tr:nth-child(2) td font::text").extract()[
-                    0].strip()
-
-            novel_dict['author']= \
-                response.css(
-                    "div table tr:nth-child(3) td b::text").extract()[
-                    0].replace('作者：', '').strip()
-
-
-
-
+            novel_dict=parse_info(response)
             novel=Novel.objects.filter(**novel_dict).first()
 
             if not novel:
@@ -68,9 +54,18 @@ class My2852Spider(scrapy.Spider):
 
                 chapters_dict=[]
                 chaptertext=response.css(".tbw3 td").extract()
+
+                if not chaptertext:
+                    chaptertext=response.css("center>table:nth-child(2) td").extract()
+
+                if not chaptertext:
+                    chaptertext=response.css("center>div>table td").extract()
+
+
                 # 组装分卷和章节
                 for row in chaptertext:
                     selector=Selector(text=row)
+                    
                     muluname=selector.css(".tdw3::text").extract_first("").strip()
                     if not muluname:
                         muluname=selector.css("td::text").extract_first("").strip()
@@ -132,6 +127,11 @@ class My2852Spider(scrapy.Spider):
                             morepage=selector.css("article .apnavi")
                             #内容规则
                             text=selector.css("table.tb tr:nth-child(4) *::text").extract()
+                            if not text:
+                                text=selector.css(
+                                    "center>table tr:nth-child(4) *::text").extract()
+
+
                             #如果存在分页
                             if morepage:
                                 morepage=morepage[0]
