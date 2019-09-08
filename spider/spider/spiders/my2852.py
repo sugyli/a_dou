@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
-import requests,traceback
+import requests,traceback,re
 from urllib import parse
 from scrapy.selector import Selector
 
@@ -25,8 +25,8 @@ a b b是a下面所有元素包括孙子辈
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://www.my2852.com/wuxia/nk/zqsj/index.htm']
-    start_urls=start_urls()
+    start_urls = ['http://www.my2852.com/wuxia/nk/lzqm/index.htm']
+    #start_urls=start_urls()
 
 
     custom_settings = {
@@ -65,7 +65,7 @@ class My2852Spider(scrapy.Spider):
                 # 组装分卷和章节
                 for row in chaptertext:
                     selector=Selector(text=row)
-                    
+
                     muluname=selector.css(".tdw3::text").extract_first("").strip()
                     if not muluname:
                         muluname=selector.css("td::text").extract_first("").strip()
@@ -84,8 +84,16 @@ class My2852Spider(scrapy.Spider):
                             i+=1
                             chapter=get_chaptet_obj()
                             chapter['url'] = parse.urljoin(response.url, row.css('a::attr(href)').extract()[0].strip())
+                            matchObj = re.match(r'http://www.my2852.com/wuxia/nk/zqsj/(\d+)htm', chapter['url'],re.M|re.I)
+                            if matchObj:
+                                chapter['url']=f'http://www.my2852.com/wuxia/nk/zqsj/{matchObj.group(1)}.htm'
+
                             if i > 1:
-                                chapter['name']= "{}{}".format(name,row.css('a::text').extract()[0].strip())
+                                chapter['name']= "{}{}".format(name,row.css('a>span::text').extract_first("").strip())
+                                if not chapter['name']:
+                                    chapter['name']="{}{}".format(name,row.css('a::text').extract()[0].strip())
+
+
                             else:
                                 name = chapter['name'] = row.css('a::text').extract()[0].strip()
 
