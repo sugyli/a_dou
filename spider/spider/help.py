@@ -7,12 +7,13 @@ from urllib import parse
 
 noneedurl = [
     '../../kh/nk/index.htm',
+    '../../wuxia/nk/index.htm',
     'zqs/index.htm',
     'zqs9/index.htm',
     'zqs10/index.htm'
 ]
 def start_urls():
-    url = 'http://www.my2852.com/wuxia/nk/index.htm'
+    url = 'http://www.my2852.com/kh/nk/index.htm'
     headers={"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0"}
     res = requests.get(url, headers=headers)
     if res.status_code == 200:
@@ -38,9 +39,18 @@ def parse_info(response):
     try:
         novel_dict={}
         novel_dict['author']='倪匡'
+
         novel_dict['name']= \
             response.css(
                 "div table tr:nth-child(2) td font::text").extract_first("").strip()
+
+
+        if not novel_dict['name']:
+            novel_dict['name']= \
+                response.css(
+                    "div table tr:nth-child(2) td span::text").extract_first(
+                    "").strip()
+
 
         if not novel_dict['name']:
             novel_dict['name']=\
@@ -48,9 +58,15 @@ def parse_info(response):
                     "table .tdw::text").extract()[0].strip()
 
 
+
+        if novel_dict['name'] == '买命':
+            novel_dict['name'] = '买命(小说)'
+        elif novel_dict['name'] == '卖命':
+            novel_dict['name']='(小说)卖命'
+
+
         return novel_dict
 
     except Exception:
-        print(f"parse_info 方法出错了 {response.url}")
         raise Exception(traceback.format_exc())
 

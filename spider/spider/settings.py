@@ -9,7 +9,7 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-import os,sys,django
+import os,sys,django,datetime
 
 BOT_NAME = 'spider'
 
@@ -24,6 +24,13 @@ django.setup()
 
 FEED_EXPORT_ENCODING = 'utf-8'
 IMAGES_STORE = os.path.join(ROOT_DIR, 'quanbenxiaoshuo/media')
+
+
+LOG_LEVEL = 'ERROR'
+today=datetime.datetime.now()
+log_file_path="logs/spider-{}-{}-{}.log".format(today.year, today.month, today.day)
+LOG_FILE=os.path.join(ROOT_DIR, log_file_path)
+
 
 
 

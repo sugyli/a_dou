@@ -21,7 +21,7 @@ class NovelInfoSpiderPipeline(object):
             return f"{novel['name']} 入库完成"
 
         except Exception:
-            self.logger.error('NovelInfoSpiderPipeline 发生的类')
+
             raise Exception(traceback.format_exc())
 
 
