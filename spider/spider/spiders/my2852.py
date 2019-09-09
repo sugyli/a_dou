@@ -25,8 +25,8 @@ a b b是a下面所有元素包括孙子辈
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://www.my2852.com/kh/nk/a41/index.htm']
-    start_urls=start_urls()
+    start_urls = ['http://www.my2852.com/kh/nk/a11/index.htm']
+    #start_urls=start_urls()
 
 
     custom_settings = {
@@ -88,18 +88,20 @@ class My2852Spider(scrapy.Spider):
                             if matchObj:
                                 chapter['url']=f'http://www.my2852.com/wuxia/nk/zqsj/{matchObj.group(1)}.htm'
 
-                            if '00.htm' not in str(chapter['url']):
-                                if i > 1:
-                                    get_name = row.css('a>span::text').extract_first("").strip()
-                                    if not get_name:
-                                        chapter['name']="{}{}".format(name,row.css('a::text').extract()[0].strip())
-                                    else:
-                                        chapter['name']="{}{}".format(name,get_name)
+                            if "00.htm" in str(chapter['url']) or 'http://www.my2852.com/kh/nk/a11/38.htm' == str(chapter['url']):
+                                continue
 
+                            if i > 1:
+                                get_name = row.css('a>span::text').extract_first("").strip()
+                                if not get_name:
+                                    chapter['name']="{}{}".format(name,row.css('a::text').extract()[0].strip())
                                 else:
-                                    name = chapter['name'] = row.css('a::text').extract()[0].strip()
+                                    chapter['name']="{}{}".format(name,get_name)
 
-                                chapters_dict.append(chapter)
+                            else:
+                                name = chapter['name'] = row.css('a::text').extract()[0].strip()
+
+                            chapters_dict.append(chapter)
 
                 #处理内容部分
                 i=0
@@ -136,6 +138,8 @@ class My2852Spider(scrapy.Spider):
                             #分页规则
                             morepage=selector.css("article .apnavi")
                             #内容规则
+
+
                             text=selector.css("table.tb tr:nth-child(4) *::text").extract()
                             if not text:
                                 text=selector.css(
