@@ -12,7 +12,9 @@
 @time: 2017/7/4 17:04
 """
 import xadmin
-from .models import Novel,Chapter,Content
+from .models import Novel,Chapter,Content,delete_old_image
+
+
 
 
 
@@ -68,6 +70,12 @@ class NovelAdmin(object):
         qs = super(NovelAdmin, self).queryset()
         qs = qs.prefetch_related('category','album','tags')
         return qs
+
+    def delete_models(self, queryset):
+        for q in queryset:
+            delete_old_image(Novel, q)
+
+        return super(NovelAdmin, self).delete_models(queryset)
 
 
 class ChapterAdmin(object):

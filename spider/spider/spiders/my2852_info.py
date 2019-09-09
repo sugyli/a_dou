@@ -50,7 +50,13 @@ class My2852InfoSpider(scrapy.Spider):
                 if not novel_dict['info']:
                     novel_dict['info'] = \
                             response.css(
-                                "center>table>tr>td:nth-child(1)::text").extract()
+                                "center>table>tr>td:nth-child(1) *::text").extract()
+
+
+                if not novel_dict['info']:
+                    novel_dict['info'] = \
+                            response.css(
+                                "table.tbw2 tr td *::text").extract()
 
                 novel_dict['info'] = ''.join(novel_dict['info'])
 

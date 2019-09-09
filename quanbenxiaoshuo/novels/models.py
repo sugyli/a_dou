@@ -12,6 +12,10 @@ from quanbenxiaoshuo.storage import ImageStorage
 from quanbenxiaoshuo import helpers
 
 
+from django.db.models.signals import post_init,post_save
+from django.dispatch import receiver
+
+
 @python_2_unicode_compatible
 class NovelQuerySet(models.query.QuerySet):
     def get_published(self):
@@ -148,7 +152,6 @@ class Novel(models.Model):
         super(Novel, self).save(*args, **kwargs)
 
 
-
 @python_2_unicode_compatible
 class ChapterQuerySet(models.query.QuerySet):
     def get_published(self):
@@ -269,3 +272,14 @@ class Content(models.Model):
 
 
 
+
+@receiver(post_init,sender = Novel)
+def backup_image_path(sender,instance,**kwargs):
+    instance._current_imagen_file = instance.image
+
+
+@receiver(post_save,sender = Novel)
+def delete_old_image(sender,instance,**kwargs):
+    if hasattr(instance,'_current_imagen_file'):
+        if instance._current_imagen_file != instance.image.path:
+            instance._current_imagen_file.delete(save = False)
