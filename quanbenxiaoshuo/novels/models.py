@@ -12,7 +12,7 @@ from quanbenxiaoshuo.storage import ImageStorage
 from quanbenxiaoshuo import helpers
 
 
-from django.db.models.signals import post_init,post_save
+from django.db.models.signals import post_save,post_init,post_delete
 from django.dispatch import receiver
 
 
@@ -272,14 +272,14 @@ class Content(models.Model):
 
 
 
-
 @receiver(post_init,sender = Novel)
 def backup_image_path(sender,instance,**kwargs):
     instance._current_imagen_file = instance.image
 
 
 @receiver(post_save,sender = Novel)
-def delete_old_image(sender,instance,**kwargs):
+def delete_post_save_old_image(sender,instance,**kwargs):
+
     if hasattr(instance,'_current_imagen_file'):
         """
             instance.image.path上传的新地址
@@ -290,3 +290,11 @@ def delete_old_image(sender,instance,**kwargs):
         if instance.image and str(instance._current_imagen_file) not in str(instance.image.path):
             #删除图片
             instance._current_imagen_file.delete(save = False)
+
+
+@receiver(post_delete,sender = Novel)
+def delete_post_delete_old_image(sender,instance,**kwargs):
+    if instance.image:
+        instance.image.delete(save=False)
+
+
