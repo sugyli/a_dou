@@ -287,6 +287,6 @@ def delete_old_image(sender,instance,**kwargs):
             /Users/sugyil/quanbenxiaoshuo/quanbenxiaoshuo/media/full/dcd82a0c712941a3f22ba18b14f910440d22fd42.jpg
             full/dcd82a0c712941a3f22ba18b14f910440d22fd42.jpg
         """
-        if str(instance._current_imagen_file) not in str(instance.image.path):
+        if instance.image and str(instance._current_imagen_file) not in str(instance.image.path):
             #删除图片
             instance._current_imagen_file.delete(save = False)
