@@ -281,5 +281,12 @@ def backup_image_path(sender,instance,**kwargs):
 @receiver(post_save,sender = Novel)
 def delete_old_image(sender,instance,**kwargs):
     if hasattr(instance,'_current_imagen_file'):
-        if instance._current_imagen_file != instance.image.path:
+        """
+            instance.image.path上传的新地址
+            instance._current_imagen_file 上次数据库的地址
+            /Users/sugyil/quanbenxiaoshuo/quanbenxiaoshuo/media/full/dcd82a0c712941a3f22ba18b14f910440d22fd42.jpg
+            full/dcd82a0c712941a3f22ba18b14f910440d22fd42.jpg
+        """
+        if str(instance._current_imagen_file) not in str(instance.image.path):
+            #删除图片
             instance._current_imagen_file.delete(save = False)
