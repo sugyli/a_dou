@@ -35,10 +35,10 @@ def start_urls():
         raise Exception('start_urls 方法 网络请求失败')
 
 
-def parse_info(response):
+def parse_info(response,author):
     try:
         novel_dict={}
-        novel_dict['author']='倪匡'
+        novel_dict['author']= author
 
         novel_dict['name']= \
             response.css(
@@ -56,13 +56,6 @@ def parse_info(response):
             novel_dict['name']=\
                 response.css(
                     "table .tdw::text").extract()[0].strip()
-
-
-
-        if novel_dict['name'] == '买命':
-            novel_dict['name'] = '买命(小说)'
-        elif novel_dict['name'] == '卖命':
-            novel_dict['name']='(小说)卖命'
 
 
         return novel_dict

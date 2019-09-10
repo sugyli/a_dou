@@ -69,10 +69,19 @@ class Novel(models.Model):
     info = models.TextField(verbose_name=u"简介")
 
 
-    title=models.CharField(max_length=255, verbose_name='标题(seo)', default=u'',
-                           help_text="title")
-    keywords=models.CharField(max_length=255, verbose_name='关键字(seo)',
-                              default=u'', help_text="keywords")
+    title=models.CharField(max_length=255
+                           , null=True
+                           , blank=True
+                           , verbose_name='标题(seo)'
+                           , default=u''
+                           , help_text="title")
+
+    keywords=models.CharField(max_length=255
+                              , null=True
+                              , blank=True
+                              , verbose_name='关键字(seo)'
+                              , default=u''
+                              , help_text="keywords")
 
     description=models.CharField(max_length=255
                                  , null=True
@@ -128,6 +137,24 @@ class Novel(models.Model):
 
     def get_debug_novel_url(self):
         return reverse('novels:debugnovel', args=[self.slug])
+
+    def get_title(self):
+        if not self.title:
+            return f"小说{self.name}|" \
+                   f"{self.name}小说|" \
+                   f"{self.name} {self.author}|" \
+                   f"{self.author} {self.name}|" \
+                   f"{self.author}小说{self.name}"
+
+        return self.title
+
+    def get_keywords(self):
+        if not self.keywords:
+            return f"{self.name},{self.author},小说"
+
+        return self.keywords
+
+
 
     def get_description(self):
 

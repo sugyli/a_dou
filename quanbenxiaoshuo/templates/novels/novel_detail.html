@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load thumbnail %}
-{% block title %}{{ novel.title }}{% endblock %}
-{% block keywords %}{{ novel.keywords }}{% endblock %}
+{% block title %}{{ novel.get_title }}{% endblock %}
+{% block keywords %}{{ novel.get_keywords }}{% endblock %}
 {% block description %}{{ novel.get_description|truncatechars:150 }}{% endblock %}
 {% block head %}
 <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ novel.get_novel_url }}" />

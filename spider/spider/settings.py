@@ -28,7 +28,7 @@ IMAGES_STORE = os.path.join(ROOT_DIR, 'quanbenxiaoshuo/media')
 
 LOG_LEVEL = 'ERROR'
 today=datetime.datetime.now()
-log_file_path="logs/spider-{}-{}-{}.log".format(today.year, today.month, today.day)
+log_file_path="logs/scrapy-{}-{}-{}.log".format(today.year, today.month, today.day)
 LOG_FILE=os.path.join(ROOT_DIR, log_file_path)
 
 
