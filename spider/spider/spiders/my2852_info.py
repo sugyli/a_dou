@@ -37,9 +37,9 @@ class My2852InfoSpider(scrapy.Spider):
     def parse(self, response):
 
         try:
-            novel_dict = parse_info(response,'席绢')
-            albums=['席绢小说全集']
-            tags=['言情小说']
+            novel_dict = parse_info(response,'柳残阳')
+            albums=['柳残阳小说全集']
+            tags=['传统武侠']
 
             novel = Novel.objects.filter(**novel_dict).first()
             if not novel:
