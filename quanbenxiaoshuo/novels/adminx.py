@@ -33,7 +33,7 @@ class ContentInline(object):
 
 
 class NovelAdmin(object):
-    list_display = ["name","author",'album','category','tags','is_full','status',"push",'have_image','apply_prove']
+    list_display = ["name","author",'album','category','tags','is_full','status',"push",'have_image','have_info','apply_prove']
     #fields=('name', 'author')
     exclude = ["slug"]
     list_editable = ['is_full',"push",'status']
@@ -56,6 +56,17 @@ class NovelAdmin(object):
     have_image.short_description='封面'
     #是否转义
     have_image.allow_tags=True
+
+
+    def have_info(self, obj):
+        if obj.info.strip():
+            return '有'
+
+        return "<font color='red'><b>无</b></font>"
+
+    have_info.short_description='简介'
+    #是否转义
+    have_info.allow_tags=True
 
 
     def apply_prove(self, obj):
