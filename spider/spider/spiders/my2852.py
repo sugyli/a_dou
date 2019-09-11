@@ -25,8 +25,8 @@ a b b是a下面所有元素包括孙子辈
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://www.my2852.com/kh/nk/a11/index.htm']
-    start_urls=start_urls()
+    start_urls = ['http://www.my2852.com/wuxia/crb/yssjx/index.htm']
+    #start_urls=start_urls()
 
 
     custom_settings = {
@@ -62,6 +62,9 @@ class My2852Spider(scrapy.Spider):
                 if not chaptertext:
                     chaptertext=response.css("center>div>table td").extract()
 
+                if not chaptertext:
+                    chaptertext=response.css("center>table:nth-child(1) td").extract()
+
 
                 # 组装分卷和章节
                 for row in chaptertext:
@@ -89,8 +92,8 @@ class My2852Spider(scrapy.Spider):
                             # if matchObj:
                             #     chapter['url']=f'http://www.my2852.com/wuxia/nk/zqsj/{matchObj.group(1)}.htm'
 
-                            # if "00.htm" in str(chapter['url']):
-                            #     continue
+                            if "00.htm" in str(chapter['url']):
+                                continue
 
                             if i > 1:
                                 get_name = row.css('a>span::text').extract_first("").strip()
@@ -200,7 +203,7 @@ class My2852Spider(scrapy.Spider):
                             raise Exception(f"{item['name']} 内容请求失败 {item['url']}")
 
                 raise Exception(
-                    f"小说 {novel_dict['name']} 规则有问题手动调试 {response.url}")
+                    "小说 {} 规则有问题手动调试 {}".format(novel_dict['name'],response.url))
 
 
         except Exception:
