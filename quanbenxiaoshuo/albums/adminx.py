@@ -20,6 +20,7 @@ class CategoryAdmin(object):
     list_display = ["name",'push',"apply_prove"]
     exclude = ["slug"]
     #relfield_style='fk-ajax'
+    list_editable=["push"]
 
     def apply_prove(self, obj):
         return f"<a href='{obj.get_category_url()}' target='_blank'>前台</a>"

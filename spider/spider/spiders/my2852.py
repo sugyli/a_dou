@@ -62,6 +62,8 @@ class My2852Spider(scrapy.Spider):
                 if not chaptertext:
                     chaptertext=response.css("center>div>table td").extract()
 
+                # if not chaptertext:
+                #     chaptertext=response.css("center>table:nth-child(1) td").extract()
 
 
                 # 组装分卷和章节
@@ -71,6 +73,9 @@ class My2852Spider(scrapy.Spider):
                     muluname=selector.css(".tdw3::text").extract_first("").strip()
                     if not muluname:
                         muluname=selector.css("td::text").extract_first("").strip()
+
+                    if not muluname:
+                        muluname=selector.css("td>span::text").extract_first("").strip()
 
                     if muluname:
                         chapter=get_chaptet_obj()
@@ -90,8 +95,8 @@ class My2852Spider(scrapy.Spider):
                             # if matchObj:
                             #     chapter['url']=f'http://www.my2852.com/wuxia/nk/zqsj/{matchObj.group(1)}.htm'
 
-                            if "00.htm" in str(chapter['url']):
-                                continue
+                            # if "00.htm" in str(chapter['url']):
+                            #     continue
 
                             if i > 1:
                                 get_name = row.css('a>span::text').extract_first("").strip()
