@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static utils compress %}
-{% block title %}{{ chapter.name }}{% endblock %}
+{% block title %}{{ chapter.novel.name }} {{ chapter.name }}{% endblock %}
 {% block keywords %}{{ chapter.novel.name }},{{ chapter.novel.author }},{{ chapter.name }}{% endblock %}
 {% block description %}{% description contentobj.content %}{% endblock %}
 {% block head %}
