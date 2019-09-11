@@ -25,8 +25,8 @@ a b b是a下面所有元素包括孙子辈
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    start_urls = ['http://www.my2852.com/wuxia/crb/yssjx/index.htm']
-    #start_urls=start_urls()
+    #start_urls = ['http://www.my2852.com/wuxia/crb/yssjx/index.htm']
+    start_urls=start_urls()
 
 
     custom_settings = {
@@ -62,8 +62,6 @@ class My2852Spider(scrapy.Spider):
                 if not chaptertext:
                     chaptertext=response.css("center>div>table td").extract()
 
-                if not chaptertext:
-                    chaptertext=response.css("center>table:nth-child(1) td").extract()
 
 
                 # 组装分卷和章节
