@@ -22,6 +22,10 @@ def start_urls():
         if not all_href:
             all_href=selector.css("td table a::attr(href)").extract()
 
+        if not all_href:
+            all_href=selector.css("center>table:nth-child(1)>tr a::attr(href)").extract()
+
+
         all_href =  list(set(all_href))
         full_all_href = []
         for href in all_href:
