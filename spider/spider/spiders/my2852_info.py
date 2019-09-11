@@ -36,12 +36,12 @@ class My2852InfoSpider(scrapy.Spider):
     def parse(self, response):
 
         try:
-            novel_dict = parse_info(response)
+            novel_dict = parse_info(response,'李凉')
             novel = Novel.objects.filter(**novel_dict).first()
             if not novel:
                 print(f"小说 {novel_dict['name']} 不存在准备入库 {response.url}")
-                novel_dict['title'] = novel_dict['name']
-                novel_dict['keywords'] = novel_dict['name']
+                #novel_dict['title'] = novel_dict['name']
+                #novel_dict['keywords'] = novel_dict['name']
                 novel_dict['info'] = \
                         response.css(
                             "table.tbw2 .zhj *::text").extract()
@@ -50,7 +50,7 @@ class My2852InfoSpider(scrapy.Spider):
                 if not novel_dict['info']:
                     novel_dict['info'] = \
                             response.css(
-                                "center>table>tr>td:nth-child(1) *::text").extract()
+                                "center>table:nth-child(1)>tr>td:nth-child(1) *::text").extract()
 
 
                 if not novel_dict['info']:
