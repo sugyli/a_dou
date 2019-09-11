@@ -19,7 +19,7 @@ from .models import Category,Album,TabAlbum
 class CategoryAdmin(object):
     list_display = ["name","apply_prove"]
     exclude = ["slug"]
-    relfield_style='fk-ajax'
+    #relfield_style='fk-ajax'
 
     def apply_prove(self, obj):
         return f"<a href='{obj.get_category_url()}' target='_blank'>前台</a>"
