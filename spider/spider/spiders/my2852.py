@@ -37,7 +37,8 @@ class My2852Spider(scrapy.Spider):
     def parse(self, response):
 
         try:
-            novel_dict=parse_info(response)
+            novel_dict = parse_info(response,'李凉')
+
             novel=Novel.objects.filter(**novel_dict).first()
 
             if not novel:
@@ -185,6 +186,7 @@ class My2852Spider(scrapy.Spider):
 
                                 if i==allchapter:
                                     novel.is_full=True
+                                    novel.status = 'P'
                                     novel.save()
                                     print(f"{novel.name} 添加完成")
                                     Chapter.objects.filter(novel=novel

@@ -11,3 +11,5 @@ import scrapy
 class NovelInfospiderItem(scrapy.Item):
     cover = scrapy.Field()
     novel = scrapy.Field()
+    albums = scrapy.Field()
+    tags = scrapy.Field()

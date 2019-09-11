@@ -8,6 +8,7 @@ import traceback
 from scrapy.pipelines.images import ImagesPipeline
 
 from novels.models import Novel
+from albums.models import Album
 
 
 
@@ -17,7 +18,12 @@ class NovelInfoSpiderPipeline(object):
             novel = item['novel']
             novel['image'] = item['cover']
 
-            Novel.objects.create(**novel)
+            novel_obj = Novel.objects.create(**novel)
+            novel_obj.tags.add(*item['tags'])
+
+            albums = Album.objects.filter(name__in=item['albums'])
+            novel_obj.album.add(*albums)
+
             return f"{novel['name']} 入库完成"
 
         except Exception:

@@ -8,6 +8,7 @@ from scrapy.selector import Selector
 
 
 from novels.models import Novel
+
 from ..items import NovelInfospiderItem
 from ..help import start_urls,parse_info
 
@@ -37,6 +38,9 @@ class My2852InfoSpider(scrapy.Spider):
 
         try:
             novel_dict = parse_info(response,'李凉')
+            albums=['古龙小说全集']
+            tags=['传统武侠']
+
             novel = Novel.objects.filter(**novel_dict).first()
             if not novel:
                 print(f"小说 {novel_dict['name']} 不存在准备入库 {response.url}")
@@ -79,6 +83,8 @@ class My2852InfoSpider(scrapy.Spider):
                     item['cover'] = []
 
                 item['novel'] = novel_dict
+                item['albums'] = albums
+                item['tags'] = tags
                 yield item
 
             else:
