@@ -17,7 +17,7 @@ from .models import Category,Album,TabAlbum
 
 
 class CategoryAdmin(object):
-    list_display = ["name","apply_prove"]
+    list_display = ["name",'push',"apply_prove"]
     exclude = ["slug"]
     #relfield_style='fk-ajax'
 
