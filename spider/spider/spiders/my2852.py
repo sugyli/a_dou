@@ -37,7 +37,7 @@ class My2852Spider(scrapy.Spider):
     def parse(self, response):
 
         try:
-            novel_dict = parse_info(response,'李凉')
+            novel_dict = parse_info(response,'席绢')
 
             novel=Novel.objects.filter(**novel_dict).first()
 
@@ -85,9 +85,9 @@ class My2852Spider(scrapy.Spider):
                             i+=1
                             chapter=get_chaptet_obj()
                             chapter['url'] = parse.urljoin(response.url, row.css('a::attr(href)').extract()[0].strip())
-                            matchObj = re.match(r'http://www.my2852.com/wuxia/nk/zqsj/(\d+)htm', chapter['url'],re.M|re.I)
-                            if matchObj:
-                                chapter['url']=f'http://www.my2852.com/wuxia/nk/zqsj/{matchObj.group(1)}.htm'
+                            # matchObj = re.match(r'http://www.my2852.com/wuxia/nk/zqsj/(\d+)htm', chapter['url'],re.M|re.I)
+                            # if matchObj:
+                            #     chapter['url']=f'http://www.my2852.com/wuxia/nk/zqsj/{matchObj.group(1)}.htm'
 
                             # if "00.htm" in str(chapter['url']):
                             #     continue

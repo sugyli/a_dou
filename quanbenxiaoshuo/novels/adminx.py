@@ -36,9 +36,10 @@ class NovelAdmin(object):
     list_display = ["name","author",'album','category','tags','is_full','status',"push",'have_image','apply_prove']
     #fields=('name', 'author')
     exclude = ["slug"]
-    list_editable=['is_full',"push",'status']
+    list_editable = ['is_full',"push",'status']
     # 筛选
     list_filter=['push','status','is_full']
+    relfield_style='fk-ajax'
     style_fields={
         'album':'m2m_transfer',
         'category':'m2m_transfer'
@@ -84,14 +85,15 @@ class NovelAdmin(object):
 
 class ChapterAdmin(object):
     list_display = ["name",'novel',"push",'created_at','apply_prove']
-    exclude=["novel",'order','insert','is_tab','slug']
+    #exclude=["novel",'order','insert','is_tab','slug']
     #编辑页面只显示的字段
-    fields=('name',)
+    fields=('name','novel')
     inlines=[ContentInline]
     list_editable=["push"]
     ordering=['-updated_at']
     # 可用来做搜索条件的字段
     search_fields=['slug']
+
 
     def apply_prove(self, obj):
         return f"<a href='{obj.novel.get_novel_url()}' target='_blank'>目录</a>&nbsp;" \

@@ -22,7 +22,8 @@ class NovelInfoSpiderPipeline(object):
             novel_obj.tags.add(*item['tags'])
 
             albums = Album.objects.filter(name__in=item['albums'])
-            novel_obj.album.add(*albums)
+            if albums.count()>0:
+                novel_obj.album.add(*albums)
 
             return f"{novel['name']} 入库完成"
 

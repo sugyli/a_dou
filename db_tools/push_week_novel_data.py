@@ -13,7 +13,7 @@ from novels.models import Novel
 
 
 data_file = \
-    os.path.join(os.path.dirname(os.path.abspath(__file__)),'data/daynovelurls.txt')
+    os.path.join(os.path.dirname(os.path.abspath(__file__)),'data/weeknovelurls.txt')
 
 host = 'https://www.51xunyue.com'
 
@@ -25,7 +25,7 @@ if os.path.exists(data_file):
 else:
 
     novels= \
-        Novel.objects.get_published().filter(push=False).defer('name','info')[:10]
+        Novel.objects.get_published().filter(push=False).defer('name','info')[:2000]
 
     if novels.count():
         with open(data_file, 'w+') as f:
@@ -36,7 +36,7 @@ else:
                 novel.push=True
                 novel.save()
     else:
-        print('数据库中没有可PUSH的数据不生成daynovelurls.txt文件')
+        print('数据库中没有可PUSH的数据不生成weeknovelurls.txt文件')
 
 
 
