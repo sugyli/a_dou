@@ -10,10 +10,11 @@ noneedurl = [
     '../../wuxia/nk/index.htm',
     'zqs/index.htm',
     'zqs9/index.htm',
-    'zqs10/index.htm'
+    'zqs10/index.htm',
+    'gsct/index.htm'
 ]
 def start_urls():
-    url = 'http://www.my2852.com/yq/yishu/index.htm'
+    url = 'http://www.my2852.com/xdmj/luxun/index.htm'
     headers={"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0"}
     res = requests.get(url, headers=headers)
     if res.status_code == 200:
@@ -24,6 +25,9 @@ def start_urls():
 
         if not all_href:
             all_href=selector.css("center>table:nth-child(1)>tr a::attr(href)").extract()
+
+        if not all_href:
+            all_href=selector.css("div>table:nth-child(2)>tr a::attr(href)").extract()
 
 
         all_href =  list(set(all_href))
