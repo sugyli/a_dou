@@ -25,8 +25,8 @@ a b b是a下面所有元素包括孙子辈
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://my2852.com/xdmj/luxun/nahan/index.htm']
-    start_urls=start_urls()
+    start_urls = ['http://www.my2852.com/xdmj/zhangailing/cq/index.htm']
+    #start_urls=start_urls()
 
 
     custom_settings = {
@@ -72,7 +72,7 @@ class My2852Spider(scrapy.Spider):
 
                     muluname=selector.css(".tdw3::text").extract_first("").strip()
                     if not muluname:
-                        muluname=selector.css("td::text").extract_first("").strip()
+                        muluname=selector.css("td::text").extract_first("").replace('附：','').strip()
 
                     if not muluname:
                         muluname=selector.css("td>span::text").extract_first("").strip()
@@ -95,8 +95,8 @@ class My2852Spider(scrapy.Spider):
                             # if matchObj:
                             #     chapter['url']=f'http://www.my2852.com/wuxia/nk/zqsj/{matchObj.group(1)}.htm'
 
-                            if "aqzz/index.htm" in str(chapter['url']):
-                                continue
+                            # if "aqzz/index.htm" in str(chapter['url']):
+                            #     continue
 
                             if i > 1:
                                 get_name = row.css('a>span::text').extract_first("").strip()
