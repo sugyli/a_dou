@@ -12,7 +12,7 @@
 @time: 2017/7/4 17:04
 """
 import xadmin
-from .models import Novel,Chapter,Content
+from .models import Novel,Chapter,Content,FenJuan
 
 
 
@@ -123,7 +123,18 @@ class ChapterAdmin(object):
         qs = qs.filter(is_tab=False)
         return qs
 
+class FenJuanAdmin(object):
+    list_display = ['name',"novel"]
+    # 可用来做搜索条件的字段
+    search_fields=['slug']
+
+
+    def queryset(self):
+        qs = super(FenJuanAdmin, self).queryset()
+        qs = qs.filter(is_tab=True)
+        return qs
 
 
 xadmin.site.register(Novel, NovelAdmin)
 xadmin.site.register(Chapter, ChapterAdmin)
+xadmin.site.register(FenJuan, FenJuanAdmin)

@@ -299,6 +299,13 @@ class Content(models.Model):
 
 
 
+class FenJuan(Chapter):
+    class Meta:
+        verbose_name = "分卷名"
+        verbose_name_plural = verbose_name
+        proxy = True
+
+
 @receiver(post_init,sender = Novel)
 def backup_image_path(sender,instance,**kwargs):
     instance._current_imagen_file = instance.image
