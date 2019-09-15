@@ -25,8 +25,8 @@ a b b是a下面所有元素包括孙子辈
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://www.my2852.com/gt/zxx/dsn/index.htm']
-    start_urls=start_urls()
+    start_urls = ['http://www.my2852.com/yq/y/yuqing/ywql/index.htm']
+    #start_urls=start_urls()
 
 
     custom_settings = {
@@ -37,7 +37,7 @@ class My2852Spider(scrapy.Spider):
     def parse(self, response):
 
         try:
-            novel_dict = parse_info(response,'张小娴')
+            novel_dict = parse_info(response,'于晴')
 
             novel=Novel.objects.filter(**novel_dict).first()
 
@@ -65,8 +65,8 @@ class My2852Spider(scrapy.Spider):
                 if not chaptertext:
                     chaptertext=response.css("div table>tr:nth-child(4)>td table>tr>td").extract()
 
-                if not chaptertext:
-                    chaptertext=response.css("div table>tr:nth-child(3)>td table>tr>td").extract()
+                # if not chaptertext:
+                #     chaptertext=response.css("div table>tr:nth-child(3)>td table>tr>td").extract()
 
                 # if not chaptertext:
                 #     chaptertext=response.css("center>table:nth-child(1) td").extract()
