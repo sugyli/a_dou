@@ -44,6 +44,8 @@ class NovelAdmin(object):
         'album':'m2m_transfer',
         'category':'m2m_transfer'
     }
+    # 可用来做搜索条件的字段
+    search_fields=['name','author']
     #inlines=[ChapterInline]
 
 
