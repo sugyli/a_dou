@@ -67,6 +67,11 @@ class My2852InfoSpider(scrapy.Spider):
                             response.css(
                                 "div table>tr:nth-child(4)>td>table>tr:nth-child(1)>td:nth-child(1) *::text").extract()
 
+                if not novel_dict['info']:
+                    novel_dict['info']= \
+                        response.css(
+                            "div table>tr:nth-child(3)>td>table>tr:nth-child(1)>td:nth-child(1) table tr:nth-child(1) *::text").extract()
+
                 novel_dict['info'] = ''.join(novel_dict['info'])
                 novel_dict['info'] = novel_dict['info'].strip()
 
@@ -82,7 +87,7 @@ class My2852InfoSpider(scrapy.Spider):
                 if not cover:
                     cover= \
                         response.css(
-                            "div table>tr:nth-child(4)>td>table>tr:nth-child(1)>td:nth-child(2) img::attr(src)").extract_first("").strip()
+                            "div table>tr:nth-child(3)>td>table>tr:nth-child(1)>td:nth-child(2) img::attr(src)").extract_first("").strip()
 
 
                 #进入入库部分
