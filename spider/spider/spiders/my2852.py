@@ -25,7 +25,7 @@ a b b是a下面所有元素包括孙子辈
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://www.my2852.com/gt/sanmao/nxj/index.htm']
+    #start_urls = ['http://www.my2852.com/gt/sanmao/qc/index.htm']
     start_urls=start_urls()
 
 
@@ -63,7 +63,9 @@ class My2852Spider(scrapy.Spider):
                     chaptertext=response.css("center>div>table td").extract()
 
                 if not chaptertext:
-                    chaptertext=response.css("div table>tr:nth-child(5)>td>table>tr>td").extract()
+                    chaptertext=response.css("div table>tr:nth-child(5)>td table>tr>td").extract()
+
+
 
                 # if not chaptertext:
                 #     chaptertext=response.css("center>table:nth-child(1) td").extract()
@@ -114,6 +116,9 @@ class My2852Spider(scrapy.Spider):
 
                         if not muluname:
                             muluname=selector.css("td>span::text").extract_first("").strip()
+
+                        if not muluname:
+                            muluname=selector.css("td>span>b::text").extract_first("").strip()
 
                         if muluname:
                             chapter=get_chaptet_obj()
