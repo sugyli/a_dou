@@ -133,7 +133,7 @@ class FenJuanAdmin(object):
 
     def queryset(self):
         qs = super(FenJuanAdmin, self).queryset()
-        qs = qs.filter(is_tab=True)
+        qs = qs.filter(is_tab=True).order_by("-updated_at")
         return qs
 
 
