@@ -37,6 +37,7 @@ class AlbumAdmin(object):
     # 筛选
     list_filter=['is_tab','push']
     relfield_style='fk-ajax'
+    ordering=['-updated_at']
 
 
     def apply_prove(self, obj):
