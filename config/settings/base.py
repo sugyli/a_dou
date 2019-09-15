@@ -53,6 +53,7 @@ DATABASES = {
 # 将HTTP请求中对数据库的操作封装成事务
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
+
 # URLS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf

@@ -25,8 +25,8 @@ a b b是a下面所有元素包括孙子辈
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://www.my2852.com/xdmj/zhangailing/cq/index.htm']
-    start_urls=start_urls()
+    start_urls = ['http://www.my2852.com/xdmj/zhangailing/hlmy/index.htm']
+    #start_urls=start_urls()
 
 
     custom_settings = {
@@ -168,7 +168,7 @@ class My2852Spider(scrapy.Spider):
                                             f"{item['name']} 内容分页请求失败 {page}")
 
                             text=''.join(text)
-                            text=text.strip()
+                            text = text.replace('𥁐','口').strip()
                             if text:
                                 chapter=Chapter.objects.filter(novel=novel, order=i).first()
                                 if chapter:

@@ -140,6 +140,7 @@ def contentreplace(text ,out = True):
         html = \
             html.replace('$$$$$$1',str(random.choice(e))).replace('$$$$$$2', str(random.choice(e)))
         html = emoji.emojize(html)
+        html = html.replace('口','𥁐')
 
     return html
 
