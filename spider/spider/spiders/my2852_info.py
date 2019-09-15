@@ -62,15 +62,25 @@ class My2852InfoSpider(scrapy.Spider):
                             response.css(
                                 "table.tbw2 tr td *::text").extract()
 
-                if not novel_dict['info']:
-                    novel_dict['info'] = \
-                            response.css(
-                                "div table>tr:nth-child(4)>td>table>tr:nth-child(1)>td:nth-child(1) *::text").extract()
 
                 if not novel_dict['info']:
-                    novel_dict['info']= \
-                        response.css(
-                            "div table>tr:nth-child(3)>td>table>tr:nth-child(1)>td:nth-child(1) table tr:nth-child(1) *::text").extract()
+                    panduan = response.css(
+                            "div table>tr:nth-child(3)>td>table>tr:nth-child(1)>td:nth-child(1) table tr:nth-child(1)>td:nth-child(1) a").extract()
+
+                    if not panduan:
+                        novel_dict['info']= \
+                            response.css(
+                                "div table>tr:nth-child(3)>td>table>tr:nth-child(1)>td:nth-child(1) table tr:nth-child(1)>td:nth-child(1) *::text").extract()
+
+
+                if not novel_dict['info']:
+                    panduan=response.css(
+                        "div table>tr:nth-child(4)>td>table>tr:nth-child(1)>td:nth-child(1) a").extract()
+
+                    if not panduan:
+                        novel_dict['info'] = \
+                                response.css(
+                                    "div table>tr:nth-child(4)>td>table>tr:nth-child(1)>td:nth-child(1) *::text").extract()
 
                 novel_dict['info'] = ''.join(novel_dict['info'])
                 novel_dict['info'] = novel_dict['info'].strip()
