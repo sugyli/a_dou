@@ -25,8 +25,8 @@ a b b是a下面所有元素包括孙子辈
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    start_urls = ['http://www.my2852.com/xdmj/zhangailing/hlmy/index.htm']
-    #start_urls=start_urls()
+    #start_urls = ['http://www.my2852.com/gt/sanmao/nxj/index.htm']
+    start_urls=start_urls()
 
 
     custom_settings = {
@@ -62,6 +62,9 @@ class My2852Spider(scrapy.Spider):
                 if not chaptertext:
                     chaptertext=response.css("center>div>table td").extract()
 
+                if not chaptertext:
+                    chaptertext=response.css("div table>tr:nth-child(5)>td>table>tr>td").extract()
+
                 # if not chaptertext:
                 #     chaptertext=response.css("center>table:nth-child(1) td").extract()
 
@@ -70,27 +73,15 @@ class My2852Spider(scrapy.Spider):
                 for row in chaptertext:
                     selector=Selector(text=row)
 
-                    muluname=selector.css(".tdw3::text").extract_first("").strip()
-                    if not muluname:
-                        muluname=selector.css("td::text").extract_first("").replace('附：','').strip()
+                    chapters=selector.css("a")
 
-                    if not muluname:
-                        muluname=selector.css("td>span::text").extract_first("").strip()
-
-                    if muluname:
-                        chapter=get_chaptet_obj()
-                        chapter['ismulu']=True
-                        chapter['name']=muluname
-                        chapters_dict.append(chapter)
-
-                    else:
-                        chapters=selector.css("a")
-                        i = 0
-                        name = ''
+                    if chapters:
+                        i=0
+                        name=''
                         for row in chapters:
                             i+=1
                             chapter=get_chaptet_obj()
-                            chapter['url'] = parse.urljoin(response.url, row.css('a::attr(href)').extract()[0].strip())
+                            chapter['url']=parse.urljoin(response.url, row.css('a::attr(href)').extract()[0].strip())
                             # matchObj = re.match(r'http://www.my2852.com/wuxia/nk/zqsj/(\d+)htm', chapter['url'],re.M|re.I)
                             # if matchObj:
                             #     chapter['url']=f'http://www.my2852.com/wuxia/nk/zqsj/{matchObj.group(1)}.htm'
@@ -98,17 +89,41 @@ class My2852Spider(scrapy.Spider):
                             # if "aqzz/index.htm" in str(chapter['url']):
                             #     continue
 
-                            if i > 1:
-                                get_name = row.css('a>span::text').extract_first("").strip()
+                            if i>1:
+                                get_name=row.css('a>span::text').extract_first(
+                                    "").strip()
                                 if not get_name:
-                                    chapter['name']="{}{}".format(name,row.css('a::text').extract()[0].strip())
+                                    chapter['name']="{}{}".format(name,
+                                                                  row.css(
+                                                                      'a::text').extract()[
+                                                                      0].strip())
                                 else:
-                                    chapter['name']="{}{}".format(name,get_name)
+                                    chapter['name']="{}{}".format(name,
+                                                                  get_name)
 
                             else:
-                                name = chapter['name'] = row.css('a::text').extract()[0].strip()
+                                name=chapter['name']= \
+                                row.css('a::text').extract()[0].strip()
 
                             chapters_dict.append(chapter)
+                    else:
+
+                        muluname=selector.css(".tdw3::text").extract_first("").strip()
+                        if not muluname:
+                            muluname=selector.css("td::text").extract_first("").replace('附：','').strip()
+
+                        if not muluname:
+                            muluname=selector.css("td>span::text").extract_first("").strip()
+
+                        if muluname:
+                            chapter=get_chaptet_obj()
+                            chapter['ismulu']=True
+                            chapter['name']=muluname
+                            chapters_dict.append(chapter)
+                        else:
+                            self.logger.error(f'目录未获取到 {novel.name}')
+
+
 
                 #处理内容部分
                 i=0
