@@ -37,8 +37,8 @@ class My2852InfoSpider(scrapy.Spider):
     def parse(self, response):
 
         try:
-            novel_dict = parse_info(response,'寄秋')
-            albums=['寄秋小说全集']
+            novel_dict = parse_info(response,'凯琍')
+            albums=['凯琍小说全集']
             tags=['言情小说']
 
             novel = Novel.objects.filter(**novel_dict).first()
@@ -82,6 +82,15 @@ class My2852InfoSpider(scrapy.Spider):
                                 response.css(
                                     "div table>tr:nth-child(4)>td>table>tr:nth-child(1)>td:nth-child(1) *::text").extract()
 
+                if not novel_dict['info']:
+                    novel_dict['info']= \
+                        response.css(
+                            "div table.tb5 table.tb5 table.tb6 td *::text").extract()
+
+
+
+
+
                 novel_dict['info'] = ''.join(novel_dict['info'])
                 novel_dict['info'] = novel_dict['info'].strip()
 
@@ -98,6 +107,13 @@ class My2852InfoSpider(scrapy.Spider):
                     cover= \
                         response.css(
                             "div table>tr:nth-child(3)>td>table>tr:nth-child(1)>td:nth-child(2) img::attr(src)").extract_first("").strip()
+
+
+                if not cover:
+                    cover= \
+                        response.css(
+                            "div table.tb5 table.tb5 .td5 img::attr(src)").extract_first("").strip()
+
 
 
                 #进入入库部分
