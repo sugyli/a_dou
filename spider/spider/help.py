@@ -12,8 +12,6 @@ noneedurl = [
     'zqs9/index.htm',
     'zqs10/index.htm',
     'gsct/index.htm',
-    'nl/index.htm',
-    'nl2/index.htm'
 ]
 def start_urls():
     url = 'http://www.my2852.com/yq/k/kaili/index.htm'
