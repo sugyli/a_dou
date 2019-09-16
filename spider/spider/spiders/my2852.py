@@ -25,8 +25,8 @@ a b b是a下面所有元素包括孙子辈
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://www.my2852.com/yq/k/kaili/nl/index.htm']
-    start_urls=start_urls()
+    start_urls = ['http://www.my2852.com/yq/m/meibeier/hy1/index.htm']
+    #start_urls=start_urls()
 
 
     custom_settings = {
@@ -37,7 +37,7 @@ class My2852Spider(scrapy.Spider):
     def parse(self, response):
 
         try:
-            novel_dict = parse_info(response,'馥梅')
+            novel_dict = parse_info(response,'梅贝儿')
 
             novel=Novel.objects.filter(**novel_dict).first()
 

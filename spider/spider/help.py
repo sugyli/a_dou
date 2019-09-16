@@ -14,7 +14,7 @@ noneedurl = [
     'gsct/index.htm',
 ]
 def start_urls():
-    url = 'http://www.my2852.com/yq/f/fumei/index.htm'
+    url = 'http://www.my2852.com/yq/m/meibeier/index.htm'
     headers={"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0"}
     res = requests.get(url, headers=headers)
     if res.status_code == 200:
@@ -63,6 +63,11 @@ def parse_info(response,author):
             novel_dict['name']=\
                 response.css(
                     "table.tb2 .td3::text").extract_first("").strip()
+
+        if not novel_dict['name']:
+            novel_dict['name']=\
+                response.css(
+                    "table.tb2 .td3>span::text").extract_first("").strip()
 
 
         if not novel_dict['name']:
