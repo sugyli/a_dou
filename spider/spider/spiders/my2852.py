@@ -37,7 +37,7 @@ class My2852Spider(scrapy.Spider):
     def parse(self, response):
 
         try:
-            novel_dict = parse_info(response,'夏乔恩')
+            novel_dict = parse_info(response,'季可蔷')
 
             novel=Novel.objects.filter(**novel_dict).first()
 
@@ -97,8 +97,8 @@ class My2852Spider(scrapy.Spider):
                             # if matchObj:
                             #     chapter['url']=f'http://www.my2852.com/wuxia/nk/zqsj/{matchObj.group(1)}.htm'
 
-                            if "qhw/16.htm" in str(chapter['url']):
-                                continue
+                            # if "qhw/16.htm" in str(chapter['url']):
+                            #     continue
 
 
 
