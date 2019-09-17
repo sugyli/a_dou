@@ -1,7 +1,8 @@
-from django.views.generic import ListView
+from django.views.generic import ListView,DetailView
 
 from albums.models import Album
 from novels.models import Novel
+from operation.models import Compose
 
 
 
@@ -21,4 +22,14 @@ class IndexListView(ListView):
 
     def get_queryset(self, **kwargs):
         return Album.objects.filter(is_tab=True).select_related('category').defer('info','created_at')[:6]
+
+
+
+class ComposeDetailView(DetailView):
+    model = Compose
+    template_name="operation/compose_detail.html"
+
+
+class DeBugComposeDetailView(ComposeDetailView):
+    pass
 

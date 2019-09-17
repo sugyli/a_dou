@@ -26,6 +26,7 @@ if settings.DEBUG:
         path('articles/', include('articles.urls', namespace='articles')),
         path('albums/', include('albums.urls', namespace='albums')),
         path('novels/', include('novels.urls', namespace='novels')),
+        path('operation/', include('operation.urls', namespace='operation')),
         #富文本相关url
         path('ueditor/',include(('DjangoUeditor.urls', 'ueditor'), namespace="ueditor")),
         #后台
