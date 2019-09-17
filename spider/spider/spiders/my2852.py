@@ -97,8 +97,8 @@ class My2852Spider(scrapy.Spider):
                             # if matchObj:
                             #     chapter['url']=f'http://www.my2852.com/wuxia/nk/zqsj/{matchObj.group(1)}.htm'
 
-                            # if "xmg/00.htm" in str(chapter['url']):
-                            #     continue
+                            if "lxs/15.htm" in str(chapter['url']):
+                                continue
 
                             if i>1:
                                 get_name=row.css('a>span::text').extract_first(
