@@ -25,7 +25,7 @@ a b b是a下面所有元素包括孙子辈
 class My2852Spider(scrapy.Spider):
     name = 'my2852'
     allowed_domains = ['www.my2852.com']
-    #start_urls = ['http://www.my2852.com/yq/m/meibeier/hy1/index.htm']
+    #start_urls = ['http://www.my2852.com/yq/l/lsf/xlqy/index.htm']
     start_urls=start_urls()
 
 
@@ -99,6 +99,8 @@ class My2852Spider(scrapy.Spider):
 
                             # if "lxs/15.htm" in str(chapter['url']):
                             #     continue
+
+
 
                             if i>1:
                                 get_name=row.css('a>span::text').extract_first(
@@ -196,7 +198,7 @@ class My2852Spider(scrapy.Spider):
                                             f"{item['name']} 内容分页请求失败 {page}")
 
                             text=''.join(text)
-                            text = text.replace('𥁐','口').strip()
+                            text = text.replace('𠴂','口').replace('&#134402;','口').strip()
                             if text:
                                 chapter=Chapter.objects.filter(novel=novel, order=i).first()
                                 if chapter:
