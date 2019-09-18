@@ -31,15 +31,16 @@ model_icon 控制菜单的图标
 
 
 class ArticleAdmin(object):
-    list_display = ["name",'apply_prove']
+    list_display = ["name",'status','push','apply_prove']
     style_fields={
         "content": "ueditor",
-        "album": "m2m_transfer"
+        "compose": "m2m_transfer"
     }
-    exclude=["slug",'user']
+    exclude=['user']
+    list_editable=["push",'status']
 
     def apply_prove(self, obj):
-        return f"<a href='{obj.get_article_url()}' target='_blank'>前台</a>"
+        return f"<a href='{obj.get_article_url()}' target='_blank'>前端</a>"
     apply_prove.short_description='操作'
     # 是否转义
     apply_prove.allow_tags=True

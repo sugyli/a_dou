@@ -10,7 +10,7 @@ from taggit.managers import TaggableManager
 # from markdownx.models import MarkdownxField
 # from markdownx.utils import markdownify
 from DjangoUeditor.models import UEditorField
-from albums.models import Album
+from operation.models import Compose
 from quanbenxiaoshuo import helpers
 
 
@@ -53,14 +53,13 @@ class Article(models.Model):
                             , default='C'
                             , verbose_name='数据类型')
 
-    album = models.ManyToManyField(Album
+    compose = models.ManyToManyField(Compose
                                    , blank = True
-                                   , related_name="article_album"
-                                   , verbose_name='专辑')
+                                   , related_name="article_compose"
+                                   , verbose_name='聚合')
 
     name = models.CharField(max_length=255, null=False, unique=True, verbose_name='标题')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,blank=True ,related_name="user_article", on_delete=models.CASCADE, verbose_name='作者')
-    slug = models.SlugField(max_length=255,blank=True, verbose_name='(URL)别名',unique=True,default=u'')
     status = models.CharField(max_length=1, choices=STATUS, default='D', verbose_name='状态')  # 默认存入草稿箱
     content = UEditorField('内容', height=500, width=800,
                          default=u'', blank=False, imagePath="uploads/articles/images/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s",
@@ -89,6 +88,12 @@ class Article(models.Model):
 
     tags = TaggableManager(help_text='多个标签使用,(英文)隔开',blank=True, verbose_name='标签')
 
+
+    slug=models.SlugField(max_length=255
+                          , blank=True
+                          , verbose_name='(URL)别名'
+                          , unique=True
+                          , default=u'')
 
     push=models.BooleanField(default=False
                              , verbose_name="推送"
@@ -121,13 +126,14 @@ class Article(models.Model):
 
 
     def save(self, *args, **kwargs):
-        if self.datatype == 'B':
-            self.album = ''
 
         if not self.slug:
             # 根据作者和标题生成文章在URL中的别名
             self.slug = slugify(self.name)
 
         super(Article, self).save(*args, **kwargs)
+
+
+
 
 
