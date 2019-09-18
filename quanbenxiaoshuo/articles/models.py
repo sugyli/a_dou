@@ -46,6 +46,12 @@ class ArticleQuerySet(models.query.QuerySet):
 @python_2_unicode_compatible
 class Article(models.Model):
     STATUS = (("D", "不公开"), ("P", "公开"))
+    DATATYPE = (('A','老文章'),('B','公告'),('C','普通文章'))
+
+    datatype=models.CharField(max_length=1
+                            , choices=DATATYPE
+                            , default='A'
+                            , verbose_name='数据类型')
 
     album = models.ManyToManyField(Album
                                    , blank = True
@@ -60,10 +66,20 @@ class Article(models.Model):
                          default=u'', blank=False, imagePath="uploads/articles/images/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s",
                          toolbars='full', filePath='uploads/articles/files/%(year)s/%(month)s/%(basename)s_%(datetime)s_%(rnd)s.%(extname)s')
 
-    title=models.CharField(max_length=255, verbose_name='标题(seo)', default=u'',
-                           help_text="title")
-    keywords=models.CharField(max_length=255, verbose_name='关键字(seo)',
-                              default=u'', help_text="keywords")
+    title=models.CharField(max_length=255
+                           , null=True
+                           , blank=True
+                           , verbose_name='标题(seo)'
+                           , default=u''
+                           , help_text="title")
+
+    keywords=models.CharField(max_length=255
+                              , null=True
+                              , blank=True
+                              , verbose_name='关键字(seo)'
+                              , default=u''
+                              , help_text="keywords")
+
     description=models.CharField(max_length=255
                                  , null=True
                                  , blank=True
@@ -73,13 +89,6 @@ class Article(models.Model):
 
     tags = TaggableManager(help_text='多个标签使用,(英文)隔开',blank=True, verbose_name='标签')
 
-    is_notice = models.BooleanField(default=False
-                                    ,verbose_name="公告消息"
-                                    ,help_text="不是文章而是站内公告")
-
-    is_old=models.BooleanField(default=True
-                                  , verbose_name="是否老数据"
-                                  , help_text="是否老数据")
 
     push=models.BooleanField(default=False
                              , verbose_name="推送"
@@ -112,7 +121,7 @@ class Article(models.Model):
 
 
     def save(self, *args, **kwargs):
-        if self.is_notice:
+        if self.datatype == 'B':
             self.album = ''
 
         if not self.slug:
