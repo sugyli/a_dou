@@ -3,6 +3,7 @@ from django.views.generic import ListView,DetailView
 from albums.models import Album
 from novels.models import Novel
 from operation.models import Compose
+from articles.models import Article
 
 
 
@@ -28,6 +29,13 @@ class IndexListView(ListView):
 class ComposeDetailView(DetailView):
     model = Compose
     template_name="operation/compose_detail.html"
+
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ComposeDetailView, self).get_context_data(*args, **kwargs)
+        context['articles'] =  Article.objects.get_published_no_user().only('name','slug')[:1000]
+        return context
+
 
 
 class DeBugComposeDetailView(ComposeDetailView):

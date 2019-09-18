@@ -24,7 +24,7 @@ class ArticleQuerySet(models.query.QuerySet):
 
     def get_published_no_user(self):
         """返回已发表的文章"""
-        return self.filter(status="P")
+        return self.filter(status="P",datatype="C")
 
     def get_drafts(self):
         """返回草稿箱的文章"""
@@ -105,7 +105,8 @@ class Article(models.Model):
 
     class Meta:
         index_together=[
-            ('status','slug')
+            ('status','slug','datatype'),
+            ('status','datatype')
         ]
         verbose_name = '文章'
         verbose_name_plural = verbose_name

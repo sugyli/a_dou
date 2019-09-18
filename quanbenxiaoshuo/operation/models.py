@@ -54,6 +54,18 @@ class Compose(models.Model):
     def get_debug_compose_url(self):
         return reverse('operation:debugcompose', args=[self.slug])
 
+    def get_title(self):
+        if not self.title:
+            return self.name
+
+        return self.title
+
+    def get_keywords(self):
+        if not self.keywords:
+            return self.name
+
+        return self.keywords
+
     def get_description(self):
 
         if not self.description:

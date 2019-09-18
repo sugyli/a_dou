@@ -1,1 +1,57 @@
-fdaffd
+{% extends 'base/base.html' %}
+{% load thumbnail %}
+{% block title %}{{ compose.get_title }}{% endblock %}
+{% block keywords %}{{ compose.get_keywords }}{% endblock %}
+{% block description %}{{ compose.get_description|truncatechars:150 }}{% endblock %}
+{% block head %}
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ compose.get_compose_url }}" />
+{% endblock %}
+{% block content %}
+  <body>
+    {% include 'base/header.html' %}
+    {% include 'base/nav.html' %}
+    <div class="breadcrumb clearfix">{% include 'base/breadcrumb.html' with name=compose.name link=compose.get_compose_url %}</div>
+    <div id="content-list" class="clearfix">
+      <div class="book-intro clearfix">
+        <div class="book-img">
+          {% thumbnail compose.image "120x150" crop="center" as im %}
+            <img width="{{ im.width }}" height="{{ im.height }}" src="{{ im.url }}" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ compose.name }}" />
+          {% empty %}
+            <img width="{{ im.width }}" height="{{ im.height }}" src="http://placehold.it/120x150" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="{{ compose.name }}" />
+          {% endthumbnail %}
+        </div>
+        <span class="scrolltobt">
+          <a rel="nofollow" id="scrolltobt" href="javascript:void(0)">直达底部</a>
+        </span>
+        <div class="book-describe">
+          <h1 class="author">{{ compose.name }}</h1>
+          <div class="describe-html">
+            {{ compose.get_info|safe }}
+          </div>
+        </div>
+      </div>
+      <h2 class="ac clearfix" id="tithook">
+        <span class="pattern-left"></span>
+        <span class="tit">关于{{ compose.name }}相关资料</span>
+        <span class="pattern-right"></span>
+      </h2>
+
+      <div class="book-list clearfix">
+        <ul>
+          {% for article in articles %}
+          <li>
+            <a title="{{ article.name }}" href="{{ article.get_compose_url }}">{{ article.name }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <div class="mt4 clearfix"></div>
+
+      <div id="lxfoot" class="copyright bt clearfix">
+      {% include 'base/footer.html' %}
+      </div>
+
+    </div>
+  </body>
+
+{% endblock %}
