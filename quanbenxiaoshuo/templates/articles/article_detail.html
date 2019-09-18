@@ -1,7 +1,7 @@
 {% extends 'base/base.html' %}
 {% load static thumbnail %}
-{% block title %}{{ article.title }}{% endblock %}
-{% block keywords %}{{ article.keywords }}{% endblock %}
+{% block title %}{{ article.get_title }}{% endblock %}
+{% block keywords %}{{ article.get_keywords }}{% endblock %}
 {% block description %}{{ article.get_description|truncatechars:150 }}{% endblock %}
 {% block head %}
 <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ article.get_article_url }}" />

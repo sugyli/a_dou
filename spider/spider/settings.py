@@ -22,6 +22,7 @@ sys.path.insert(0, os.path.join(ROOT_DIR, 'quanbenxiaoshuo'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 django.setup()
 
+
 FEED_EXPORT_ENCODING = 'utf-8'
 IMAGES_STORE = os.path.join(ROOT_DIR, 'quanbenxiaoshuo/media')
 
