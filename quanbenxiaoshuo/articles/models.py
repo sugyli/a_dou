@@ -50,7 +50,7 @@ class Article(models.Model):
 
     datatype=models.CharField(max_length=1
                             , choices=DATATYPE
-                            , default='A'
+                            , default='C'
                             , verbose_name='数据类型')
 
     album = models.ManyToManyField(Album
