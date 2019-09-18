@@ -49,7 +49,8 @@ class Compose(models.Model):
         return self.name
 
     def get_compose_url(self):
-        return reverse('operation:compose', args=[self.slug])
+        return '/'
+        #return reverse('operation:compose', args=[self.slug])
 
     def get_debug_compose_url(self):
         return reverse('operation:debugcompose', args=[self.slug])
