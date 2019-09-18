@@ -48,6 +48,9 @@ else:
         path('novels/',
              include('novels.urls', namespace='novels')),
 
+        path('operation/',
+             include('operation.urls', namespace='operation')),
+
         # 富文本相关url
         path('ueditor/', include(('DjangoUeditor.urls', 'ueditor')
                                  , namespace="ueditor")),
