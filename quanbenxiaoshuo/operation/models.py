@@ -27,9 +27,26 @@ class Compose(models.Model):
 
     slug=models.SlugField(max_length=255, blank=True, verbose_name='(URL)别名',unique=True,default=u'')
 
-    title=models.CharField(max_length=255, verbose_name='标题(seo)', default=u'',help_text="title")
-    keywords=models.CharField(max_length=255, verbose_name='关键字(seo)',default=u'', help_text="keywords")
-    description=models.CharField(max_length=255,null=True, blank=True, verbose_name='描述(seo)',default=u'', help_text="description")
+    title=models.CharField(max_length=255
+                           , null=True
+                           , blank=True
+                           , verbose_name='标题(seo)'
+                           , default=u''
+                           , help_text="title")
+
+    keywords=models.CharField(max_length=255
+                              , null=True
+                              , blank=True
+                              , verbose_name='关键字(seo)'
+                              , default=u''
+                              , help_text="keywords")
+
+    description=models.CharField(max_length=255
+                                 , null=True
+                                 , blank=True
+                                 , verbose_name='描述(seo)'
+                                 , default=u''
+                                 , help_text="description")
 
     push=models.BooleanField(default=False
                              , verbose_name="推送"
