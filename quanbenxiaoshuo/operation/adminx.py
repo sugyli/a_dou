@@ -5,7 +5,7 @@ from .models import Compose
 
 class ComposeAdmin(object):
     list_display = ["name","updated_at","push","apply_prove"]
-    exclude = ["slug"]
+    #exclude = ["slug"]
     #style_fields={"info": "ueditor"}
     list_editable=["push"]
     # 筛选
