@@ -77,6 +77,10 @@ class Article(models.Model):
                                     ,verbose_name="公告消息"
                                     ,help_text="不是文章而是站内公告")
 
+    is_old=models.BooleanField(default=True
+                                  , verbose_name="是否老数据"
+                                  , help_text="是否老数据")
+
     push=models.BooleanField(default=False
                              , verbose_name="推送"
                              , help_text="是否已经推送给熊掌")
