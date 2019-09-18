@@ -8,7 +8,8 @@ from slugify import slugify
 from quanbenxiaoshuo.storage import ImageStorage
 from quanbenxiaoshuo import helpers
 
-
+from django.db.models.signals import post_save,post_init,post_delete
+from django.dispatch import receiver
 
 
 @python_2_unicode_compatible
@@ -85,3 +86,30 @@ class Compose(models.Model):
             self.info = helpers.contentreplace(self.info,out=False)
 
         super(Compose, self).save(*args, **kwargs)
+
+
+
+@receiver(post_init,sender = Compose)
+def backup_image_path(sender,instance,**kwargs):
+    instance._current_imagen_file = instance.image
+
+
+@receiver(post_save,sender = Compose)
+def delete_post_save_old_image(sender,instance,**kwargs):
+
+    if hasattr(instance,'_current_imagen_file'):
+        """
+            instance.image.path上传的新地址
+            instance._current_imagen_file 上次数据库的地址
+            /Users/sugyil/quanbenxiaoshuo/quanbenxiaoshuo/media/full/dcd82a0c712941a3f22ba18b14f910440d22fd42.jpg
+            full/dcd82a0c712941a3f22ba18b14f910440d22fd42.jpg
+        """
+        if instance.image and str(instance._current_imagen_file) not in str(instance.image.path):
+            #删除图片
+            instance._current_imagen_file.delete(save = False)
+
+
+@receiver(post_delete,sender = Compose)
+def delete_post_delete_old_image(sender,instance,**kwargs):
+    if instance.image:
+        instance.image.delete(save=False)
