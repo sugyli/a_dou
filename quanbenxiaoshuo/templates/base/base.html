@@ -14,9 +14,7 @@
     <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="icon" href="{% static 'images/favicons/favicon.ico' %}" />
     {% block css %}
-      {% compress css %}
-        <link rel="stylesheet" href="{% static 'css/public.css' %}" type="text/css" />
-      {% endcompress %}
+      <link rel="stylesheet" href="{% static 'css/public.css' %}" type="text/css" />
     {% endblock %}
     {% block js %}
       {% compress js %}
