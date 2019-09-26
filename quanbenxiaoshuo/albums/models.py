@@ -48,7 +48,7 @@ class Category(models.Model):
     class Meta:
         verbose_name="分类"
         verbose_name_plural=verbose_name
-        #ordering=("created_at",)
+        ordering=("sort",)
 
     def __str__(self):
         return self.name
