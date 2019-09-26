@@ -13,3 +13,8 @@ class NovelInfospiderItem(scrapy.Item):
     novel = scrapy.Field()
     albums = scrapy.Field()
     tags = scrapy.Field()
+
+
+class ArticlespiderItem(scrapy.Item):
+    cover = scrapy.Field()
+    content = scrapy.Field()

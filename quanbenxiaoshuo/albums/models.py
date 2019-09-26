@@ -28,6 +28,16 @@ class Category(models.Model):
                                   , verbose_name="推送"
                                   , help_text="是否已经推送给熊掌")
 
+    sort = models.SmallIntegerField(default=0
+                                     ,blank=True
+                                     ,null=True
+                                     ,db_index=True
+                                     ,verbose_name=u"排序")
+
+    show=models.BooleanField(default=True
+                             , verbose_name="显示"
+                             , help_text="在导航显示")
+
     created_at=models.DateTimeField(db_index=True,auto_now_add=True,verbose_name='创建时间')
 
     class Meta:

@@ -44,4 +44,6 @@ xlsxwriter
 
 #Scrapy 需要
 scrapy
+Werkzeug
+beautifulsoup4
 

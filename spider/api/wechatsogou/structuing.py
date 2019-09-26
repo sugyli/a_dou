@@ -481,8 +481,11 @@ class WechatSogouStructuring(object):
         for ele in all_img_element:
             # 删除部分属性
             img_url = format_image_url(ele.attrs['data-src'])
-            del ele.attrs['data-src']
-            del ele.attrs['class']
+            if 'data-src' in ele.attrs:
+                del ele.attrs['data-src']
+
+            if 'class' in ele.attrs:
+                del ele.attrs['class']
 
             ele.attrs['src'] = img_url
 
