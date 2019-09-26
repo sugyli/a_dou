@@ -7,7 +7,7 @@ register = template.Library()
 
 @register.filter
 def navigations(f):
-    return Category.objects.all().defer('created_at')
+    return Category.objects.get_published().defer('created_at')
 
 
 

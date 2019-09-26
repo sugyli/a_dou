@@ -9,7 +9,10 @@ from slugify import slugify
 from quanbenxiaoshuo.storage import ImageStorage
 from quanbenxiaoshuo import helpers
 
-
+@python_2_unicode_compatible
+class CategoryQuerySet(models.query.QuerySet):
+    def get_published(self):
+        return self.filter(show=True).order_by('sort')
 
 @python_2_unicode_compatible
 class Category(models.Model):
@@ -35,10 +38,12 @@ class Category(models.Model):
                                      ,verbose_name=u"排序")
 
     show=models.BooleanField(default=True
-                             , verbose_name="显示"
+                             , verbose_name="导航显示"
                              , help_text="在导航显示")
 
     created_at=models.DateTimeField(db_index=True,auto_now_add=True,verbose_name='创建时间')
+
+    objects = CategoryQuerySet.as_manager()
 
     class Meta:
         verbose_name="分类"
