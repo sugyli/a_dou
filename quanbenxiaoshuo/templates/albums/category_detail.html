@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% load thumbnail %}
-{% block title %}{{ category.title }}{% endblock %}
+{% block title %}{{ category.title }}_{{ WEBNAME }}{% endblock %}
 {% block keywords %}{{ category.keywords }}{% endblock %}
 {% block description %}{{ category.description|truncatechars:150 }}{% endblock %}
 {% block head %}
