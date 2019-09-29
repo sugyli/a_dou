@@ -16,6 +16,7 @@
       <article class="post clearfix">
         <h1 class="cat-title bb">{{ category.name }}</h1>
 		  </article>
+      {% if albums %}
       <div class="pop-books2 clearfix">
         <ol>
           {% for album in albums %}
@@ -33,23 +34,27 @@
               </a>
             </li>
           {% endfor %}
-          {% for novel in novels %}
-            <li class="pop-book2">
-              <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">
-                {% thumbnail novel.image "120x150" crop="center" as im %}
-                  <img alt="{{ novel.name }}" src="{{ im.url }}"/>
-                  {% empty %}
-                  <img alt="{{ novel.name }}" src="http://placehold.it/120x150" />
-                {% endthumbnail %}
-              </a>
-              <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">
-                <h2 class="pop-tit">{{ novel.name }}</h2>
-                <span class="pop-intro">小说</span>
-              </a>
-            </li>
-          {% endfor %}
+{#          {% for novel in novels %}#}
+{#            <li class="pop-book2">#}
+{#              <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">#}
+{#                {% thumbnail novel.image "120x150" crop="center" as im %}#}
+{#                  <img alt="{{ novel.name }}" src="{{ im.url }}"/>#}
+{#                  {% empty %}#}
+{#                  <img alt="{{ novel.name }}" src="http://placehold.it/120x150" />#}
+{#                {% endthumbnail %}#}
+{#              </a>#}
+{#              <a href="{{ novel.get_novel_url }}" title="{{ novel.name }}">#}
+{#                <h2 class="pop-tit">{{ novel.name }}</h2>#}
+{#                <span class="pop-intro">小说</span>#}
+{#              </a>#}
+{#            </li>#}
+{#          {% endfor %}#}
         </ol>
       </div>
+      {% endif %}
+
+
+
       <div id="lxfoot" class="copyright bt clearfix">
       {% include 'base/footer.html' %}
       </div>

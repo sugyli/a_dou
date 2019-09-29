@@ -10,8 +10,10 @@ from taggit.managers import TaggableManager
 # from markdownx.models import MarkdownxField
 # from markdownx.utils import markdownify
 from DjangoUeditor.models import UEditorField
-from operation.models import Compose
 from quanbenxiaoshuo import helpers
+
+from operation.models import Compose
+from albums.models import Category
 
 
 @python_2_unicode_compatible
@@ -55,8 +57,13 @@ class Article(models.Model):
 
     compose = models.ManyToManyField(Compose
                                    , blank = True
-                                   , related_name="article_compose"
+                                   , related_name="compose_article"
                                    , verbose_name='聚合')
+
+    # category=models.ForeignKey(Category, related_name="category_article"
+    #                            , on_delete=models.CASCADE
+    #                            , verbose_name='类别'
+    #                            , default=u'')
 
     name = models.CharField(max_length=255, null=False, unique=True, verbose_name='标题')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,blank=True ,related_name="user_article", on_delete=models.CASCADE, verbose_name='作者')

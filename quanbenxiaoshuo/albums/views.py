@@ -17,8 +17,19 @@ class CategoryDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(CategoryDetailView, self).get_context_data(*args, **kwargs)
-        context['albums'] = Album.objects.filter(category=context['category']).defer('info','created_at','is_tab')[:250]
-        context['novels'] = Novel.objects.get_published().filter(category=context['category']).defer('info','created_at','updated_at')[:250]
+        if context['category'].mold == 'Z':
+            context['albums']=Album.objects.filter(
+                category=context['category']).defer('info', 'created_at','is_tab')[:1000]
+
+        # if context['category'].mold == 'Z':
+        #     context['articles'] = Article.objects.filter(
+        #         category=context['category']).defer('info', 'created_at','is_tab')[:1000]
+        #
+
+
+
+
+        # context['novels'] = Novel.objects.get_published().filter(category=context['category']).defer('info','created_at','updated_at')[:250]
         return context
 
     def get_queryset(self, **kwargs):
