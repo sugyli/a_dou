@@ -108,7 +108,7 @@ class Novel(models.Model):
                              , help_text="是否已经推送给熊掌")
 
     created_at=models.DateTimeField(db_index=True,auto_now_add=True,verbose_name='创建时间')
-    
+
     updated_at=models.DateTimeField(db_index=True,auto_now=True, verbose_name='更新时间')
 
     objects=NovelQuerySet.as_manager()

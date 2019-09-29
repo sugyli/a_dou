@@ -16,6 +16,12 @@ class CategoryQuerySet(models.query.QuerySet):
 
 @python_2_unicode_compatible
 class Category(models.Model):
+    MOLD=(("Z", "专栏"), ("W", "文章"))
+
+    mold=models.CharField(max_length=1
+                            , choices=MOLD
+                            , default='Z'
+                            , verbose_name='类型')
 
     name=models.CharField(default="", max_length=30, verbose_name="类别名",
                           help_text="类别名",unique=True)
