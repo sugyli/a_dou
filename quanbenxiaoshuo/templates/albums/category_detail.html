@@ -53,6 +53,18 @@
       </div>
       {% endif %}
 
+      {% if articles %}
+        <div class="notice-list clearfix">
+          <ul>
+            {% for article in articles %}
+            <li>
+              <a title="{{ article.name }}" href="{{ article.get_article_url }}">{{ article.name }}</a>
+              <em class="f-date">（{{ article.updated_at|timesince }}之前）</em>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
 
 
       <div id="lxfoot" class="copyright bt clearfix">

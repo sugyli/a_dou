@@ -24,9 +24,9 @@ class ArticleQuerySet(models.query.QuerySet):
         """返回已发表的文章"""
         return self.filter(status="P").select_related('user')
 
-    def get_published_no_user(self):
-        """返回已发表的文章"""
-        return self.filter(status="P",datatype="C")
+    def get_published_no_user(self,datatype = 'C'):
+
+        return self.filter(status="P", datatype=datatype)
 
     def get_drafts(self):
         """返回草稿箱的文章"""
