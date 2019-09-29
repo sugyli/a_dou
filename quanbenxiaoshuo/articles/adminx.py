@@ -10,6 +10,7 @@ class ArticleAdmin(object):
     style_fields={
         "content": "ueditor",
         "compose": "m2m_transfer",
+        "category": "m2m_transfer"
     }
     exclude=['user']
     list_editable=["push",'status']

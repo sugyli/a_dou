@@ -63,7 +63,7 @@ class Article(models.Model):
     category = models.ManyToManyField(Category
                                    , blank=True
                                    , related_name="category_article"
-                                   , verbose_name='类别')
+                                   , verbose_name='所属导航')
 
     name = models.CharField(max_length=255, null=False, unique=True, verbose_name='标题')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True,blank=True ,related_name="user_article", on_delete=models.CASCADE, verbose_name='作者')
