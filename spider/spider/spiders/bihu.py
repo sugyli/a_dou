@@ -40,7 +40,7 @@ class BihuSpider(scrapy.Spider):
     def start_requests(self):
         try:
             url = 'https://be02.bihu.com/bihube-pc/api/content/show/hotArtList'
-            for x in range(1,2):
+            for x in range(1,3):
 
                 data={"pageNum":str(x),"version":""}
                 # yield scrapy.FormRequest(url, method = 'POST', headers = headers, body=json.dumps(data), callback = self.parse_list, dont_filter = True)
