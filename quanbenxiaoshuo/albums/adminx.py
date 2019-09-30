@@ -17,10 +17,10 @@ from .models import Category,Album,TabAlbum
 
 
 class CategoryAdmin(object):
-    list_display = ["name",'sort','show','push',"apply_prove"]
+    list_display = ["name",'mold','sort','show','push',"apply_prove"]
     exclude = ["slug"]
     #relfield_style='fk-ajax'
-    list_editable=["push",'show','sort']
+    list_editable=["push",'show','sort','mold']
 
     def apply_prove(self, obj):
         return f"<a href='{obj.get_category_url()}' target='_blank'>前端</a>"
