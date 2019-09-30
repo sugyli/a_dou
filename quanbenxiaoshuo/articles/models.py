@@ -95,7 +95,7 @@ class Article(models.Model):
                                  , default=u''
                                  , help_text="description")
 
-    tags = TaggableManager(help_text='多个标签使用,(英文)隔开',blank=True, verbose_name='标签')
+    #tags = TaggableManager(help_text='多个标签使用,(英文)隔开',blank=True, verbose_name='标签')
 
 
     slug=models.SlugField(max_length=255
