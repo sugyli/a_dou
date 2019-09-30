@@ -12,6 +12,9 @@ class ArticleAdmin(object):
         "compose": "m2m_transfer",
         "category": "m2m_transfer"
     }
+    # 筛选
+    list_filter=['push','status']
+
     exclude=['user']
     list_editable=["push",'status']
 

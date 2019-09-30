@@ -8,7 +8,7 @@ from django.conf import settings
 from django.shortcuts import reverse
 
 from slugify import slugify
-from taggit.managers import TaggableManager
+#from taggit.managers import TaggableManager
 # from markdownx.models import MarkdownxField
 # from markdownx.utils import markdownify
 from DjangoUeditor.models import UEditorField
