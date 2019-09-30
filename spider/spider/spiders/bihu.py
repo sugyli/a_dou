@@ -121,7 +121,8 @@ class BihuSpider(scrapy.Spider):
             article=response.meta.get("article")
             content = \
                 content.replace('<p></p>', '')\
-                    .replace('<section style=\"\"><img src=\"\" style=\"display: block;\"></section>','')
+                    .replace('<section style=\"\"><img src=\"\" style=\"display: block;\"></section>','')\
+                    .replace('<p><br></p>','')
 
 
             re_div1 = re.compile('<\s*div[^>]*>',re.I)
