@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 import emoji
+import random
 
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
@@ -157,7 +158,7 @@ class Article(models.Model):
 
         if not self.slug:
             # 根据作者和标题生成文章在URL中的别名
-            self.slug = slugify(self.name)
+            self.slug = slugify(self.name + str(random.randint(0,100)))
 
 
         super(Article, self).save(*args, **kwargs)
