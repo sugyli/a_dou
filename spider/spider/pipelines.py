@@ -70,9 +70,6 @@ class ArticleSpiderPipeline(object):
             article['user_id'] = 1
             article_obj = Article.objects.create(**article)
 
-            tags=article['keywords'].split(',')
-            article_obj.tags.add(*tags)
-
             categorys = Category.objects.filter(name__in=item['categorys'])
             if categorys.count()>0:
                 article_obj.category.add(*categorys)
