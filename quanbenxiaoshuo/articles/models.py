@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+import emoji
 
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
@@ -50,7 +51,7 @@ class Article(models.Model):
     STATUS = (("D", "不公开"), ("P", "公开"))
     DATATYPE = (('A','老文章'),('B','公告'),('C','普通文章'))
 
-    datatype=models.CharField(max_length=1
+    datatype = models.CharField(max_length=1
                             , choices=DATATYPE
                             , default='C'
                             , verbose_name='数据类型')
@@ -125,6 +126,9 @@ class Article(models.Model):
     def get_article_url(self):
         return reverse('articles:article', args=[self.slug])
 
+    def get_debug_article_url(self):
+        return reverse('articles:debugarticle', args=[self.slug])
+
     def get_title(self):
         if not self.title:
             return self.name
@@ -145,12 +149,16 @@ class Article(models.Model):
         else:
             return self.description
 
+    def get_content(self):
+        return emoji.emojize(self.content)
+
 
     def save(self, *args, **kwargs):
 
         if not self.slug:
             # 根据作者和标题生成文章在URL中的别名
             self.slug = slugify(self.name)
+
 
         super(Article, self).save(*args, **kwargs)
 

@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
-{% load static thumbnail %}
-{% block title %}{{ article.get_title }}{% endblock %}
+{% load static thumbnail compress %}
+{% block title %}{{ article.get_title }}_{{ WEBNAME }}{% endblock %}
 {% block keywords %}{{ article.get_keywords }}{% endblock %}
 {% block description %}{{ article.get_description|truncatechars:150 }}{% endblock %}
 {% block head %}
@@ -18,7 +18,7 @@
         <h1 class="notice-title">{{ article.name }}</h1>
         <p class="post-time"><b>{{ article.user.get_nickname }}</b>发布于&nbsp;{{ article.updated_at|timesince }}之前</p>
         <div class="notice-text" id="dowebok">
-          {{ article.content|safe }}
+          {{ article.get_content|safe }}
         </div>
       </article>
       <div id="lxfoot" class="copyright bt clearfix">
@@ -29,6 +29,11 @@
 {% endblock %}
 
 {% block footer %}
-<script src="{% static 'js/viewer-jquery.min.js' %}"></script>
-<script>$('#dowebok').viewer();</script>
+  {% compress js %}
+    <script src="{% static 'js/viewer-jquery.min.js' %}"></script>
+    <script>
+      $('#dowebok').viewer();
+      $("img").wrap("<p class=\"dianshiju\"></p>");
+    </script>
+  {% endcompress %}
 {% endblock %}

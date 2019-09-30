@@ -4,13 +4,18 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-import traceback
+import traceback,os
 from scrapy.pipelines.images import ImagesPipeline
 
 from novels.models import Novel
 from albums.models import Album
 
-from scrapy.selector import Selector
+
+
+from articles.models import Article
+from albums.models import Category
+
+from django.conf import settings
 
 
 
@@ -55,11 +60,29 @@ class NovelImagePipeline(ImagesPipeline):
 
 class ArticleSpiderPipeline(object):
     def process_item(self, item, spider):
-        # for row in item['cover']:
-        #     item['content'].replace(row['url'],row['path'])
+        try:
+            article = item['article']
+            print(f"{article['name']} 开始入库")
+            for row in item['cover']:
+                article['content'] = article['content']\
+                    .replace(row['url'],os.path.join(settings.MEDIA_URL, row['path']))
 
-        print(item['content'])
+            article['user_id'] = 1
+            article_obj = Article.objects.create(**article)
 
+            tags=article['keywords'].split(',')
+            article_obj.tags.add(*tags)
+
+            categorys = Category.objects.filter(name__in=item['categorys'])
+            if categorys.count()>0:
+                article_obj.category.add(*categorys)
+
+            return f"{article_obj.name} 入库完成"
+
+
+        except Exception:
+            print(f"{article['name']} 出错了")
+            raise Exception(traceback.format_exc())
 
 class ArticleImagePipeline(ImagesPipeline):
     image_file_path = []

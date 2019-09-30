@@ -22,3 +22,7 @@ else:
              , name='article'),
 
     ]
+
+urlpatterns +=[
+    path('debug/<str:slug>/', views.DeBugDetailArticleView.as_view(), name='debugarticle')
+]

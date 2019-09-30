@@ -17,4 +17,5 @@ class NovelInfospiderItem(scrapy.Item):
 
 class ArticlespiderItem(scrapy.Item):
     cover = scrapy.Field()
-    content = scrapy.Field()
+    article = scrapy.Field()
+    categorys = scrapy.Field()

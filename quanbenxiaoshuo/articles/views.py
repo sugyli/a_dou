@@ -1,5 +1,6 @@
 
 from django.views.generic import CreateView, ListView, UpdateView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from articles.models import Article
 
@@ -29,3 +30,8 @@ class DetailArticleView(DetailView):
     def get_queryset(self):
         #return Article.objects.select_related('user').filter(slug=self.kwargs['slug'])
         return Article.objects.get_published().select_related('user')
+
+
+class DeBugDetailArticleView(LoginRequiredMixin,DetailArticleView):
+    def get_queryset(self, **kwargs):
+        return Article.objects.select_related('user')

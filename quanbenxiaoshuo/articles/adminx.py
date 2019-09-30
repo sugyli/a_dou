@@ -6,7 +6,7 @@ from .models import Article
 
 
 class ArticleAdmin(object):
-    list_display = ["name",'status','push','apply_prove']
+    list_display = ["name",'status','push','updated_at','apply_prove']
     style_fields={
         "content": "ueditor",
         "compose": "m2m_transfer",
@@ -16,7 +16,8 @@ class ArticleAdmin(object):
     list_editable=["push",'status']
 
     def apply_prove(self, obj):
-        return f"<a href='{obj.get_article_url()}' target='_blank'>前端</a>"
+        return f"<a href='{obj.get_article_url()}' target='_blank'>前端</a>&nbsp;" \
+               f"<a href='{obj.get_debug_article_url()}' target='_blank'>调试</a>"
     apply_prove.short_description='操作'
     # 是否转义
     apply_prove.allow_tags=True
