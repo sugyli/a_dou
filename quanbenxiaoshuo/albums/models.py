@@ -26,16 +26,14 @@ class Category(models.Model):
     name=models.CharField(default="", max_length=30, verbose_name="类别名",
                           help_text="类别名",unique=True)
 
-    slug=models.SlugField(max_length=255, blank=True, verbose_name='(URL)别名',
-                          unique=True, default=u'')
 
     title = models.CharField(max_length=255, verbose_name='标题(seo)', default=u'',help_text="title")
     keywords = models.CharField(max_length=255, verbose_name='关键字(seo)', default=u'',help_text="keywords")
     description =models.CharField(max_length=255, verbose_name='描述(seo)', default=u'',help_text="description")
 
-    push= models.BooleanField(default=False
-                                  , verbose_name="推送"
-                                  , help_text="是否已经推送给熊掌")
+    slug=models.SlugField(max_length=255, blank=True, verbose_name='(URL)别名',
+                          unique=True, default=u'')
+
 
     sort = models.SmallIntegerField(default=0
                                      ,blank=True
@@ -46,6 +44,10 @@ class Category(models.Model):
     show=models.BooleanField(default=True
                              , verbose_name="导航显示"
                              , help_text="在导航显示")
+
+    push=models.BooleanField(default=False
+                             , verbose_name="推送"
+                             , help_text="是否已经推送给熊掌")
 
     created_at=models.DateTimeField(db_index=True,auto_now_add=True,verbose_name='创建时间')
 
