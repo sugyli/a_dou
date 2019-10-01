@@ -7,6 +7,7 @@ from articles.models import Article
 from quanbenxiaoshuo import helpers
 from ..items import ArticlespiderItem
 from scrapy.selector import Selector
+from django.db.models import Q
 
 
 from scrapy.utils.project import get_project_settings
@@ -22,8 +23,6 @@ print(json_data)
 class BihuSpider(scrapy.Spider):
     name = 'bihu'
     allowed_domains = ['bihu.com','be02.bihu.com','oss02.bihu.com']
-    exclude = [1465811037,1565218129]
-
 
     #start_urls = ['https://bihu.com/']
     headers={
@@ -60,7 +59,6 @@ class BihuSpider(scrapy.Spider):
 
     def parse_list(self, response):
         try:
-            article={}
             url='https://be02.bihu.com/bihube-pc/api/content/show/getArticle2?secret='
             # 返回的是json数据
             # 转换为python中的字典
@@ -68,21 +66,23 @@ class BihuSpider(scrapy.Spider):
             if rs.get('resMsg')=='success':
                 for row in rs['data']['list']:
                     #查询数据库有无此文章
-                    article['name'] = row['title'].strip()
+                    name = row['title'].strip()
 
-                    obj = Article.objects.filter(**article).first()
-                    if not obj and row['id'] not in self.exclude:
+                    obj = Article.objects.filter(Q(name=name)|Q(norm=str(row['id']))).first()
+
+                    if not obj:
 
                         data={"artId": row['id']}
                         #data={"artId": '1887485021'}
                         yield scrapy.FormRequest(url
                                                  , method='POST'
+                                                 , meta={"norm": row['id']}
                                                  , headers=self.headers
                                                  , body=json.dumps(data)
                                                  , callback=self.parse
                                                  , dont_filter=False)
                     else:
-                        print(f"{article['name']} 已经存在不添加")
+                        print(f"{name} 已经存在不添加")
 
             else:
                 raise Exception("parse_list 请求数据有问题")
@@ -96,7 +96,9 @@ class BihuSpider(scrapy.Spider):
 
     def parse(self, response):
         try:
+            norm=response.meta.get("norm")
             article = {}
+            article['norm'] = norm
             rs=json.loads(response.body.decode('utf-8'))
 
             if rs.get('resMsg')=='success':

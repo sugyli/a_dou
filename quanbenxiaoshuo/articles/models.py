@@ -104,19 +104,20 @@ class Article(models.Model):
                           , unique=True
                           , default=u'')
 
+    norm=models.CharField(max_length=255
+                          , null=True
+                          , blank=True
+                          , db_index=True
+                          , default=u''
+                          , verbose_name='来源标识')
+
     push=models.BooleanField(default=False
                              , verbose_name="推送"
                              , help_text="是否已经推送给熊掌")
 
+
     created_at = models.DateTimeField(db_index=True,auto_now_add=True, verbose_name='创建时间')
     updated_at = models.DateTimeField(db_index=True,auto_now=True, verbose_name='更新时间')
-
-    norm = models.CharField(max_length=255
-                            , null=True
-                            , blank=True
-                            , db_index=True
-                            , default=u''
-                            , verbose_name='来源标识')
 
 
 
