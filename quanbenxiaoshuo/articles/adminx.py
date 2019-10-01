@@ -16,7 +16,7 @@ class ArticleAdmin(object):
     list_filter=['push','status']
 
     exclude=['user']
-    list_editable=["push",'status']
+    list_editable=["push",'status','name']
 
     def apply_prove(self, obj):
         return f"<a href='{obj.get_article_url()}' target='_blank'>前端</a>&nbsp;" \
