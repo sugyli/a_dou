@@ -13,7 +13,7 @@ class ArticleAdmin(object):
         "category": "m2m_transfer"
     }
     # 筛选
-    list_filter=['push','status']
+    list_filter=['push','status','created_at','updated_at']
 
     exclude=['user']
     list_editable=["push",'status','name']
