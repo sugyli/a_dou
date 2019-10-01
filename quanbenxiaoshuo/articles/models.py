@@ -110,6 +110,16 @@ class Article(models.Model):
 
     created_at = models.DateTimeField(db_index=True,auto_now_add=True, verbose_name='创建时间')
     updated_at = models.DateTimeField(db_index=True,auto_now=True, verbose_name='更新时间')
+
+    norm = models.CharField(max_length=255
+                            , null=True
+                            , blank=True
+                            , db_index=True
+                            , default=u''
+                            , verbose_name='来源标识')
+
+
+
     objects = ArticleQuerySet.as_manager()
 
     class Meta:

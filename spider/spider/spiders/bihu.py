@@ -22,6 +22,9 @@ print(json_data)
 class BihuSpider(scrapy.Spider):
     name = 'bihu'
     allowed_domains = ['bihu.com','be02.bihu.com','oss02.bihu.com']
+    exclude = [1465811037,1565218129]
+
+
     #start_urls = ['https://bihu.com/']
     headers={
         'Content-Type': 'application/json;'
@@ -68,7 +71,8 @@ class BihuSpider(scrapy.Spider):
                     article['name'] = row['title'].strip()
 
                     obj = Article.objects.filter(**article).first()
-                    if not obj:
+                    if not obj and row['id'] not in self.exclude:
+
                         data={"artId": row['id']}
                         #data={"artId": '1887485021'}
                         yield scrapy.FormRequest(url
