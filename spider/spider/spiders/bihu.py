@@ -107,6 +107,7 @@ class BihuSpider(scrapy.Spider):
                 article['name']=rs['data']['title'].strip()
                 article['description'] = helpers.descriptionreplace(rs['data']['brief'])
                 article['keywords'] = rs['data']['keywords']
+                article['status']= 'P'
 
                 yield scrapy.Request(url
                                      , meta={"article": article}
