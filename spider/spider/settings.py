@@ -20,7 +20,7 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 sys.path.insert(0, ROOT_DIR)
 sys.path.insert(0, os.path.join(ROOT_DIR, 'quanbenxiaoshuo'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
-#django.setup()
+django.setup()
 
 
 FEED_EXPORT_ENCODING = 'utf-8'
