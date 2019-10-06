@@ -16,11 +16,11 @@ BOT_NAME = 'spider'
 SPIDER_MODULES = ['spider.spiders']
 NEWSPIDER_MODULE = 'spider.spiders'
 
-# ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-# sys.path.insert(0, ROOT_DIR)
-# sys.path.insert(0, os.path.join(ROOT_DIR, 'quanbenxiaoshuo'))
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
-# django.setup()
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, ROOT_DIR)
+sys.path.insert(0, os.path.join(ROOT_DIR, 'quanbenxiaoshuo'))
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
+#django.setup()
 
 
 FEED_EXPORT_ENCODING = 'utf-8'
