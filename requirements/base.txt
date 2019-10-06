@@ -46,4 +46,6 @@ xlsxwriter
 scrapy
 Werkzeug
 beautifulsoup4
+scrapyd
+scrapyd-client
 
