@@ -2,6 +2,14 @@ import html,re,emoji,random,os,sys
 from html.parser import HTMLParser
 
 
+
+from pygments import highlight
+from pygments.token import Text, STANDARD_TYPES
+from pygments.formatter import Formatter
+from pygments.lexers import get_lexer_by_name
+from pygments.lexers import guess_lexer
+
+
 filterstr = \
 """
 落l霞x小x说s=Www*luoxia*com
@@ -156,3 +164,9 @@ def customfilterstr(htmlstr,filterstr=filterstr):
         htmlstr = htmlstr.replace(s, '')
 
     return htmlstr
+
+
+
+
+#------代码显示
+
