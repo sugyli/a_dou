@@ -28,6 +28,7 @@ django-taggit #https://github.com/jazzband/django-taggit
 django-markdownx #https://github.com/neutronX/django-markdownx
 sorl-thumbnail==12.5.0 #https://sorl-thumbnail.readthedocs.io/en/latest/installation.html
 emoji
+pygments
 
 
 
