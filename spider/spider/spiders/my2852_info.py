@@ -21,7 +21,7 @@ settings = get_project_settings()
 class My2852InfoSpider(scrapy.Spider):
     name = 'my2852-info'
     allowed_domains = ['www.my2852.com']
-    start_urls = start_urls()
+    start_urls = start_urls('http://www.my2852.com/yq/a/axiang/index.htm')
 
 
     #9 先执行  10 后执行
@@ -37,8 +37,8 @@ class My2852InfoSpider(scrapy.Spider):
     def parse(self, response):
 
         try:
-            novel_dict = parse_info(response,'阿乔')
-            albums=['阿乔小说全集']
+            novel_dict = parse_info(response,'阿香')
+            albums=['阿香小说全集']
             tags=['言情小说']
 
             novel = Novel.objects.filter(**novel_dict).first()
