@@ -169,6 +169,10 @@ class Novel(models.Model):
 
 
     def save(self, *args, **kwargs):
+
+        if not self.image:
+            self.image = 'static/noimage.jpg'
+
         if not self.slug:
             # 根据作者和标题生成文章在URL中的别名
             self.slug = slugify(str(self.name)+str(self.author))
