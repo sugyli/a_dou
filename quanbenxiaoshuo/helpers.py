@@ -3,11 +3,11 @@ from html.parser import HTMLParser
 
 
 
-from pygments import highlight
-from pygments.token import Text, STANDARD_TYPES
-from pygments.formatter import Formatter
-from pygments.lexers import get_lexer_by_name
-from pygments.lexers import guess_lexer
+# from pygments import highlight
+# from pygments.token import Text, STANDARD_TYPES
+# from pygments.formatter import Formatter
+# from pygments.lexers import get_lexer_by_name
+# from pygments.lexers import guess_lexer
 
 
 filterstr = \
