@@ -21,7 +21,7 @@ settings = get_project_settings()
 class My2852InfoSpider(scrapy.Spider):
     name = 'my2852-info'
     allowed_domains = ['www.my2852.com']
-    start_urls = start_urls('http://www.my2852.com/yq/a/axiang/index.htm')
+    start_urls = start_urls()
 
 
     #9 先执行  10 后执行
