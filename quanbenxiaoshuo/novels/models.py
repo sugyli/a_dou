@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from django.shortcuts import reverse
+from django.conf import settings
 
 from albums.models import Album,Category
 #from DjangoUeditor.models import UEditorField
@@ -174,7 +175,7 @@ class Novel(models.Model):
     def save(self, *args, **kwargs):
 
         if not self.image and not self.is_machine:
-            self.image = 'static/noimage.jpg'
+            self.image = settings.DEF_IMAGE
 
         if not self.slug:
             # 根据作者和标题生成文章在URL中的别名
@@ -329,14 +330,17 @@ def delete_post_save_old_image(sender,instance,**kwargs):
             /Users/sugyil/quanbenxiaoshuo/quanbenxiaoshuo/media/full/dcd82a0c712941a3f22ba18b14f910440d22fd42.jpg
             full/dcd82a0c712941a3f22ba18b14f910440d22fd42.jpg
         """
-        if instance.image and str(instance._current_imagen_file) not in str(instance.image.path):
+        if instance.image \
+            and str(instance._current_imagen_file) not in str(instance.image.path)\
+            and instance._current_imagen_file != settings.DEF_IMAGE:
             #删除图片
             instance._current_imagen_file.delete(save = False)
 
 
 @receiver(post_delete,sender = Novel)
 def delete_post_delete_old_image(sender,instance,**kwargs):
-    if instance.image:
+    if instance.image \
+        and instance._current_imagen_file != settings.DEF_IMAGE:
         instance.image.delete(save=False)
 
 
