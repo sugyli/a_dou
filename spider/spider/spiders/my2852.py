@@ -37,7 +37,7 @@ class My2852Spider(scrapy.Spider):
     def parse(self, response):
 
         try:
-            novel_dict = parse_info(response,'宝贝')
+            novel_dict = parse_info(response,'宝临')
 
             novel=Novel.objects.filter(**novel_dict).first()
 
