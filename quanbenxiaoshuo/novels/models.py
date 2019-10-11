@@ -329,6 +329,8 @@ def delete_post_save_old_image(sender,instance,**kwargs):
             instance._current_imagen_file 上次数据库的地址
             /Users/sugyil/quanbenxiaoshuo/quanbenxiaoshuo/media/full/dcd82a0c712941a3f22ba18b14f910440d22fd42.jpg
             full/dcd82a0c712941a3f22ba18b14f910440d22fd42.jpg
+            
+            settings.DEF_IMAGE 图片不能被删除
         """
         if instance.image \
             and str(instance._current_imagen_file) not in str(instance.image.path)\
