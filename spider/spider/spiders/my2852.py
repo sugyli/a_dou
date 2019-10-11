@@ -101,8 +101,8 @@ class My2852Spider(scrapy.Spider):
                             # if matchObj:
                             #     chapter['url']=f'http://www.my2852.com/wuxia/nk/zqsj/{matchObj.group(1)}.htm'
 
-                            # if "/jn/33.htm" in str(chapter['url']):
-                            #     continue
+                            if "gmm2/57.htm" in str(chapter['url']):
+                                continue
 
 
 
