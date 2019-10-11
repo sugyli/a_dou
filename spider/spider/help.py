@@ -17,7 +17,7 @@ noneedurl = [
 
 
 def start_urls():
-    url = 'http://www.my2852.com/yq/c/cq3/index.htm'
+    url = 'http://www.my2852.com/yq/c/cl2/index.htm'
     headers={"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:52.0) Gecko/20100101 Firefox/52.0"}
     res = requests.get(url, headers=headers)
     if res.status_code == 200:
@@ -48,7 +48,7 @@ def start_urls():
 
 def parse_info(response):
     try:
-        author = '柴茜'
+        author = '长乐'
         novel_dict={}
         novel_dict['author']= author
 
