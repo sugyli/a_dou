@@ -123,6 +123,8 @@ class My2852InfoSpider(scrapy.Spider):
                 else:
                     item['cover'] = []
 
+                novel_dict['is_machine'] = True
+
                 item['novel'] = novel_dict
                 item['albums'] = albums
                 item['tags'] = tags

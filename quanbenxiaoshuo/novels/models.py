@@ -173,7 +173,7 @@ class Novel(models.Model):
 
     def save(self, *args, **kwargs):
 
-        if not self.image:
+        if not self.image and not self.is_machine:
             self.image = 'static/noimage.jpg'
 
         if not self.slug:

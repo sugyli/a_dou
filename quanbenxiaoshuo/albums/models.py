@@ -133,7 +133,7 @@ class Album(models.Model):
 
     def save(self, *args, **kwargs):
 
-        if not self.image:
+        if not self.image and not self.is_machine:
             self.image = 'static/noimage.jpg'
 
 
