@@ -75,6 +75,9 @@ class My2852Spider(scrapy.Spider):
                 if not chaptertext:
                     chaptertext=response.css("div table .td6>div div table td table td").extract()
 
+                if not chaptertext:
+                    chaptertext=response.css("div table.tb3 td").extract()
+
                 # if not chaptertext:
                 #     chaptertext=response.css("div table>tr:nth-child(3)>td table>tr>td").extract()
 
