@@ -37,7 +37,7 @@ class AlbumDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(AlbumDetailView, self).get_context_data(*args, **kwargs)
-        context['novels'] =  Novel.objects.get_published().filter(album=context['album']).defer('info','created_at','updated_at')[:500]
+        context['novels'] =  Novel.objects.get_published().filter(album=context['album']).defer('info','created_at','updated_at')[:200]
         return context
 
 
