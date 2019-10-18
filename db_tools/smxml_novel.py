@@ -24,8 +24,9 @@ def creat_xml(filename, objs):  # 生成sitemap所需要的xml方法
     file = open(filename, 'w+', encoding='utf-8')
     file.writelines(header)
     file.close()
-
+    i = 0
     for obj in objs:
+        i += 1
         url=f'{host}{obj.get_novel_url()}'
         #times = datetime.datetime.now().strftime("%Y-%m-%d")
         times = obj.created_at.strftime("%Y-%m-%d")
@@ -37,7 +38,7 @@ def creat_xml(filename, objs):  # 生成sitemap所需要的xml方法
         file = open(filename, 'a', encoding='utf-8')
         file.writelines(ment)
         file.close()
-        print(f"生成{url}完成")
+        print(f"{i} 生成{url}完成")
 
     last = "</urlset>"
     file = open(filename, 'a', encoding='utf-8')
@@ -48,6 +49,8 @@ def creat_xml(filename, objs):  # 生成sitemap所需要的xml方法
 if __name__ == '__main__':
     objs = \
         Novel.objects.get_published().order_by('-created_at').only('slug','created_at')[:10000]
+
+    print(f"获取到的数据总数是{objs.count()}")
 
 
     #url_list = ['https://search.google.com', 'https://www.google.com', 'https://translate.google.cn','https://www.google.com']
