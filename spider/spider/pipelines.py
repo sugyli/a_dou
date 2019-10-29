@@ -43,17 +43,20 @@ class NovelImagePipeline(ImagesPipeline):
 
     def item_completed(self, results, item, info):
         try:
-            if self.images_urls_field in item:
-                for ok, value in results:
+            for ok, value in results:
+                image_file_path = None
+                if ok:
                     image_file_path = value["path"]
+
+            if image_file_path:
                 item[self.images_urls_field] = image_file_path
             else:
                 item[self.images_urls_field] = ''
 
-        except Exception:
-            item[self.images_urls_field]=''
+            return item
 
-        return item
+        except Exception:
+            raise Exception('图片采集有问题请检查 \n',traceback.format_exc())
 
 
 

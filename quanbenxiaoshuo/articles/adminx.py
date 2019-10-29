@@ -5,6 +5,8 @@ import xadmin
 from .models import Article
 
 
+
+
 class ArticleAdmin(object):
     list_display = ["name",'status','push','updated_at','apply_prove']
     style_fields={
@@ -34,4 +36,3 @@ class ArticleAdmin(object):
 
 
 xadmin.site.register(Article, ArticleAdmin)
-
