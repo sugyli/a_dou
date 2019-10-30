@@ -342,8 +342,8 @@ db_tools/data/urls.txt
 db_tools/data/novelurls.txt
 db_tools/data/smxml_novel.xml
 
-**/migrations/
 
+quanbenxiaoshuo/articles/migrations/
 .idea/
 deploy/
 .pytest_cache/
