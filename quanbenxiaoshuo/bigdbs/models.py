@@ -5,7 +5,7 @@ from django.db import models
 from DjangoUeditor.models import UEditorField
 from django.shortcuts import reverse
 
-from categorys.models import Category
+from albums.models import Category
 from quanbenxiaoshuo import helpers
 
 from slugify import slugify
