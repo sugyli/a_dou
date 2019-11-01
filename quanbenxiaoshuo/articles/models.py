@@ -173,5 +173,3 @@ class Article(models.Model):
 
 
         super(Article, self).save(*args, **kwargs)
-
-

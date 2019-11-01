@@ -1,6 +1,6 @@
 import html,re,emoji,random,os,sys
 from html.parser import HTMLParser
-
+import hashlib
 
 
 # from pygments import highlight
@@ -8,6 +8,14 @@ from html.parser import HTMLParser
 # from pygments.formatter import Formatter
 # from pygments.lexers import get_lexer_by_name
 # from pygments.lexers import guess_lexer
+
+
+def Md5(binary):
+    m = hashlib.md5()
+    m.update(binary.encode('utf-8'))
+    return m.hexdigest()
+
+
 
 
 filterstr = \

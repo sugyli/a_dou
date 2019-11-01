@@ -27,6 +27,7 @@ if settings.DEBUG:
         path('albums/', include('albums.urls', namespace='albums')),
         path('novels/', include('novels.urls', namespace='novels')),
         path('operation/', include('operation.urls', namespace='operation')),
+        path('bigdbs/',include('bigdbs.urls', namespace='bigdbs')),
         #富文本相关url
         path('ueditor/',include(('DjangoUeditor.urls', 'ueditor'), namespace="ueditor")),
         #后台
@@ -51,9 +52,13 @@ else:
         path('operation/',
              include('operation.urls', namespace='operation')),
 
+        path('bigdbs/',
+             include('bigdbs.urls', namespace='bigdbs')),
+
         # 富文本相关url
-        path('ueditor/', include(('DjangoUeditor.urls', 'ueditor')
-                                 , namespace="ueditor")),
+        path('ueditor/',
+             include(('DjangoUeditor.urls', 'ueditor'), namespace="ueditor")),
+
         # 后台
         path(settings.ADMIN_URL, xadmin.site.urls),
 
