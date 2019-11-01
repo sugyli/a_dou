@@ -40,10 +40,6 @@ class Category(models.Model):
                                       , on_delete=models.CASCADE)
 
 
-    title = models.CharField(max_length=255, verbose_name='标题(seo)', default=u'',help_text="title")
-    keywords = models.CharField(max_length=255, verbose_name='关键字(seo)', default=u'',help_text="keywords")
-    description =models.CharField(max_length=255, verbose_name='描述(seo)', default=u'',help_text="description")
-
     slug=models.SlugField(max_length=255
                           , blank=True
                           , verbose_name='(URL)别名'
@@ -57,7 +53,7 @@ class Category(models.Model):
                                      ,db_index=True
                                      ,verbose_name=u"排序")
 
-    show=models.BooleanField(default=True
+    show=models.BooleanField(default=False
                              , verbose_name="导航显示"
                              , help_text="在导航显示")
 
