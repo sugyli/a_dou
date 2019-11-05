@@ -2,7 +2,10 @@ html,body,address,blockquote,div,dl,form,h1,h2,h3,h4,h5,h6,ol,p,pre,table,ul,dd,
 	margin: 0;
 	padding: 0;
 }
-ol,ul {
+body{
+  line-height: 1.5;
+}
+ol,ul,li{
 	list-style: none;
 }
 
@@ -3168,3 +3171,181 @@ table {
 	zoom: 1;
 }
 
+
+
+
+.bigdbsbox {
+    width: 100%;
+    margin: auto;
+}
+
+.bigdbsbox .bigdbs {
+    overflow: hidden;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #FFF;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(146, 146, 146, .1);
+    -moz-box-shadow: 0 2px 5px 0 rgba(146, 146, 146, .1);
+    box-shadow: 0 2px 5px 0 rgba(146, 146, 146, .1);
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    -o-transition: all 0.6s ease;
+    transition: all 0.6s ease;
+}
+.bigdbsbox .bigdbtitle {
+    margin: 0 0 10px 0;
+    font-size: 20px;
+    overflow: hidden;
+}
+.bigdbsbox h3 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+.bigdbsbox a {
+    text-decoration: none;
+    color: #555;
+}
+.bigdbsbox .bigdbpic {
+    float: left;
+    width: 30%;
+    max-height: 170px;
+    margin-right: 20px;
+    display: block;
+    overflow: hidden;
+}
+.bigdbsbox .bigdbpic img {
+    width: 100%;
+    height: auto;
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    -o-transition: all 0.6s ease;
+    transition: all 0.6s ease;
+    margin-bottom: 10px;
+}
+.bigdbsbox .bigdbtext {
+    font-size: 14px;
+    color: #566573;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    margin-top: 20px;
+}
+.bigdbsbox .bigdbinfo {
+    overflow: hidden;
+    margin-top: 30px;
+}
+.bigdbinfo .author {
+    background: url(/static/images/auicon.jpg) no-repeat 0 0;
+}
+.bigdbinfo .lmname {
+    background: url(/static/images/auicon.jpg) no-repeat top -23px left;
+}
+.bigdbinfo .timer {
+    background: url(/static/images/auicon.jpg) no-repeat top -44px left;
+}
+.bigdbinfo ul li {
+    float: left;
+    font-size: 12px;
+    padding: 0 0 0 20px;
+    margin: 0 15px 0 0;
+    color: #748594;
+    line-height: 1.5;
+    display: inline-block;
+}
+.bigdbinfo ul li a {
+    color: #748594;
+}
+.bigdbsbox .bplist {
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    margin-bottom: 20px;
+}
+.bplist li {
+    float: left;
+    width: 32.8%;
+    height: 174px;
+    overflow: hidden;
+}
+.bplist li:nth-child(2) {
+    margin-left: 6px;
+}
+.bplist li:last-child {
+    float: right;
+}
+.bplist li img {
+    width: auto;
+    min-width: 100%;
+    height: 174px;
+    -webkit-transition: all 0.6s ease;
+    -moz-transition: all 0.6s ease;
+    -o-transition: all 0.6s ease;
+    -ms-transition: all 0.6s ease;
+    transition: all 0.6s ease;
+}
+@media only screen and (max-width: 479px){
+  .bigdbsbox {
+    width: 100%;
+    margin: auto;
+  }
+  .bigdbsbox .bigdbpic {
+      width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+  }
+  .bigdbsbox .bigdbtext {
+    width: 100%;
+  }
+  .bigdbsbox .bigdbinfo {
+    width: 100%;
+    clear: both;
+  }
+  /*.bigdbinfo .author, .bigdbinfo .lmname {*/
+    /*display: none;*/
+  /*}*/
+  .bigdbinfo ul li {
+    background-image: none;
+    margin-right: 10px;
+  }
+  .bplist li {
+    height: 100px;
+  }
+  .bplist li img {
+    height: 100px;
+  }
+  .bplist li:nth-child(2) {
+    margin: 0 0 0 2px;
+  }
+
+}
+
+
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .bigdbsbox .bigdbinfo { width: 100%; clear: both }
+  .bigdbsbox .bigdbpic { width: 30%; height: auto }
+  .bigdbsbox .bigdbtext {
+    margin-top: 10px;
+  }
+  .bplist li {
+    height: 100px;
+  }
+  .bplist li img {
+    height: 100px;
+  }
+  .bplist li:nth-child(2) {
+    margin-left: 3px;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 959px) {
+
+}
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+
+}
