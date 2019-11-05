@@ -31,6 +31,7 @@ class BigDb(models.Model):
     category = models.ForeignKey(Category
                                    , related_name="category_bigdb"
                                    , verbose_name='所属导航'
+                                   , to_field='slug'
                                    , on_delete=models.CASCADE)
 
     name=models.CharField(max_length=255
@@ -68,10 +69,10 @@ class BigDb(models.Model):
                                  , default=u''
                                  , help_text="description")
 
+
     norm=models.CharField(max_length=255
                           , null=True
                           , blank=True
-                          , unique=True
                           , default=u''
                           , verbose_name='来源标识')
 
@@ -86,6 +87,10 @@ class BigDb(models.Model):
                              , verbose_name="推送"
                              , help_text="是否已经推送给熊掌")
 
+    original = models.BooleanField(default=False
+                             , verbose_name="是否原创"
+                             , help_text="是否原创")
+
     created_at=models.DateTimeField(db_index=True
                                     , auto_now_add=True
                                     , verbose_name='创建时间')
@@ -93,6 +98,7 @@ class BigDb(models.Model):
     updated_at=models.DateTimeField(db_index=True
                                     , auto_now=True
                                     , verbose_name='更新时间')
+
 
     objects=BigDbQuerySet.as_manager()
 

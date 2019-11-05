@@ -20,12 +20,6 @@ class Category(models.Model):
         (3, "三级类目"),
     )
 
-    url=models.CharField(default=""
-                          , max_length=255
-                          , verbose_name="访问的地址"
-                          , help_text="访问的地址"
-                          , unique=True)
-
     name=models.CharField(default=""
                           , max_length=30
                           , verbose_name="分类名"
@@ -77,6 +71,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_url(self):
+        return reverse('bigdbs:category', args=[self.slug])
 
 
     def save(self, *args, **kwargs):

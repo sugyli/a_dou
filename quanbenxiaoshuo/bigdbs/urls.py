@@ -4,13 +4,13 @@ from django.views.decorators.cache import cache_page
 
 from django.views.generic import TemplateView
 
-from articles import views
+from bigdbs import views
 
 app_name = 'bigdbs'
 
 if settings.DEBUG:
     urlpatterns = [
-        #path('', views.ArticlesListView.as_view(), name='list'),
+        path('category/<str:category>/', views.BigDbsListView.as_view(), name='category'),
         path('<str:slug>-<int:id>/', TemplateView.as_view(template_name="pages/home.html"), name='bigdb'),
     ]
 else:
