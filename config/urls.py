@@ -28,7 +28,7 @@ if settings.DEBUG:
         path('novels/', include('novels.urls', namespace='novels')),
         path('operation/', include('operation.urls', namespace='operation')),
         path('bigdbs/',include('bigdbs.urls', namespace='bigdbs')),
-        path('categorys/',include('categorys.urls', namespace='categorys')),
+
         #富文本相关url
         path('ueditor/',include(('DjangoUeditor.urls', 'ueditor'), namespace="ueditor")),
         #后台
@@ -56,8 +56,6 @@ else:
         path('bigdbs/',
              include('bigdbs.urls', namespace='bigdbs')),
 
-        path('categorys/',
-             include('categorys.urls', namespace='categorys')),
 
         # 富文本相关url
         path('ueditor/',
