@@ -74,12 +74,40 @@ def __basereplace(htmlstr):
     return htmlstr
 
 
+def replacenohtml(htmlstr):
+    if not isinstance(htmlstr,str):
+        return htmlstr
+    if not htmlstr.strip():
+        return ''
+    htmlstr = __basereplace(htmlstr)
+    htmlstr = htmlstr.replace('\n', '')
+
+    re_script = re.compile('<\s*script[^>]*>[^<]*<\s*/\s*script\s*>',re.I)  # Script
+    re_style = re.compile('<\s*style[^>]*>[^<]*<\s*/\s*style\s*>', re.I)  # style
+    re_a = re.compile('<\s*a[^>]*>[^<]*<\s*/\s*a\s*>', re.I)  # a
+    htmlstr = re_script.sub('', htmlstr)
+    htmlstr = re_style.sub('', htmlstr)
+    htmlstr = re_a.sub('', htmlstr)
+
+    #过滤HTML
+    htmlstr = strip_tags(htmlstr)
+    #过滤emoji
+    htmlstr = emoji.demojize(htmlstr)
+    #过滤空格
+    htmlstr = htmlstr.replace(' ', '')
+    #遗漏的HTML转义
+    htmlstr = html.unescape(htmlstr)
+    htmlstr = html.escape(htmlstr)
+
+    return htmlstr
+
+
+
 def descriptionreplace(htmlstr):
     if not isinstance(htmlstr,str):
         return htmlstr
-    elif not htmlstr.strip():
-        return htmlstr
-
+    if not htmlstr.strip():
+        return ''
     htmlstr = __basereplace(htmlstr)
     htmlstr = htmlstr.replace('\n', '')
 

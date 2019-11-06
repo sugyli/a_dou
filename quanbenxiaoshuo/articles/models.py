@@ -57,7 +57,6 @@ class Article(models.Model):
                             , default='C'
                             , verbose_name='数据类型')
 
-
     category = models.ManyToManyField(Category
                                    , blank=True
                                    , related_name="category_article"

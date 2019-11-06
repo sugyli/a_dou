@@ -12,17 +12,11 @@ class BigDbsListView(ListView):
     context_object_name = "bigdbs"
     template_name = "bigdbs/bigdb_list.html"  # 可省略
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(BigDbsListView, self).get_context_data(*args, **kwargs)
-        return context
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(BigDbsListView, self).get_context_data(*args, **kwargs)
+    #     return context
 
     def get_queryset(self, **kwargs):
-        return []
-        # category = \
-        #         Category.objects.filter(
-        #             slug=self.kwargs['category']).first()
-        #
-        #
-        # return BigDb.objects.filter(
-        #     category=Category.objects.filter(
-        #         slug=self.kwargs['category']).first()).get_published()
+        return BigDb.objects.get_published().select_related('category')
+
+

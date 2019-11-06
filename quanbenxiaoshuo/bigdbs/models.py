@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+import re
 
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
@@ -109,7 +110,7 @@ class BigDb(models.Model):
         ]
         verbose_name = '大数据'
         verbose_name_plural = verbose_name
-        ordering = ("-updated_at",)
+        #ordering = ("-updated_at",)
 
 
     def __str__(self):
@@ -121,6 +122,15 @@ class BigDb(models.Model):
 
     def get_debug_url(self):
         return reverse('bigdbs:debug-bigdb', args=[self.slug,self.id])
+
+
+    def get_thumbnails(self):
+        reg = r"""<img\s.*?\s?src\s*=\s*['|"]?([^\s'"]+).*?>"""
+        pattern = re.compile(reg, re.I)
+        return re.findall(pattern, self.content)
+
+    def get_introduction(self):
+        return helpers.replacenohtml(self.content)
 
 
 
