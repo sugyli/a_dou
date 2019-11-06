@@ -346,6 +346,7 @@ db_tools/data/smxml_novel.xml
 quanbenxiaoshuo/articles/migrations/
 quanbenxiaoshuo/bigdbs/migrations/
 quanbenxiaoshuo/categorys/migrations/
+quanbenxiaoshuo/operation/migrations/
 **/__pycache__
 
 .idea/

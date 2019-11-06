@@ -2,6 +2,7 @@
 from django.views.generic import CreateView, ListView, UpdateView, DetailView
 
 from .models import BigDb
+from categorys.models import Category
 
 
 class BigDbsListView(ListView):
@@ -16,4 +17,12 @@ class BigDbsListView(ListView):
         return context
 
     def get_queryset(self, **kwargs):
-        return BigDb.objects.get_published()
+        return []
+        # category = \
+        #         Category.objects.filter(
+        #             slug=self.kwargs['category']).first()
+        #
+        #
+        # return BigDb.objects.filter(
+        #     category=Category.objects.filter(
+        #         slug=self.kwargs['category']).first()).get_published()

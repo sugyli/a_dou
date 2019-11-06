@@ -10,7 +10,7 @@ app_name = 'bigdbs'
 
 if settings.DEBUG:
     urlpatterns = [
-        path('category/<str:category>/', views.BigDbsListView.as_view(), name='category'),
+        path('category/<str:category_id>/', views.BigDbsListView.as_view(), name='category'),
         path('<str:slug>-<int:id>/', TemplateView.as_view(template_name="pages/home.html"), name='bigdb'),
     ]
 else:

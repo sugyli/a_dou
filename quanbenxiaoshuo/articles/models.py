@@ -14,7 +14,7 @@ from slugify import slugify
 from DjangoUeditor.models import UEditorField
 from quanbenxiaoshuo import helpers
 
-from operation.models import Compose
+
 from albums.models import Category
 
 
@@ -57,10 +57,6 @@ class Article(models.Model):
                             , default='C'
                             , verbose_name='数据类型')
 
-    compose = models.ManyToManyField(Compose
-                                   , blank = True
-                                   , related_name="compose_article"
-                                   , verbose_name='聚合')
 
     category = models.ManyToManyField(Category
                                    , blank=True

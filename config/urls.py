@@ -26,7 +26,6 @@ if settings.DEBUG:
         path('articles/', include('articles.urls', namespace='articles')),
         path('albums/', include('albums.urls', namespace='albums')),
         path('novels/', include('novels.urls', namespace='novels')),
-        path('operation/', include('operation.urls', namespace='operation')),
         path('bigdbs/',include('bigdbs.urls', namespace='bigdbs')),
 
         #富文本相关url
@@ -49,9 +48,6 @@ else:
 
         path('novels/',
              include('novels.urls', namespace='novels')),
-
-        path('operation/',
-             include('operation.urls', namespace='operation')),
 
         path('bigdbs/',
              include('bigdbs.urls', namespace='bigdbs')),
