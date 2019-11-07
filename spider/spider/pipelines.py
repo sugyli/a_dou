@@ -149,7 +149,7 @@ class BigDbSpiderPipeline(object):
 
 class BigDbImagePipeline(ImagesPipeline):
     headers = {
-        "Host": "image109.360doc.cn",
+        #"Host": "image109.360doc.cn",
         "Referer": "http://www.360doc.cn/article/46601607_871155855.html",
         'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36"
     }
