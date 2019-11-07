@@ -89,7 +89,6 @@ class BigDb(models.Model):
     slug=models.SlugField(max_length=255
                           , blank=True
                           , verbose_name='(URL)别名'
-                          , unique=True
                           , default=u'')
 
     appendix = models.TextField(blank=True

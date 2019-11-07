@@ -13,7 +13,7 @@ class BigDbAdmin(object):
         "content": "ueditor"
     }
     # 筛选
-    list_filter=['push','status','created_at','updated_at']
+    list_filter=['push','status','created_at','updated_at','slug']
 
     list_editable=["push",'status','name']
     search_fields=['name']
