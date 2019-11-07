@@ -12,7 +12,7 @@
   <body>
     {% include 'base/header.html' %}
     {% include 'base/nav.html' %}
-    <div class="breadcrumb bb clearfix">{% include 'base/breadcrumb.html' with name=bigdb.category.name link=bigdb.get_url %}</div>
+    <div class="breadcrumb bb clearfix">{% include 'base/breadcrumb.html' with name=bigdb.category.name link=bigdb.category.get_url %}</div>
     <div id="content">
       <article class="post clearfix">
         <h1 class="notice-title">{{ bigdb.name }}</h1>
