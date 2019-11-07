@@ -1439,7 +1439,7 @@ body.lx {
 
 .post p {
 	font-size: 18px;
-	text-indent: 2em;
+	/*text-indent: 2em;*/
 	line-height: 2em;
 	text-align: justify;
 	margin: 1em 0;
@@ -1468,7 +1468,7 @@ body.lx {
 
 .post2 p {
 	font-size: 16px;
-	text-indent: 2em;
+	/*text-indent: 2em;*/
 	line-height: 2em;
 	text-align: justify;
 	margin: 1em 0;

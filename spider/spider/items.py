@@ -19,3 +19,9 @@ class ArticlespiderItem(scrapy.Item):
     cover = scrapy.Field()
     article = scrapy.Field()
     categorys = scrapy.Field()
+
+class BigDbSpiderItem(scrapy.Item):
+    images = scrapy.Field()
+    bigdb = scrapy.Field()
+    category = scrapy.Field()
+    rep =  scrapy.Field()

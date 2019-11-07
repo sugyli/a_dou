@@ -73,7 +73,7 @@ class Category(models.Model):
         return self.name
 
     def get_url(self):
-        return reverse('bigdbs:category', args=[self.slug])
+        return reverse('categorys:category', args=[self.slug])
 
 
     def save(self, *args, **kwargs):

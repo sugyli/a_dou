@@ -1,4 +1,4 @@
-import html,re,emoji,random,os,sys
+import html,re,emoji,random,os,sys,json
 from html.parser import HTMLParser
 import hashlib
 
@@ -70,6 +70,9 @@ def __basereplace(htmlstr):
     htmlstr = htmlstr.replace('\r', '').replace('\t', '')
     re_stopwords=re.compile('\u3000', re.I)
     htmlstr =re_stopwords.sub('', htmlstr)
+
+    re_stopwords2=re.compile('\xa0', re.I)
+    htmlstr =re_stopwords2.sub('', htmlstr)
 
     return htmlstr
 
@@ -203,6 +206,13 @@ def customfilterstr(htmlstr,filterstr=filterstr):
 
 
 
+########2019 11 7 ######
+def is_json(myjson):
 
-#------代码显示
+    try:
+        json_object = json.loads(myjson)
+    except ValueError as e:
+        return False
+
+    return True
 

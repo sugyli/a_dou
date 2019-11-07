@@ -1,8 +1,8 @@
 {% extends 'base/base.html' %}
 {% load static utils %}
-{% block title %}{{ WEBTITLE }}{% endblock %}
-{% block keywords %}{{ WEBKW }}{% endblock %}
-{% block description %}{{ WEBDES }}{% endblock %}
+{% block title %}{{ category.name }}-{{ WEBNAME }}{% endblock %}
+{% block keywords %}{{ category.name }}{% endblock %}
+{% block description %}{{ category.name }}{% endblock %}
 {% block head %}
 <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ category.get_url }}" />
 {% endblock %}
@@ -16,11 +16,11 @@
       </div>
     </div>
     <div id="content-list" class="clearfix">
-{#      <article class="post clearfix">#}
-{#        <h1 class="cat-title bb"></h1>#}
-{#      </article>#}
+      <article class="post clearfix">
+        <h1 class="cat-title bb">{{ category.name }}</h1>
+      </article>
       <div class="bigdbsbox">
-        {% for bigdb in bigdbs %}
+        {% for bigdb in bigdbs.object_list %}
           {% if bigdb.get_thumbnails|length > 0  and  bigdb.get_thumbnails|length <= 2 %}
           <div class="bigdbs">
             <h3 class="bigdbtitle">
@@ -75,13 +75,13 @@
           {% endif %}
         {% endfor %}
       </div>
-      {% if is_paginated %}
+
       <div style="display: none;" id="pagelist">
-      {% if page_obj.has_next %}
-        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">下一页</a>
+      {% if bigdbs.has_next %}
+        <a href="{{ request.path }}?{{ bigdbs.next_page_number.querystring }}">下一页</a>
       {% endif %}
       </div>
-      {% endif %}
+
 
       <div id="lxfoot" class="copyright bt clearfix">
         {% include 'base/footer.html' %}
@@ -118,4 +118,5 @@
     */
   </script>
 {% endblock %}
+
 

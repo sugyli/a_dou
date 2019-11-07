@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% load static compress %}
+{% block title %}{{ bigdb.get_title }}_{{ WEBNAME }}{% endblock %}
+{% block keywords %}{{ bigdb.get_keywords }}{% endblock %}
+{% block description %}{{ bigdb.get_description|truncatechars:150 }}{% endblock %}
+{% block head %}
+<link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ bigdb.get_url }}" />
+<link rel="stylesheet" href="{% static 'css/viewer.min.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <body>
+    {% include 'base/header.html' %}
+    {% include 'base/nav.html' %}
+    <div class="breadcrumb bb clearfix">{% include 'base/breadcrumb.html' with name=bigdb.category.name link=bigdb.get_url %}</div>
+    <div id="content">
+      <article class="post clearfix">
+        <h1 class="notice-title">{{ bigdb.name }}</h1>
+        <p class="post-time"><b>{{ bigdb.get_comefrom }}</b>发布于&nbsp;{{ bigdb.updated_at|timesince }}之前</p>
+        <div class="notice-text" id="dowebok">
+          {{ bigdb.get_content|safe }}
+        </div>
+      </article>
+      <div id="lxfoot" class="copyright bt clearfix">
+      {% include 'base/footer.html' %}
+      </div>
+    </div>
+  </body>
+{% endblock %}
+
+{% block footer %}
+  {% compress js %}
+    <script src="{% static 'js/viewer-jquery.min.js' %}"></script>
+    <script>
+      $('#dowebok').viewer();
+      {#$("img").wrap("<p class=\"dianshiju\"></p>");#}
+    </script>
+  {% endcompress %}
+{% endblock %}

@@ -41,6 +41,7 @@ httplib2==0.9.2
 six==1.10.0
 xlwt
 xlsxwriter
+django-pure-pagination
 
 
 #Scrapy 需要

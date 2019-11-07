@@ -1,15 +1,23 @@
 from __future__ import unicode_literals
-import re
+import re,json,os
 
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 from DjangoUeditor.models import UEditorField
 from django.shortcuts import reverse
+from django.conf import settings
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+
+
 
 from categorys.models import Category
 from quanbenxiaoshuo import helpers
 
 from slugify import slugify
+import emoji
+from scrapy.selector import Selector
+
 
 
 
@@ -84,6 +92,12 @@ class BigDb(models.Model):
                           , unique=True
                           , default=u'')
 
+    appendix = models.TextField(blank=True
+                     , null=True
+                     , verbose_name='图片附件'
+                     , default=u''
+                     , help_text="图片附件")
+
     push=models.BooleanField(default=False
                              , verbose_name="推送"
                              , help_text="是否已经推送给熊掌")
@@ -110,18 +124,27 @@ class BigDb(models.Model):
         ]
         verbose_name = '大数据'
         verbose_name_plural = verbose_name
-        #ordering = ("-updated_at",)
+        ordering = ("-updated_at",)
 
 
     def __str__(self):
         return self.name
+
+    def get_comefrom(self):
+        if self.original:
+            return '原创'
+        else:
+            return '转载'
+
+    def get_content(self):
+        return emoji.emojize(self.content)
 
 
     def get_url(self):
         return reverse('bigdbs:bigdb', args=[self.slug,self.id])
 
     def get_debug_url(self):
-        return reverse('bigdbs:debug-bigdb', args=[self.slug,self.id])
+        return reverse('bigdbs:bigdb-debug', args=[self.slug,self.id])
 
 
     def get_thumbnails(self):
@@ -133,6 +156,25 @@ class BigDb(models.Model):
         return helpers.replacenohtml(self.content)
 
 
+    def get_title(self):
+        if not self.title:
+            return self.name
+
+        return self.title
+
+    def get_keywords(self):
+        if not self.keywords:
+            return self.name
+
+        return self.keywords
+
+
+    def get_description(self):
+
+        if not self.description:
+            return helpers.replacenohtml(self.content)
+        else:
+            return self.description
 
     def save(self, *args, **kwargs):
 
@@ -143,4 +185,47 @@ class BigDb(models.Model):
             self.slug = slug
 
 
+        if self.appendix:
+            content = Selector(text=self.content)
+            images = content.css('img::attr(src)').extract()
+            images = set(images)
+            appendix = self.appendix.split(',')
+            appendix = set(appendix)
+            for image in images:
+                for r in appendix:
+                    if image == r:
+                        appendix.remove(r)
+                        break
+
+            for i in appendix:
+                pathfile = f"{settings.APPS_DIR}{i}"
+                # 判断文件是否存在
+                if (os.path.exists(pathfile)):
+                    os.remove(pathfile)
+
+            self.appendix = ','.join(images)
+
+        else:
+            content = Selector(text=self.content)
+            images = content.css('img::attr(src)').extract()
+            images = set(images)
+            if images:
+                self.appendix = ','.join(images)
+
+
         super(BigDb, self).save(*args, **kwargs)
+
+
+
+
+
+@receiver(post_delete,sender = BigDb)
+def delete_post_delete_old_image(sender,instance,**kwargs):
+    content=Selector(text=instance.content)
+    images=content.css('img::attr(src)').extract()
+    images=set(images)
+    for image in images:
+        pathfile=f"{settings.APPS_DIR}{image}"
+        if (os.path.exists(pathfile)):
+            os.remove(pathfile)
+

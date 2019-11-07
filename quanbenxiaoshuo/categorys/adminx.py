@@ -9,12 +9,11 @@ from .models import Category
 
 class CategoryAdmin(object):
     list_display = ["name",'sort','show','push','category_type','parent_category','apply_prove']
-    list_editable=["push", 'show', 'sort', 'mold']
+    list_editable=["push", 'show', 'sort']
 
 
     def apply_prove(self, obj):
-        return f"<a href='{obj.get_url()}' target='_blank'>前端</a>&nbsp;" \
-               f"<a href='{obj.get_url()}' target='_blank'>调试</a>"
+        return f"<a href='{obj.get_url()}' target='_blank'>前端</a>"
     apply_prove.short_description='操作'
     # 是否转义
     apply_prove.allow_tags=True
