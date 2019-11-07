@@ -6,7 +6,8 @@ import xadmin
 from django.views import defaults as default_views
 from django.views.decorators.cache import cache_page
 
-from operation import views
+#from operation import views
+from bigdbs import views
 
 
 if settings.DEBUG:
@@ -22,7 +23,7 @@ if settings.DEBUG:
         # path("accounts/", include("allauth.urls")),
 
         # 开发的应用
-        path('',views.IndexListView.as_view(), name='home'),#首页
+        path('',views.BigDbListView.as_view(), name='home'),#首页
         path('articles/', include('articles.urls', namespace='articles')),
         path('albums/', include('albums.urls', namespace='albums')),
         path('novels/', include('novels.urls', namespace='novels')),
@@ -39,7 +40,8 @@ if settings.DEBUG:
 else:
     urlpatterns=[
         # 开发的应用
-        path('', cache_page(60 * 120)(views.IndexListView.as_view()), name='home'),
+        path('', cache_page(60*20)(views.BigDbListView.as_view()), name='home'),
+
         # 首页
         path('articles/',
              include('articles.urls', namespace='articles')),

@@ -34,7 +34,7 @@
             <p class="bigdbtext">{{ bigdb.get_introduction|truncatechars:150 }}</p>
             <div class="bigdbinfo">
               <ul>
-                <li class="lmname"><a href="#">{{ bigdb.category.name }}</a></li>
+                <li class="lmname"><a href="{{ bigdb.category.get_url }}">{{ bigdb.category.name }}</a></li>
                 <li class="timer">发布于&nbsp;{{ bigdb.updated_at|timesince }}之前</li>
               </ul>
             </div>
@@ -54,7 +54,7 @@
               <p class="bigdbtext">{{ bigdb.get_introduction|truncatechars:150 }}</p>
               <div class="bigdbinfo">
                 <ul>
-                  <li class="lmname"><a href="#" target="_blank">{{ bigdb.category.name }}</a></li>
+                  <li class="lmname"><a href="{{ bigdb.category.get_url }}">{{ bigdb.category.name }}</a></li>
                   <li class="timer">发布于&nbsp;{{ bigdb.updated_at|timesince }}之前</li>
                 </ul>
               </div>
@@ -67,7 +67,7 @@
               <p class="bigdbtext">{{ bigdb.get_introduction|truncatechars:150 }}</p>
               <div class="bigdbinfo">
                 <ul>
-                  <li class="lmname"><a href="#" target="_blank">{{ bigdb.category.name }}</a></li>
+                  <li class="lmname"><a href="{{ bigdb.category.get_url }}">{{ bigdb.category.name }}</a></li>
                   <li class="timer">发布于&nbsp;{{ bigdb.updated_at|timesince }}之前</li>
                 </ul>
               </div>
