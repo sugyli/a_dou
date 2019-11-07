@@ -47,7 +47,7 @@ class A360docSpider(scrapy.Spider):
             ]
 
             for row in parameter:
-                for i in range(1, 2):
+                for i in range(1, 30):
                     url =row['url'].replace('@@@@@',str(i))
 
                     yield scrapy.Request(url
