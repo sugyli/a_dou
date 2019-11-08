@@ -13,10 +13,10 @@ class BigDbAdmin(object):
         "content": "ueditor"
     }
     # 筛选
-    list_filter=['push','status','created_at','updated_at','slug']
+    list_filter=['push','status','created_at','updated_at','category']
 
     list_editable=["push",'status','name']
-    search_fields=['name']
+    search_fields=['name','slug']
     readonly_fields=['appendix']
 
     def apply_prove(self, obj):

@@ -36,22 +36,34 @@ class A360docSpider(scrapy.Spider):
             'spider.pipelines.BigDbSpiderPipeline': 10,
         }
     }
+    noneedurl=[
+        'http://www.360doc.cn/article/14020892_871182943.html',
+        'http://www.360doc.cn/article/54623748_871222082.html',
+        'http://www.360doc.cn/article/28625038_871239766.html'
+    ]
 
     def start_requests(self):
         try:
             parameter = [
                 {
                     'url':'http://www.360doc.com/ajax/ReadingRoom/getZCData.json?artNum=20&classId=10&subClassId=0&iIscream=0&iSort=1&nPage=@@@@@&nType=11',
-                    'category': '教育'
+                    'category': '教育',
+                    'num': 30
                 },
                 {
                     'url':'http://www.360doc.com/ajax/ReadingRoom/getZCData.json?artNum=20&classId=6&subClassId=0&iIscream=0&iSort=1&nPage=@@@@@&nType=11',
-                    'category': '健康'
+                    'category': '健康',
+                    'num': 30
+                },
+                {
+                    'url':'http://www.360doc.com/ajax/ReadingRoom/getZCData.json?artNum=20&classId=7&subClassId=0&iIscream=0&iSort=1&nPage=@@@@@&nType=11',
+                    'category': '文化',
+                    'num': 30
                 }
             ]
 
             for row in parameter:
-                for i in range(1, 30):
+                for i in range(1, row['num']):
                     url =row['url'].replace('@@@@@',str(i))
 
                     yield scrapy.Request(url
@@ -61,36 +73,41 @@ class A360docSpider(scrapy.Spider):
                                         , headers=self.headers
                                         , callback=self.parse_list)
         except Exception:
-            raise Exception(traceback.format_exc())
+            raise Exception('start_requests 开头',traceback.format_exc())
 
 
     def parse_list(self, response):
         try:
             category=response.meta.get("category")
-            rs=json.loads(response.body.decode('utf-8'))
-            if len(rs) > 0:
-                for row in rs[0]['data']:
-                    name = row['StrArtidetitle']
-                    weburl = row['StrUrl']
-                    urllist = weburl.split('/')
-                    wapurl = 'http://www.360doc.cn/article/{}'.format(urllist[-1].replace("shtml", "html"))
-                    obj = BigDb.objects.filter(norm=wapurl)
-                    if not obj:
-                        yield scrapy.Request(wapurl
-                                             , meta={
-                                                    "norm": wapurl,
-                                                    "name": name,
-                                                    "category":category
-                                                 }
-                                             , headers=self.wapheaders
-                                             , callback=self.parse)
+            if response.status ==200:
+                rs=json.loads(response.body.decode('utf-8'))
+                if len(rs) > 0:
+                    for row in rs[0]['data']:
+                        name = row['StrArtidetitle']
+                        weburl = row['StrUrl']
+                        urllist = weburl.split('/')
+                        wapurl = 'http://www.360doc.cn/article/{}'.format(urllist[-1].replace("shtml", "html"))
 
-                    else:
-                        print(f"{name} 已经存在不添加")
+                        if wapurl not in self.noneedurl:
+                            obj = BigDb.objects.filter(norm=wapurl)
+                            if not obj:
+                                yield scrapy.Request(wapurl
+                                                     , meta={
+                                                            "norm": wapurl,
+                                                            "name": name,
+                                                            "category":category
+                                                         }
+                                                     , headers=self.wapheaders
+                                                     , callback=self.parse)
 
-
+                            else:
+                                print(f"{name} 已经存在不添加")
+                        else:
+                            print(f"{wapurl} 设置不采集")
+            else:
+                logger.error(f"出错来源 {response.url} 请求失败 状态码 {response.status}")
         except Exception:
-            raise Exception(traceback.format_exc())
+            raise Exception('parse_list 开头',traceback.format_exc())
 
     def parse(self, response):
         """
@@ -150,7 +167,9 @@ class A360docSpider(scrapy.Spider):
             item['bigdb'] = {
                 'name': response.meta.get("name"),
                 'norm': response.meta.get("norm"),
-                'content': htmlstr
+                'content': htmlstr,
+                'normslug': '360doc',
+                'status': 'P'
             }
             item['category'] = response.meta.get("category")
             item['rep'] = {
@@ -163,5 +182,5 @@ class A360docSpider(scrapy.Spider):
 
 
         except Exception:
-            raise Exception(traceback.format_exc())
+            raise Exception('parse 开头',traceback.format_exc())
 
