@@ -79,6 +79,16 @@ class A360docSpider(scrapy.Spider):
                     'url': 'http://www.360doc.com/ajax/ReadingRoom/getZCData.json?artNum=20&classId=3&subClassId=0&iIscream=0&iSort=1&nPage=@@@@@&nType=11',
                     'category': '职场',
                     'num': 30
+                },
+                {
+                    'url': 'http://www.360doc.com/ajax/ReadingRoom/getZCData.json?artNum=20&classId=440&subClassId=0&iIscream=0&iSort=1&nPage=@@@@@&nType=11',
+                    'category': '财经',
+                    'num': 30
+                },
+                {
+                    'url': 'http://www.360doc.com/ajax/ReadingRoom/getZCData.json?artNum=20&classId=5&subClassId=0&iIscream=0&iSort=1&nPage=@@@@@&nType=11',
+                    'category': '娱乐',
+                    'num': 30
                 }
             ]
 

@@ -18,6 +18,7 @@ class BigDbAdmin(object):
     list_editable=["push",'status','name']
     search_fields=['name','slug']
     readonly_fields=['appendix']
+    ordering=['-created_at']
 
     def apply_prove(self, obj):
         return f"<a href='{obj.get_url()}' target='_blank'>前端</a>&nbsp;" \
