@@ -124,7 +124,8 @@ class BigDb(models.Model):
 
     class Meta:
         index_together=[
-            ('status','slug','id')
+            ('status','slug','id'),
+            ('slug', 'id')
         ]
         verbose_name = '大数据'
         verbose_name_plural = verbose_name

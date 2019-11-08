@@ -68,7 +68,12 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.com/ajax/ReadingRoom/getZCData.json?artNum=20&classId=163&subClassId=0&iIscream=0&iSort=1&nPage=@@@@@&nType=11',
                     'category': '人生',
-                    'num': 2
+                    'num': 30
+                },
+                {
+                    'url': 'http://www.360doc.com/ajax/ReadingRoom/getZCData.json?artNum=20&classId=2&subClassId=0&iIscream=0&iSort=1&nPage=@@@@@&nType=11',
+                    'category': '生活',
+                    'num': 30
                 }
             ]
 
