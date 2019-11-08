@@ -8,7 +8,7 @@ from .models import Category
 
 
 class CategoryAdmin(object):
-    list_display = ["name",'sort','show','push','category_type','parent_category','apply_prove']
+    list_display = ["name",'sort','show','push','category_type','parent_category','created_at','apply_prove']
     list_editable=["push", 'show', 'sort']
 
 
