@@ -86,7 +86,8 @@ class BigDb(models.Model):
                           , verbose_name='来源地址')
 
     normslug=models.CharField(max_length=255
-                          , default=u'360doc'
+                          , blank=True
+                          , default=u'本地资源'
                           , verbose_name='来源标识')
 
 
