@@ -8,7 +8,7 @@ from .models import BigDb
 
 
 class BigDbAdmin(object):
-    list_display = ['id',"name",'status','push','category','normslug','updated_at','apply_prove']
+    list_display = ["name",'status','push','category','normslug','updated_at','apply_prove']
     style_fields={
         "content": "ueditor"
     }
