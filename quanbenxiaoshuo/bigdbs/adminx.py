@@ -8,7 +8,7 @@ from .models import BigDb
 
 
 class BigDbAdmin(object):
-    list_display = ["name",'status','push','category','normslug','updated_at','apply_prove']
+    list_display = ['id',"name",'status','push','category','normslug','updated_at','apply_prove']
     style_fields={
         "content": "ueditor"
     }
@@ -18,7 +18,7 @@ class BigDbAdmin(object):
     list_editable=["push",'status','name']
     search_fields=['name','slug']
     readonly_fields=['appendix','thumbnails']
-    ordering=['-created_at']
+    ordering=['-id']
 
     def apply_prove(self, obj):
         return f"<a href='{obj.get_url()}' target='_blank'>前端</a>&nbsp;" \

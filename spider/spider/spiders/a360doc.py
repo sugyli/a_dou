@@ -34,7 +34,8 @@ class A360docSpider(scrapy.Spider):
     noneedurl=[
         'http://www.360doc.cn/article/14020892_871182943.html',
         'http://www.360doc.cn/article/54623748_871222082.html',
-        'http://www.360doc.cn/article/28625038_871239766.html'
+        'http://www.360doc.cn/article/28625038_871239766.html',
+        'http://www.360doc.cn/article/273090_240724762.html'
     ]
 
     def start_requests(self):
@@ -44,7 +45,7 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.cn/ajax/index/getReadRooms.ashx',
                     'category': '社会',
-                    'num': 3,
+                    'num': 30,
                     'data': {
                         'topnum': '20',
                         'pagenum': '1',
@@ -55,7 +56,7 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.cn/ajax/index/getReadRooms.ashx',
                     'category': '文化',
-                    'num': 3,
+                    'num': 30,
                     'data': {
                         'topnum': '20',
                         'pagenum': '1',
@@ -66,7 +67,7 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.cn/ajax/index/getReadRooms.ashx',
                     'category': '人生',
-                    'num': 3,
+                    'num': 30,
                     'data': {
                         'topnum': '20',
                         'pagenum': '1',
@@ -77,7 +78,7 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.cn/ajax/index/getReadRooms.ashx',
                     'category': '生活',
-                    'num': 3,
+                    'num': 30,
                     'data': {
                         'topnum': '20',
                         'pagenum': '1',
@@ -88,7 +89,7 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.cn/ajax/index/getReadRooms.ashx',
                     'category': '健康',
-                    'num': 3,
+                    'num': 30,
                     'data': {
                         'topnum': '20',
                         'pagenum': '1',
@@ -99,7 +100,7 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.cn/ajax/index/getReadRooms.ashx',
                     'category': '教育',
-                    'num': 3,
+                    'num': 30,
                     'data': {
                         'topnum': '20',
                         'pagenum': '1',
@@ -110,7 +111,7 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.cn/ajax/index/getReadRooms.ashx',
                     'category': '职场',
-                    'num': 3,
+                    'num': 30,
                     'data': {
                         'topnum': '20',
                         'pagenum': '1',
@@ -121,7 +122,7 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.cn/ajax/index/getReadRooms.ashx',
                     'category': '财经',
-                    'num': 3,
+                    'num': 30,
                     'data': {
                         'topnum': '20',
                         'pagenum': '1',
@@ -132,7 +133,7 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.cn/ajax/index/getReadRooms.ashx',
                     'category': '娱乐',
-                    'num': 3,
+                    'num': 30,
                     'data': {
                         'topnum': '20',
                         'pagenum': '1',
@@ -143,7 +144,7 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.cn/ajax/index/getReadRooms.ashx',
                     'category': '艺术',
-                    'num': 3,
+                    'num': 30,
                     'data': {
                         'topnum': '20',
                         'pagenum': '1',
@@ -154,7 +155,7 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.cn/ajax/index/getReadRooms.ashx',
                     'category': '上网',
-                    'num': 3,
+                    'num': 30,
                     'data': {
                         'topnum':'20',
                         'pagenum':'1',
@@ -165,7 +166,7 @@ class A360docSpider(scrapy.Spider):
                 {
                     'url': 'http://www.360doc.cn/ajax/index/getOriginal.ashx',
                     'category': '综合',
-                    'num': 3,
+                    'num': 30,
                     'data': {
                         'topnum': '20',
                         'pagenum': '1'
