@@ -16,7 +16,9 @@ class CategoryDetailView(DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(CategoryDetailView, self).get_context_data(*args, **kwargs)
-        bigdbs = BigDb.objects.filter(category=context['category']).get_published().select_related('category')
+        bigdbs = BigDb.objects.filter(category=context['category'])\
+            .get_published()\
+            .select_related('category')
 
         #分页
         try:

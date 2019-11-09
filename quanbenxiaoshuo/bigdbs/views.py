@@ -15,6 +15,7 @@ class BigDbListView(ListView):
         return BigDb.objects.get_published().select_related('category')
 
 
+
 class BigDbDetailView(DetailView):
     """文章详情"""
     model = BigDb

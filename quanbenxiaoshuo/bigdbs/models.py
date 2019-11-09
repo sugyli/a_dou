@@ -160,17 +160,18 @@ class BigDb(models.Model):
 
 
     def get_thumbnails(self):
-        reg = r"""<img\s.*?\s?src\s*=\s*['|"]?([^\s'"]+).*?>"""
-        pattern = re.compile(reg, re.I)
-        return re.findall(pattern, self.content)
-        # content=Selector(text=self.content)
-        # images=content.css('img::attr(src)').extract()
-        # images=list(set(images))
-        # return images
+        if self.thumbnails:
+            return self.thumbnails.split(',')
+        else:
+            return []
+
+        # reg = r"""<img\s.*?\s?src\s*=\s*['|"]?([^\s'"]+).*?>"""
+        # pattern = re.compile(reg, re.I)
+        # return re.findall(pattern, self.content)
 
 
     def get_introduction(self):
-        return helpers.replacenohtml(self.content)
+        return self.description
 
 
     def get_title(self):
@@ -194,6 +195,8 @@ class BigDb(models.Model):
             return self.description
 
     def save(self, *args, **kwargs):
+
+        self.description = helpers.replacenohtml(self.content)[:200]
 
         if not self.slug:
             slug = slugify(self.name)
