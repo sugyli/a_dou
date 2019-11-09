@@ -44,6 +44,7 @@ class BigDb(models.Model):
                                    , on_delete=models.CASCADE)
 
     name=models.CharField(max_length=255
+                          , db_index=True
                           , verbose_name='标题')
 
     status=models.CharField(max_length=1
@@ -80,12 +81,14 @@ class BigDb(models.Model):
 
 
     norm=models.CharField(max_length=255
+                          , db_index=True
                           , null=True
                           , blank=True
                           , default=u''
                           , verbose_name='来源地址')
 
     normslug=models.CharField(max_length=255
+                          , db_index=True
                           , blank=True
                           , default=u'本地资源'
                           , verbose_name='来源标识')
