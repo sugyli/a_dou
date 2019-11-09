@@ -161,6 +161,15 @@ class A360docSpider(scrapy.Spider):
                         'classid':'12',
                         'subclassid':'0'
                     }
+                },
+                {
+                    'url': 'http://www.360doc.cn/ajax/index/getOriginal.ashx',
+                    'category': '综合',
+                    'num': 3,
+                    'data': {
+                        'topnum': '20',
+                        'pagenum': '1'
+                    }
                 }
 
             ]
