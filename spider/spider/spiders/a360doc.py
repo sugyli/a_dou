@@ -35,7 +35,8 @@ class A360docSpider(scrapy.Spider):
         'http://www.360doc.cn/article/14020892_871182943.html',
         'http://www.360doc.cn/article/54623748_871222082.html',
         'http://www.360doc.cn/article/28625038_871239766.html',
-        'http://www.360doc.cn/article/273090_240724762.html'
+        'http://www.360doc.cn/article/273090_240724762.html',
+        'http://www.360doc.cn/article/52901360_871157169.html'
     ]
 
     def start_requests(self):
@@ -274,7 +275,10 @@ class A360docSpider(scrapy.Spider):
             htmlstr=htmlstr\
                 .replace('\r', '')\
                 .replace('\t', '')\
-                .replace('\n', '')
+                .replace('\n', '')\
+                .replace('𠴂','口')\
+                .replace('&#134402;','口').strip()
+
             #过滤空格
             re_stopwords=re.compile('\u3000', re.I)
             htmlstr=re_stopwords.sub('', htmlstr)
