@@ -135,31 +135,34 @@ class BigDbSpiderPipeline(object):
 
 
         #入库
-        category = BigDbCategory.objects.get(name=item['category'])
-        item['bigdb']['category'] = category
-        BigDb.objects.create(**item['bigdb'])
-        return f"{item['bigdb']['name']} 入库完成 {item['bigdb']['norm']}"
-
-
-
-
-
-
-
+        if item['bigdb']['content'].strip():
+            category = BigDbCategory.objects.get(name=item['category'])
+            item['bigdb']['category'] = category
+            BigDb.objects.create(**item['bigdb'])
+            return f"{item['bigdb']['name']} 入库完成 {item['bigdb']['norm']}"
+        else:
+            print(
+                f"{item['bigdb']['name']} 内容不能为空 {item['bigdb']['norm']}")
+            logger.error(
+                f"{item['bigdb']['name']} 内容不能为空 {item['bigdb']['norm']}")
+            return
 
 class BigDbImagePipeline(ImagesPipeline):
-    headers = {
-        #"Host": "image109.360doc.cn",
-        "Referer": "http://www.360doc.cn/article/46601607_871155855.html",
-        'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36"
-    }
+
 
     def get_media_requests(self, item, info):
+
+        headers={
+            # "Host": "image109.360doc.cn",
+            "Referer": item['bigdb']['norm'],
+            'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36"
+        }
         # 循环每一张图片地址下载，若传过来的不是集合则无需循环直接yield
+
         for image_url in item[self.images_urls_field]:
             # meta里面的数据是从spider获取，然后通过meta传递给下面方法：file_path
             yield Request(image_url
-                          ,headers=self.headers)
+                          ,headers=headers)
 
     # 重命名，若不重写这函数，图片名为哈希，就是一串乱七八糟的名字
     def file_path(self, request, response=None, info=None):
@@ -181,6 +184,8 @@ class BigDbImagePipeline(ImagesPipeline):
         # error:下载失败的原因
 
         # 将图片的下载路径取出来(文件夹名/图片名)
+
+
         for i in range(len(results)):
             for x in range(len(item[self.images_urls_field])):
                 if results[i][0]:

@@ -96,11 +96,18 @@ class BigDb(models.Model):
                           , verbose_name='(URL)别名'
                           , default=u'')
 
+
     appendix = models.TextField(blank=True
                      , null=True
                      , verbose_name='图片附件'
                      , default=u''
                      , help_text="图片附件")
+
+    thumbnails = models.TextField(blank=True
+                     , null=True
+                     , verbose_name='缩略图'
+                     , default=u''
+                     , help_text="缩略图")
 
     push=models.BooleanField(default=False
                              , verbose_name="推送"
@@ -156,6 +163,11 @@ class BigDb(models.Model):
         reg = r"""<img\s.*?\s?src\s*=\s*['|"]?([^\s'"]+).*?>"""
         pattern = re.compile(reg, re.I)
         return re.findall(pattern, self.content)
+        # content=Selector(text=self.content)
+        # images=content.css('img::attr(src)').extract()
+        # images=list(set(images))
+        # return images
+
 
     def get_introduction(self):
         return helpers.replacenohtml(self.content)
@@ -213,9 +225,11 @@ class BigDb(models.Model):
         else:
             content = Selector(text=self.content)
             images = content.css('img::attr(src)').extract()
-            images = set(images)
+            images = list(set(images))
             if images:
                 self.appendix = ','.join(images)
+            #缩略图
+
 
 
         super(BigDb, self).save(*args, **kwargs)

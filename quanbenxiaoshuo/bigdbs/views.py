@@ -7,7 +7,7 @@ from .models import BigDb
 class BigDbListView(ListView):
     """已发布的文章列表"""
     model = BigDb
-    paginate_by = 25
+    paginate_by = 15
     context_object_name = "bigdbs"
     template_name = "bigdbs/bigdb_list.html"  # 可省略
 

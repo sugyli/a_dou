@@ -23,7 +23,7 @@ class CategoryDetailView(DetailView):
             page = int(self.request.GET.get('page', 1))
         except PageNotAnInteger:
             page = 1
-        pageSize = 25
+        pageSize = 15
         totalPage=math.ceil(len(bigdbs)/pageSize)
 
         if page > totalPage:
