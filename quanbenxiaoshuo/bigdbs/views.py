@@ -12,7 +12,10 @@ class BigDbListView(ListView):
     template_name = "bigdbs/bigdb_list.html"  # 可省略
 
     def get_queryset(self, **kwargs):
-        return BigDb.objects.get_published().select_related('category')
+        return BigDb.objects.get_published()\
+            .select_related('category')\
+            .defer('content'
+                   ,'appendix')
 
 
 

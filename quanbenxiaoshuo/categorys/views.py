@@ -18,7 +18,9 @@ class CategoryDetailView(DetailView):
         context = super(CategoryDetailView, self).get_context_data(*args, **kwargs)
         bigdbs = BigDb.objects.filter(category=context['category'])\
             .get_published()\
-            .select_related('category')
+            .select_related('category')\
+            .defer('content'
+                   ,'appendix')
 
         #分页
         try:
