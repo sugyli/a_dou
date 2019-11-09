@@ -205,9 +205,9 @@ class BigDb(models.Model):
         if self.appendix:
             content = Selector(text=self.content)
             images = content.css('img::attr(src)').extract()
-            images = set(images)
+            images = list(set(images))
             appendix = self.appendix.split(',')
-            appendix = set(appendix)
+            appendix = list(set(appendix))
             for image in images:
                 for r in appendix:
                     if image == r:
@@ -222,6 +222,17 @@ class BigDb(models.Model):
 
             self.appendix = ','.join(images)
 
+            #缩略图
+            image_count=len(images)
+            self.thumbnails = []
+            if image_count >0 and image_count <= 2:
+                self.thumbnails.append(images[0])
+            elif image_count >=3:
+                self.thumbnails.append(images[0])
+                self.thumbnails.append(images[1])
+                self.thumbnails.append(images[2])
+            self.thumbnails=','.join(self.thumbnails)
+
         else:
             content = Selector(text=self.content)
             images = content.css('img::attr(src)').extract()
@@ -229,8 +240,15 @@ class BigDb(models.Model):
             if images:
                 self.appendix = ','.join(images)
             #缩略图
-
-
+            image_count = len(images)
+            self.thumbnails = []
+            if image_count >0 and image_count <= 2:
+                self.thumbnails.append(images[0])
+            elif image_count >=3:
+                self.thumbnails.append(images[0])
+                self.thumbnails.append(images[1])
+                self.thumbnails.append(images[2])
+            self.thumbnails=','.join(self.thumbnails)
 
         super(BigDb, self).save(*args, **kwargs)
 

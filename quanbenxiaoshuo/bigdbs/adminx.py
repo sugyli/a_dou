@@ -17,7 +17,7 @@ class BigDbAdmin(object):
 
     list_editable=["push",'status','name']
     search_fields=['name','slug']
-    readonly_fields=['appendix']
+    readonly_fields=['appendix','thumbnails']
     ordering=['-created_at']
 
     def apply_prove(self, obj):
