@@ -18,7 +18,6 @@ class BigDbListView(ListView):
                    ,'appendix')
 
 
-
 class BigDbDetailView(DetailView):
     """文章详情"""
     model = BigDb
