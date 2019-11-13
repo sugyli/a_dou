@@ -17,7 +17,7 @@ from quanbenxiaoshuo import helpers
 from slugify import slugify
 import emoji
 from scrapy.selector import Selector
-
+from PIL import Image
 
 
 
@@ -152,7 +152,30 @@ class BigDb(models.Model):
             return '转载'
 
     def get_content(self):
-        return emoji.emojize(self.content)
+        makeup = [
+            {
+                'url':'',
+                'prefix': 'media'
+            }
+        ]
+
+        self.content = emoji.emojize(self.content)
+        content = Selector(text=self.content)
+        images = content.css('img::attr(src)').extract()
+        rex=r"""(<img\s.*?\s?src\s*=\s*['|"]?[^\s'"]+.*?>)"""
+        rep_image="%%%%%%%%%%"
+        self.content = re.sub(rex, rep_image, self.content)
+        for image in images:
+            for _ in makeup:
+                image_s = image.split('/')
+                if len(image_s) > 2:
+                    if image_s[1] == _['prefix']:
+                        image = _['url'] + image
+                        break
+            self.content=\
+                self.content.replace(rep_image,'<img src="{}" />'.format(image),1)
+
+        return self.content
 
 
     def get_url(self):
@@ -207,11 +230,11 @@ class BigDb(models.Model):
                 slug = helpers.Md5(slug)
             self.slug = slug
 
-
+        #附件处理
+        content=Selector(text=self.content)
+        images=content.css('img::attr(src)').extract()
+        images=list(set(images))
         if self.appendix:
-            content = Selector(text=self.content)
-            images = content.css('img::attr(src)').extract()
-            images = list(set(images))
             appendix = self.appendix.split(',')
             appendix = list(set(appendix))
             for image in images:
@@ -219,42 +242,64 @@ class BigDb(models.Model):
                     if image == r:
                         appendix.remove(r)
                         break
-
+            #删除的是多出来的图片
             for i in appendix:
-                pathfile = f"{settings.APPS_DIR}{i}"
-                # 判断文件是否存在
-                if (os.path.exists(pathfile)):
-                    os.remove(pathfile)
+                for image_root in settings.IMAGE_ROOT:
+                    pathfile=f"{image_root}{i}"
+                    # 判断文件是否存在
+                    if (os.path.exists(pathfile)):
+                        os.remove(pathfile)
 
-            self.appendix = ','.join(images)
+        self.appendix=','.join(images)
 
-            #缩略图
-            image_count=len(images)
-            self.thumbnails = []
-            if image_count >0 and image_count <= 2:
-                self.thumbnails.append(images[0])
-            elif image_count >=3:
-                self.thumbnails.append(images[0])
-                self.thumbnails.append(images[1])
-                self.thumbnails.append(images[2])
-            self.thumbnails=','.join(self.thumbnails)
+        # 缩略图
+        def save_thumbnail(image_root,image):
+            image_path=f"{image_root}{image}"
+            if (os.path.exists(image_path)):
+                im=Image.open(image_path)
+                im.thumbnail((200, 200))
+                #缩略图全地址
+                thumbnail_path=f"{settings.THUMBNAIL_ROOT}{settings.THUMBNAIL_URL}{image}"
+                #缩略图路径
+                thumbnail_path_f='/'.join(thumbnail_path.split('/')[:-1])
+                #路径在就递归创建
+                if not os.path.exists(thumbnail_path_f):
+                    os.makedirs(thumbnail_path_f)
+                #保存文件要用全地址
+                im.save(thumbnail_path)
+                self.thumbnails.append(settings.THUMBNAIL_URL+image)
 
-        else:
-            content = Selector(text=self.content)
-            images = content.css('img::attr(src)').extract()
-            images = list(set(images))
-            if images:
-                self.appendix = ','.join(images)
-            #缩略图
-            image_count = len(images)
-            self.thumbnails = []
-            if image_count >0 and image_count <= 2:
-                self.thumbnails.append(images[0])
-            elif image_count >=3:
-                self.thumbnails.append(images[0])
-                self.thumbnails.append(images[1])
-                self.thumbnails.append(images[2])
-            self.thumbnails=','.join(self.thumbnails)
+        if self.thumbnails:
+            oldthumbnails=self.thumbnails.split(',')
+            # 删除老的缩略图
+            for oldimage in oldthumbnails:
+                oldimage_path=f"{settings.THUMBNAIL_ROOT}{oldimage}"
+                if (os.path.exists(oldimage_path)):
+                    os.remove(oldimage_path)
+
+        image_count=len(images)
+        self.thumbnails=[]
+        if image_count>0 and image_count<=2:
+            for image_root in settings.IMAGE_ROOT:
+                save_thumbnail(image_root, images[0])
+                if len(self.thumbnails)>=1:
+                    break
+            if len(self.thumbnails)>=1:
+                self.thumbnails=self.thumbnails[:1]
+
+        elif image_count>=3:
+            for image_root in settings.IMAGE_ROOT:
+                save_thumbnail(image_root, images[0])
+                save_thumbnail(image_root, images[1])
+                save_thumbnail(image_root, images[2])
+                if len(self.thumbnails)>=3:
+                    break
+            if len(self.thumbnails)==2:
+                self.thumbnails=self.thumbnails[:1]
+            elif len(self.thumbnails)>3:
+                self.thumbnails=self.thumbnails[:3]
+
+        self.thumbnails=','.join(self.thumbnails)
 
         super(BigDb, self).save(*args, **kwargs)
 
@@ -268,7 +313,18 @@ def delete_post_delete_old_image(sender,instance,**kwargs):
     images=content.css('img::attr(src)').extract()
     images=set(images)
     for image in images:
-        pathfile=f"{settings.APPS_DIR}{image}"
-        if (os.path.exists(pathfile)):
-            os.remove(pathfile)
+        for image_root in settings.IMAGE_ROOT:
+            pathfile=f"{image_root}{image}"
+            # 判断文件是否存在
+            if (os.path.exists(pathfile)):
+                os.remove(pathfile)
+    #删除附件
+    if instance.thumbnails:
+        thumbnails=instance.thumbnails.split(',')
+        # 删除老的缩略图
+        for thumbnail in thumbnails:
+            thumbnail_path=f"{settings.THUMBNAIL_ROOT}{thumbnail}"
+            if (os.path.exists(thumbnail_path)):
+                os.remove(thumbnail_path)
+
 

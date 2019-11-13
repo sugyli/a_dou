@@ -176,6 +176,12 @@ STATICFILES_FINDERS = [
 MEDIA_ROOT = str(APPS_DIR("media"))
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
+#IMAGE
+THUMBNAIL_ROOT = env.str('THUMBNAIL_ROOT')
+THUMBNAIL_URL = MEDIA_URL+"thumbnails"
+IMAGE_ROOT = env.list("IMAGE_ROOT")
+
+
 
 # TEMPLATES
 # ------------------------------------------------------------------------------

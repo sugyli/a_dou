@@ -19,8 +19,8 @@ def description(n):
     n=n[0:150]
     return n
 
-@register.simple_tag
-def foramtThumbnail(image_url):
-    image_url = image_url.replace(settings.MEDIA_URL, '')
-    im=get_thumbnail(image_url, '200x200', crop='center', quality = 99)
-    return im.url
+# @register.simple_tag
+# def foramtThumbnail(image_url):
+#     image_url = image_url.replace(settings.MEDIA_URL, '')
+#     im=get_thumbnail(image_url, '200x200', crop='center', quality = 99)
+#     return im.url

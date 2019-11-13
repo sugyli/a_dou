@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-{% load static utils %}
+{% load static %}
 {% block title %}{{ category.name }}-{{ WEBNAME }}{% endblock %}
 {% block keywords %}{{ category.name }}{% endblock %}
 {% block description %}{{ category.name }}{% endblock %}
@@ -28,7 +28,7 @@
             </h3>
             <span class="bigdbpic">
               <a href="{{ bigdb.get_url }}" title="bigdb.name">
-                <img src="{% foramtThumbnail bigdb.get_thumbnails.0 %}" alt="bigdb.name">
+                <img src="{{ bigdb.get_thumbnails.0 }}" alt="bigdb.name">
               </a>
             </span>
             <p class="bigdbtext">{{ bigdb.get_introduction|truncatechars:150 }}</p>
@@ -46,9 +46,9 @@
               </h3>
               <span class="bplist">
                 <a href="{{ bigdb.get_url }}" title="{{ bigdb.name }}">
-                  <li><img src="{% foramtThumbnail bigdb.get_thumbnails.0 %}" alt="{{ bigdb.name }}"></li>
-                  <li><img src="{% foramtThumbnail bigdb.get_thumbnails.1 %}" alt="{{ bigdb.name }}"></li>
-                  <li><img src="{% foramtThumbnail bigdb.get_thumbnails.2 %}" alt="{{ bigdb.name }}"></li>
+                  <li><img src="{{ bigdb.get_thumbnails.0 }}" alt="{{ bigdb.name }}"></li>
+                  <li><img src="{{ bigdb.get_thumbnails.1 }}" alt="{{ bigdb.name }}"></li>
+                  <li><img src="{{ bigdb.get_thumbnails.2 }}" alt="{{ bigdb.name }}"></li>
                 </a>
               </span>
               <p class="bigdbtext">{{ bigdb.get_introduction|truncatechars:150 }}</p>
@@ -116,6 +116,7 @@
         }); //这里是你调用Lazyload的代码
     })
     */
+
   </script>
 {% endblock %}
 

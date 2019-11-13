@@ -294,7 +294,7 @@ class A360docSpider(scrapy.Spider):
             #过滤HTML
             htmlstr = helpers.strip_tags(htmlstr)
             #转译emoji
-            htmlstr=emoji.demojize(htmlstr)
+            #htmlstr=emoji.demojize(htmlstr)
             # 过滤空格
             htmlstr=htmlstr.replace(' ', '')
             # 遗漏的HTML转义
