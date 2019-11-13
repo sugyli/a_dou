@@ -353,7 +353,7 @@ input[type="search"]::-webkit-search-decoration,input[type="search"]::-webkit-se
 	font-size: 26px;
 	line-height: 26px;
 	/*text-align: center;*/
-	letter-spacing: 15px;
+	letter-spacing: 6px;
 	color: #E80000;
 	height: 26px;
 	width: 195px;
