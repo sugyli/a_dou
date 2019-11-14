@@ -284,8 +284,8 @@ class BigDb(models.Model):
                 save_thumbnail(image_root, images[0])
                 if len(self.thumbnails)>=1:
                     break
-            if len(self.thumbnails)>=1:
-                self.thumbnails=self.thumbnails[:1]
+            # if len(self.thumbnails)>=1:
+            #     self.thumbnails=self.thumbnails[:1]
 
         elif image_count>=3:
             for image_root in settings.IMAGE_ROOT:
@@ -294,10 +294,10 @@ class BigDb(models.Model):
                 save_thumbnail(image_root, images[2])
                 if len(self.thumbnails)>=3:
                     break
-            if len(self.thumbnails)==2:
-                self.thumbnails=self.thumbnails[:1]
-            elif len(self.thumbnails)>3:
-                self.thumbnails=self.thumbnails[:3]
+            # if len(self.thumbnails)==2:
+            #     self.thumbnails=self.thumbnails[:1]
+            # elif len(self.thumbnails)>3:
+            #     self.thumbnails=self.thumbnails[:3]
 
         self.thumbnails=','.join(self.thumbnails)
 
