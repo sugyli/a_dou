@@ -1,5 +1,6 @@
 from django.views.generic import ListView , DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
 
 from .models import BigDb
 
@@ -7,7 +8,7 @@ from .models import BigDb
 class BigDbListView(ListView):
     """已发布的文章列表"""
     model = BigDb
-    paginate_by = 15
+    paginate_by = settings.PAGE_SIZE
     context_object_name = "bigdbs"
     template_name = "bigdbs/bigdb_list.html"  # 可省略
 

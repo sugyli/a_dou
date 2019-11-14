@@ -2,6 +2,7 @@ import math
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404, HttpResponseNotFound
+from django.conf import settings
 
 from .models import Category
 from bigdbs.models import BigDb
@@ -27,7 +28,7 @@ class CategoryDetailView(DetailView):
             page = int(self.request.GET.get('page', 1))
         except PageNotAnInteger:
             page = 1
-        pageSize = 15
+        pageSize = settings.PAGE_SIZE
         totalPage=math.ceil(len(bigdbs)/pageSize)
 
         if page > totalPage:

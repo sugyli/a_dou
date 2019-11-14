@@ -332,3 +332,5 @@ STATICFILES_FINDERS += ["compressor.finders.CompressorFinder"]
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
 
 DEF_IMAGE = 'static/noimage.jpg'
+PAGE_SIZE =25
+
