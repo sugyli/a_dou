@@ -4,7 +4,7 @@ from django.views.decorators.cache import cache_page
 
 from categorys import views
 
-app_name = 'articles'
+app_name = 'categorys'
 
 if settings.DEBUG:
     urlpatterns = [
@@ -15,8 +15,11 @@ if settings.DEBUG:
 else:
     urlpatterns = [
         path('<str:slug>/'
-             , cache_page(60 * 240)(views.CategoryDetailView.as_view())
+             , cache_page(60 * 20)(views.CategoryDetailView.as_view())
              , name='category'),
 
     ]
 
+urlpatterns +=[
+    path('debug/<str:slug>/', views.DeBugCategoryDetailView.as_view(), name='category-debug')
+]

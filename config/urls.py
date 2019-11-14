@@ -40,7 +40,7 @@ if settings.DEBUG:
 else:
     urlpatterns=[
         # 开发的应用
-        path('', cache_page(60*20)(views.BigDbListView.as_view()), name='home'),
+        path('', cache_page(60*10)(views.BigDbListView.as_view()), name='home'),
 
         # 首页
         path('articles/',

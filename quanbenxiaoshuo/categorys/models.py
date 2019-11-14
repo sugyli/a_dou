@@ -75,6 +75,9 @@ class Category(models.Model):
     def get_url(self):
         return reverse('categorys:category', args=[self.slug])
 
+    def get_debug_url(self):
+        return reverse('categorys:category-debug', args=[self.slug])
+
 
     def save(self, *args, **kwargs):
         if not self.slug:

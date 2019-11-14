@@ -10,12 +10,12 @@ app_name = 'bigdbs'
 
 if settings.DEBUG:
     urlpatterns = [
-        path('', views.BigDbListView.as_view(), name='list'),
+        #path('', views.BigDbListView.as_view(), name='list'),
         path('<str:slug>-<int:pk>/', views.BigDbDetailView.as_view(), name='bigdb'),
     ]
 else:
     urlpatterns = [
-        path('', cache_page(60 * 240)(views.BigDbListView.as_view()), name='list'),
+        #path('', cache_page(60 * 240)(views.BigDbListView.as_view()), name='list'),
 
         path('<str:slug>-<int:pk>/'
              , cache_page(60 * 240)(views.BigDbDetailView.as_view())

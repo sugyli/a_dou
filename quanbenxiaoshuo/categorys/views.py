@@ -40,3 +40,6 @@ class CategoryDetailView(DetailView):
 
         return context
 
+
+class DeBugCategoryDetailView(LoginRequiredMixin,CategoryDetailView):
+    pass
