@@ -1,5 +1,3 @@
-from albums.models import Category
-
 
 def read_settings_file(request):
 
