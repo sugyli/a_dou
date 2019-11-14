@@ -12,7 +12,7 @@ from django.dispatch import receiver
 
 
 from categorys.models import Category
-from quanbenxiaoshuo import helpers
+from quanbenxiaoshuo import helpers,codehtml
 
 from slugify import slugify
 import emoji
@@ -175,7 +175,8 @@ class BigDb(models.Model):
             self.content=\
                 self.content.replace(rep_image,'<img src="{}" />'.format(image),1)
 
-        return self.content
+
+        return codehtml.md_to_html(self.content)
 
 
     def get_url(self):
