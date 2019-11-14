@@ -201,4 +201,4 @@ if __name__ == '__main__':
     s=replaceCharEntity(s)  # 替换实体
     
     """
-    md_to_html(mdstr)
+    print(md_to_html(mdstr))
