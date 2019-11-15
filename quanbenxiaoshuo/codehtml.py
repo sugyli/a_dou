@@ -103,7 +103,7 @@ def code_to_html(match):
     #处理规则中的内容
     html=filter_htmlsbycode(match.group(0))
 
-    type_and_content=re.findall(pattern='`````(\w*)[\n|\r]([^`]+)`````'
+    type_and_content=re.findall(pattern='``````(\w*)[\n|\r]([\s\S]+?)``````'
                                 , string=html)
 
     if len(type_and_content)>0:
@@ -111,6 +111,7 @@ def code_to_html(match):
         formatter = HtmlLiFormatter(linenos=True, style='colorful')
         code_type = type_and_content[0][0]
         code_content = type_and_content[0][1]
+
         if code_type != '':
             substring = highlight(code=code_content, lexer=get_lexer_by_name(code_type), formatter=formatter)
         else:
@@ -183,22 +184,68 @@ def replaceCharEntity(htmlstr):
 
 def md_to_html(mdstr):
     #匹配到了进入code_to_html
-    return re.sub(pattern='`````([^`]+)`````', repl=code_to_html, string=mdstr)
+    return re.sub(pattern='``````([\s\S]+?)``````', repl=code_to_html, string=mdstr)
 
 
-if __name__ == '__main__':
-
-    mdstr = """
-    `````
-    a = b
-    `````
-    我是个垃圾
-    blank_line=re.compile('\n+')
-    s=blank_line.sub('\n', s)
-    s=replaceCharEntity(s)  # 替换实体
-    blank_line=re.compile('\n+')
-    s=blank_line.sub('\n', s)
-    s=replaceCharEntity(s)  # 替换实体
-    
-    """
-    print(md_to_html(mdstr))
+# if __name__ == '__main__':
+#
+#     mdstr = """
+#     ``````
+#     </p>
+#     <p style="white-space: normal;">
+#         #!/bin/bash&nbsp;
+#     </p>
+#     <p style="white-space: normal;">
+#         while true ; do
+#     </p>
+#     <p style="white-space: normal;">
+#         <br/>
+#     </p>
+#     <p style="white-space: normal;">
+#         &nbsp; id=`ps -ef | grep cpulimit | grep -v &quot;grep&quot; | awk &#39;{print $10}&#39; | tail -1`
+#     </p>
+#     <p style="white-space: normal;">
+#         <br/>
+#     </p>
+#     <p style="white-space: normal;">
+#         &nbsp; nid=`ps aux | awk &#39;{ if ( $3 &gt; 75 ) print $2 }&#39; | head -1`
+#     </p>
+#     <p style="white-space: normal;">
+#         <br/>
+#     </p>
+#     <p style="white-space: normal;">
+#         &nbsp; if [ &quot;${nid}&quot; != &quot;&quot; ] &amp;&amp; [ &quot;${nid}&quot; != &quot;${id}&quot; ] ; then
+#     </p>
+#     <p style="white-space: normal;">
+#         <br/>
+#     </p>
+#     <p style="white-space: normal;">
+#         &nbsp; &nbsp; cpulimit -p ${nid} -l 75 &amp;
+#     </p>
+#     <p style="white-space: normal;">
+#         <br/>
+#     </p>
+#     <p style="white-space: normal;">
+#         &nbsp; &nbsp; echo &quot;[`date`] CpuLimiter run for ${nid} `ps -ef | grep ${nid} | awk &#39;{print $8}&#39; | head -1`&quot; &gt;&gt; /root/cpulimit-log.log
+#     </p>
+#     <p style="white-space: normal;">
+#         &nbsp; fi
+#     </p>
+#     <p style="white-space: normal;">
+#         &nbsp; sleep 3
+#     </p>
+#     <p style="white-space: normal;">
+#         done
+#     </p>
+#     <p style="white-space: normal;">
+#     ``````
+#     我是个垃圾
+#     blank_line=re.compile('\n+')
+#     s=blank_line.sub('\n', s)
+#     s=replaceCharEntity(s)  # 替换实体
+#     blank_line=re.compile('\n+')
+#     s=blank_line.sub('\n', s)
+#     s=replaceCharEntity(s)  # 替换实体
+#
+#     """
+#     print(md_to_html(mdstr))

@@ -175,8 +175,10 @@ class BigDb(models.Model):
             self.content=\
                 self.content.replace(rep_image,'<img src="{}" />'.format(image),1)
 
-
-        return codehtml.md_to_html(self.content)
+        try:
+            return codehtml.md_to_html(self.content)
+        except Exception:
+            return self.content
 
 
     def get_url(self):
