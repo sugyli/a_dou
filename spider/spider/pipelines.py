@@ -191,7 +191,7 @@ class BigDbImagePipeline(ImagesPipeline):
                 if results[i][0]:
                     if item[self.images_urls_field][i] == results[i][1]['url']:
                         item[self.images_urls_field][i] = results[i][1]['path']
-                        break
+                        #break
                 else:
                     print(f"{item['bigdb']['name']} 下载图片失败 不入库 {item['bigdb']['norm']}")
                     logger.error(f"{item['bigdb']['name']} 下载图片失败 不入库 {item['bigdb']['norm']}")

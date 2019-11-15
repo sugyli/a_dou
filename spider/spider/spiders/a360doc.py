@@ -296,12 +296,13 @@ class A360docSpider(scrapy.Spider):
             #转译emoji
             #htmlstr=emoji.demojize(htmlstr)
             # 过滤空格
-            htmlstr=htmlstr.replace(' ', '')
+            #htmlstr=htmlstr.replace(' ', '')
             # 遗漏的HTML转义
             htmlstr=html.unescape(htmlstr)
             htmlstr=html.escape(htmlstr)
+            htmlstr=htmlstr.strip()
 
-            if htmlstr.strip():
+            if htmlstr:
                 item = BigDbSpiderItem()
                 item['images'] = images
                 item['bigdb'] = {
