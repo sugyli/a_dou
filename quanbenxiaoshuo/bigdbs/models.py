@@ -152,13 +152,7 @@ class BigDb(models.Model):
             return '转载'
 
     def get_content(self):
-        makeup = [
-            {
-                'url':'',
-                'prefix': 'media'
-            }
-        ]
-
+        makeup = settings.MAKEUP
         self.content = emoji.emojize(self.content)
         content = Selector(text=self.content)
         images = content.css('img::attr(src)').extract()

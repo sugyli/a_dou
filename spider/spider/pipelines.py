@@ -127,7 +127,7 @@ class BigDbSpiderPipeline(object):
             item['bigdb']['content'] = \
                 item['bigdb']['content']\
                     .replace(item['rep']['rep_image']
-                             ,'<p class="dianshiju"><img src="{}" /></p>'.format(settings.MEDIA_URL+image),1)
+                             ,'<p class="dianshiju"><img src="{}" /></p>'.format('/'+settings.MAKEUP[-1]['prefix']+'/'+image),1)
 
         #过滤无用的标签
         item['bigdb']['content'] = \

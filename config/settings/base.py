@@ -179,7 +179,14 @@ MEDIA_URL = "/media/"
 #IMAGE
 THUMBNAIL_ROOT = env.str('THUMBNAIL_ROOT')
 THUMBNAIL_URL = MEDIA_URL+"thumbnails"
+#如果要扩展下面2个要同时加参数
 IMAGE_ROOT = env.list("IMAGE_ROOT")
+MAKEUP=[
+    {
+        'url': '',
+        'prefix': 'media'
+    }
+]
 
 
 

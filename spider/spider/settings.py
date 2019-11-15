@@ -21,11 +21,11 @@ sys.path.insert(0, ROOT_DIR)
 sys.path.insert(0, os.path.join(ROOT_DIR, 'quanbenxiaoshuo'))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings.production")
 django.setup()
-
+from django.conf import settings
 
 FEED_EXPORT_ENCODING = 'utf-8'
-IMAGES_STORE = os.path.join(ROOT_DIR, 'quanbenxiaoshuo/media')
-
+#IMAGES_STORE = os.path.join(ROOT_DIR, 'quanbenxiaoshuo/media')
+IMAGES_STORE = settings.IMAGE_ROOT[-1]+'/'+settings.MAKEUP[-1]['prefix']
 
 LOG_LEVEL = 'ERROR'
 today=datetime.datetime.now()
