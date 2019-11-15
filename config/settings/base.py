@@ -52,7 +52,7 @@ DATABASES = {
 }
 # 将HTTP请求中对数据库的操作封装成事务
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
-#DATABASES["default"]["OPTIONS"] = {'charset': 'utf8mb4'}
+DATABASES["default"]["OPTIONS"] = {'charset': 'utf8mb4'}
 
 
 
