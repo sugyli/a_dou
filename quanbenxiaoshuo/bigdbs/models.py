@@ -37,14 +37,13 @@ class BigDbQuerySet(models.query.QuerySet):
 class BigDb(models.Model):
     STATUS=(("D", "不公开"), ("P", "公开"))
 
-    # category = models.ForeignKey(Category
-    #                                , related_name="category_bigdb"
-    #                                , verbose_name='所属导航'
-    #                                , to_field='slug'
-    #                                , on_delete=models.CASCADE)
+    category = models.ForeignKey(Category
+                                   , related_name="category_bigdb"
+                                   , verbose_name='所属导航'
+                                   , to_field='slug'
+                                   , on_delete=models.CASCADE)
 
-    category=models.CharField(max_length=255
-                            , verbose_name='所属导航')
+
 
     name=models.CharField(max_length=255
                           , db_index=True
