@@ -131,7 +131,7 @@ def filter_htmlsbycode(htmlstr):
 
     re_h=re.compile('</?\w+[^>]*>')  # HTML标签
     re_comment=re.compile('<!--[^>]*-->')  # HTML注释
-    re_stopwords=re.compile('\u3000')  # 去除无用的'\u3000'字符
+    re_stopwords=re.compile('\u3000', re.I)  # 去除无用的'\u3000'字符
 
     s=re_p.sub('\n', htmlstr)
 
@@ -143,7 +143,7 @@ def filter_htmlsbycode(htmlstr):
     s=re_comment.sub('', s)  # 去掉HTML注释
     s=re_stopwords.sub('', s)
     # 去掉多余的空行
-    blank_line=re.compile('\n+')
+    blank_line=re.compile('\n+', re.I)
     s=blank_line.sub('\n', s)
     #s=replaceCharEntity(s)  # 替换实体
     return s

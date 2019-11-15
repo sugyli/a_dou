@@ -68,6 +68,7 @@ def __basereplace(htmlstr):
     #把HTML转义字符 反转义 html.escape转义
     #htmlstr = html.unescape(htmlstr)
     htmlstr = htmlstr.replace('\r', '').replace('\t', '')
+
     re_stopwords=re.compile('\u3000', re.I)
     htmlstr =re_stopwords.sub('', htmlstr)
 
@@ -207,12 +208,12 @@ def customfilterstr(htmlstr,filterstr=filterstr):
 
 
 ########2019 11 7 ######
-def is_json(myjson):
-
-    try:
-        json_object = json.loads(myjson)
-    except ValueError as e:
-        return False
-
-    return True
+# def is_json(myjson):
+#
+#     try:
+#         json_object = json.loads(myjson)
+#     except ValueError as e:
+#         return False
+#
+#     return True
 

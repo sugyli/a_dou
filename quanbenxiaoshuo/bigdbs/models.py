@@ -158,7 +158,9 @@ class BigDb(models.Model):
         images = content.css('img::attr(src)').extract()
         rex=r"""(<img\s.*?\s?src\s*=\s*['|"]?[^\s'"]+.*?>)"""
         rep_image="%%%%%%%%%%"
-        self.content = re.sub(rex, rep_image, self.content)
+        compile_img=re.compile(rex, re.I)
+        self.content=compile_img.sub(rep_image, self.content)
+        #self.content = re.sub(rex, rep_image, self.content)
         for image in images:
             for _ in makeup:
                 image_s = image.split('/')

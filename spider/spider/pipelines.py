@@ -131,7 +131,10 @@ class BigDbSpiderPipeline(object):
 
         #过滤无用的标签
         item['bigdb']['content'] = \
-            item['bigdb']['content'].replace('<p></p>','')
+            item['bigdb']['content']\
+                .replace('<p></p>','')\
+                .replace('<p><p>','<p>')\
+                .replace('</p></p>','</p>')
 
 
         #入库

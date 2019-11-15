@@ -209,7 +209,7 @@ class A360docSpider(scrapy.Spider):
         except Exception:
             raise Exception('start_requests 开头',traceback.format_exc())
 
-    #从列表中获取到了内容地址
+    #从列表中获取到了内容地址 这个位置可以调试
     def parse_list(self, response):
         try:
             category=response.meta.get("category")
@@ -253,6 +253,13 @@ class A360docSpider(scrapy.Spider):
             rep_p = "$$$$$$p$$$$$$"
             rep_endp="$$$$$$endp$$$$$$"
             htmlstr = response.css('#artcontentdiv').extract()[0]
+            compile_br = re.compile(r'<\s*br[^>]*>', re.I)
+            htmllist = compile_br.split(htmlstr)
+
+            if len(htmllist)>1:
+                htmlstr = \
+                    ''.join(['<p>{}</p>'.format(s) for s in htmllist if s.strip()])
+
 
             images  = response.css('#artcontentdiv img::attr(src)').extract()
             #检查图片地址完整
@@ -262,14 +269,17 @@ class A360docSpider(scrapy.Spider):
 
 
             rex = r"""(<img\s.*?\s?src\s*=\s*['|"]?[^\s'"]+.*?>)"""
-            #new_text, n = re.subn 替换的次数
-            htmlstr = re.sub(rex, rep_image, htmlstr)
+            #这么写的目的是不区分大小
+            compile_img=re.compile(rex, re.I)
+            htmlstr=compile_img.sub(rep_image, htmlstr)
             #替换p 标签
             rex_p = r"""(<\s*p[^>]*>)"""
-            htmlstr=re.sub(rex_p, rep_p, htmlstr)
+            compile_p=re.compile(rex_p, re.I)
+            htmlstr=compile_p.sub(rep_p, htmlstr)
 
             rex_endp=r"""(<\s*/\s*p\s*>)"""
-            htmlstr=re.sub(rex_endp, rep_endp, htmlstr)
+            compile_endp=re.compile(rex_endp, re.I)
+            htmlstr=compile_endp.sub(rep_endp, htmlstr)
 
             #过滤
             htmlstr=htmlstr\
@@ -295,8 +305,6 @@ class A360docSpider(scrapy.Spider):
             htmlstr = helpers.strip_tags(htmlstr)
             #转译emoji
             htmlstr=emoji.demojize(htmlstr)
-            # 过滤空格
-            #htmlstr=htmlstr.replace(' ', '')
             # 遗漏的HTML转义
             htmlstr=html.unescape(htmlstr)
             htmlstr=html.escape(htmlstr)
