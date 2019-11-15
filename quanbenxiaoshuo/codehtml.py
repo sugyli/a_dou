@@ -1,11 +1,11 @@
-import re
+import re,html
 from pygments.formatter import Formatter
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.lexers import guess_lexer
 from pygments.token import Text, STANDARD_TYPES
 
-
+from quanbenxiaoshuo import helpers
 def _get_ttype_class(ttype):
     fname = STANDARD_TYPES.get(ttype)
     if fname:
@@ -101,22 +101,19 @@ class HtmlLiFormatter(Formatter):
 
 def code_to_html(match):
     #处理规则中的内容
-    html=filter_htmlsbycode(match.group(0))
+    html = filter_htmlsbycode(match.group(0))
 
-    type_and_content=re.findall(pattern='``````(\w*)[\n|\r]([\s\S]+?)``````'
+    type_and_content=re.findall(pattern='``````([\s\S]+?)``````'
                                 , string=html)
 
     if len(type_and_content)>0:
 
         formatter = HtmlLiFormatter(linenos=True, style='colorful')
-        code_type = type_and_content[0][0]
-        code_content = type_and_content[0][1]
+        code_content = type_and_content[0]
 
-        if code_type != '':
-            substring = highlight(code=code_content, lexer=get_lexer_by_name(code_type), formatter=formatter)
-        else:
-            substring = highlight(code=code_content, lexer=guess_lexer(code_content), formatter=formatter)
-
+        substring=highlight(code=code_content
+                            , lexer=guess_lexer(code_content)
+                            , formatter=formatter)
         return substring
 
     return match.string
@@ -124,6 +121,7 @@ def code_to_html(match):
 def filter_htmlsbycode(htmlstr):
     if not isinstance(htmlstr,str):
         return htmlstr
+    htmlstr=html.unescape(htmlstr)
     # 先过滤CDATA
     re_cdata=re.compile('//<!\[CDATA\[[^>]*//\]\]>', re.I)  # 匹配CDATA
     re_script=re.compile('<\s*script[^>]*>[^<]*<\s*/\s*script\s*>', re.I)  # Script
@@ -147,7 +145,7 @@ def filter_htmlsbycode(htmlstr):
     # 去掉多余的空行
     blank_line=re.compile('\n+')
     s=blank_line.sub('\n', s)
-    s=replaceCharEntity(s)  # 替换实体
+    #s=replaceCharEntity(s)  # 替换实体
     return s
 
 ##替换常用HTML字符实体.
@@ -179,8 +177,6 @@ def replaceCharEntity(htmlstr):
             htmlstr=re_charEntity.sub('',htmlstr,1)
             sz=re_charEntity.search(htmlstr)
     return htmlstr
-
-
 
 def md_to_html(mdstr):
     #匹配到了进入code_to_html
