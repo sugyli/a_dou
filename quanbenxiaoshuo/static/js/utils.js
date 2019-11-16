@@ -33,7 +33,7 @@ function tj(){
     var _hmt = _hmt || [];
     (function() {
       var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?48ecf8335dbb710e19a4a7ac250f9a28";
+      hm.src = "https://hm.baidu.com/hm.js?13c857eb9c008d0221f93dd89794c1e0";
       var s = document.getElementsByTagName("script")[0];
       s.parentNode.insertBefore(hm, s);
     })();

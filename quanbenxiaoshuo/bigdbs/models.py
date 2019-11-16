@@ -89,7 +89,7 @@ class BigDb(models.Model):
                           , default=u''
                           , verbose_name='来源地址')
 
-    #本地资源 这个默认参数不能修改有用
+
     normslug=models.CharField(max_length=255
                           , db_index=True
                           , blank=True
