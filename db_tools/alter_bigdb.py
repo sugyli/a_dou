@@ -16,6 +16,7 @@ from bigdbs.models import BigDb
 bigdbs = BigDb.objects.all().order_by('id')
 for bigdb in bigdbs:
     print(bigdb.id,' ',bigdb.name)
+    bigdb.slug = str(bigdb.slug) + '-' + str(bigdb.id)
     bigdb.save()
 
 

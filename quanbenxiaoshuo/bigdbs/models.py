@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-import re,json,os
+import re,json,os,random
 
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
@@ -89,6 +89,7 @@ class BigDb(models.Model):
                           , default=u''
                           , verbose_name='来源地址')
 
+    #本地资源 这个默认参数不能修改有用
     normslug=models.CharField(max_length=255
                           , db_index=True
                           , blank=True
@@ -226,10 +227,23 @@ class BigDb(models.Model):
         self.description = helpers.replacenohtml(self.content)[:200]
 
         if not self.slug:
-            slug = slugify(self.name)
-            if len(slug)>50:
-                slug = helpers.Md5(slug)
-            self.slug = slug
+            #判断来源
+            if self.norm:
+                self.slug=helpers.Md5(self.norm)
+                if BigDb.objects.filter(slug=self.slug).count()>0:
+                    self.slug = ''
+
+            def get_slug():
+                slug=slugify(self.name)
+                if len(slug)>50:
+                    slug = helpers.Md5(slug)
+                self.slug = slug +'-'+str(random.randint(0,10000))
+                if BigDb.objects.filter(slug=self.slug).count()>0:
+                    get_slug()
+
+            if not self.slug:
+                get_slug()
+
 
         #附件处理
         content=Selector(text=self.content)
