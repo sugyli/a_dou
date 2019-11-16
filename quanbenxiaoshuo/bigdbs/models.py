@@ -99,6 +99,7 @@ class BigDb(models.Model):
 
     slug=models.SlugField(max_length=255
                           , blank=True
+                          , unique=True
                           , verbose_name='(URL)别名'
                           , default=u'')
 
@@ -137,8 +138,7 @@ class BigDb(models.Model):
 
     class Meta:
         index_together=[
-            ('status','slug','id'),
-            ('slug', 'id')
+            ('status','slug')
         ]
         verbose_name = '大数据'
         verbose_name_plural = verbose_name
@@ -181,10 +181,10 @@ class BigDb(models.Model):
 
 
     def get_url(self):
-        return reverse('bigdbs:bigdb', args=[self.slug,self.id])
+        return reverse('bigdbs:bigdb', args=[self.slug])
 
     def get_debug_url(self):
-        return reverse('bigdbs:bigdb-debug', args=[self.slug,self.id])
+        return reverse('bigdbs:bigdb-debug', args=[self.slug])
 
 
     def get_thumbnails(self):
@@ -237,7 +237,7 @@ class BigDb(models.Model):
                 slug=slugify(self.name)
                 if len(slug)>50:
                     slug = helpers.Md5(slug)
-                self.slug = slug +'-'+str(random.randint(0,10000))
+                self.slug = slug +'-'+str(random.randint(0,100000))
                 if BigDb.objects.filter(slug=self.slug).count()>0:
                     get_slug()
 
