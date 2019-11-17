@@ -63,8 +63,12 @@ class WeixinSpider(scrapy.Spider):
 
     def parse_list(self, response):
         try:
+            category=response.meta.get("category")
 
-            pass
+
+
+
+
         except Exception:
             raise Exception('parse_list 开头', traceback.format_exc())
         print(response.url)
