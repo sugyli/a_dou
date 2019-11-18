@@ -21,6 +21,8 @@ from bigdbs.models import BigDb
 from categorys.models import Category as BigDbCategory
 
 from django.conf import settings
+from scrapy.utils.project import get_project_settings
+scrapy_settings = get_project_settings()
 
 
 
@@ -67,8 +69,6 @@ class NovelImagePipeline(ImagesPipeline):
 
         except Exception:
             raise Exception('图片采集有问题请检查 \n',traceback.format_exc())
-
-
 
 
 class ArticleSpiderPipeline(object):
@@ -118,6 +118,7 @@ class BigDbSpiderPipeline(object):
 
         if not item:
             return
+
         item['bigdb']['content'] = \
                     item['bigdb']['content']\
                         .replace(item['rep']['rep_p'], '<p>')\
@@ -136,18 +137,31 @@ class BigDbSpiderPipeline(object):
                 .replace('<p><p>','<p>')\
                 .replace('</p></p>','</p>')
 
+        try:
+            #入库
+            if item['bigdb']['content'].strip():
+                category = BigDbCategory.objects.get(name=item['category'])
+                item['bigdb']['category'] = category
+                BigDb.objects.create(**item['bigdb'])
+                return f"{item['bigdb']['name']} 入库完成 {item['bigdb']['norm']}"
 
-        #入库
-        if item['bigdb']['content'].strip():
-            category = BigDbCategory.objects.get(name=item['category'])
-            item['bigdb']['category'] = category
-            BigDb.objects.create(**item['bigdb'])
-            return f"{item['bigdb']['name']} 入库完成 {item['bigdb']['norm']}"
-        else:
-            print(
-                f"{item['bigdb']['name']} 内容不能为空 {item['bigdb']['norm']}")
-            logger.error(
-                f"{item['bigdb']['name']} 内容不能为空 {item['bigdb']['norm']}")
+            else:
+
+                print(
+                    f"{item['bigdb']['name']} 内容不能为空 {item['bigdb']['norm']}")
+                logger.error(
+                    f"{item['bigdb']['name']} 内容不能为空 {item['bigdb']['norm']}")
+                return
+
+
+        except Exception:
+
+            for image in item['images']:
+                image_url = scrapy_settings +'/'+image
+                # 判断文件是否存在
+                if (os.path.exists(image_url)):
+                    os.remove(image_url)
+                    print(f"{item['bigdb']['name']} 入库失败 删除图片 {image_url} {item['bigdb']['norm']}")
             return
 
 class BigDbImagePipeline(ImagesPipeline):
