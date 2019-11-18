@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-import re,json,os,random
+import re,json,os,random,html
 
 from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
@@ -147,6 +147,10 @@ class BigDb(models.Model):
 
     def __str__(self):
         return self.name
+
+
+    def get_name(self):
+        return html.unescape(self.name)
 
     def get_comefrom(self):
         if self.original:
