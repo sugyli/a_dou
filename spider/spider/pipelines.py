@@ -4,7 +4,7 @@
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-import traceback,os,time,random
+import traceback,os,time,re
 from scrapy.pipelines.images import ImagesPipeline
 from scrapy import Request
 #DropItem是用来删除下载图片失败的item的
@@ -210,12 +210,14 @@ class BigDbImagePipeline(ImagesPipeline):
                         #break
                 else:
                     for image in item[self.images_urls_field]:
-                        image_url=scrapy_settings['IMAGES_STORE']+'/'+image
-                        # 判断文件是否存在
-                        if (os.path.exists(image_url)):
-                            os.remove(image_url)
-                            print(
-                                f"{item['bigdb']['name']} 下载图片失败 删除图片 {image_url} {item['bigdb']['norm']}")
+                        #不是网站地址的时候
+                        if not re.match(r'^https?:/{2}\w.+$', image):
+                            image_url=scrapy_settings['IMAGES_STORE']+'/'+image
+                            # 判断文件是否存在
+                            if (os.path.exists(image_url)):
+                                os.remove(image_url)
+                                print(
+                                    f"{item['bigdb']['name']} 下载图片失败 删除图片 {image_url} {item['bigdb']['norm']}")
 
 
                     print(f"{item['bigdb']['name']} 下载图片失败 不入库 {item['bigdb']['norm']}")
