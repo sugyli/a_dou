@@ -157,7 +157,7 @@ class BigDbSpiderPipeline(object):
         except Exception:
 
             for image in item['images']:
-                image_url = scrapy_settings +'/'+image
+                image_url = scrapy_settings.IMAGES_STORE +'/'+image
                 # 判断文件是否存在
                 if (os.path.exists(image_url)):
                     os.remove(image_url)
