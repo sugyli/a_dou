@@ -209,6 +209,15 @@ class BigDbImagePipeline(ImagesPipeline):
                         item[self.images_urls_field][i] = results[i][1]['path']
                         #break
                 else:
+                    for image in item[self.images_urls_field]:
+                        image_url=scrapy_settings['IMAGES_STORE']+'/'+image
+                        # 判断文件是否存在
+                        if (os.path.exists(image_url)):
+                            os.remove(image_url)
+                            print(
+                                f"{item['bigdb']['name']} 下载图片失败 删除图片 {image_url} {item['bigdb']['norm']}")
+
+
                     print(f"{item['bigdb']['name']} 下载图片失败 不入库 {item['bigdb']['norm']}")
                     logger.error(f"{item['bigdb']['name']} 下载图片失败 不入库 {item['bigdb']['norm']}")
                     return []
