@@ -161,7 +161,8 @@ class BigDbSpiderPipeline(object):
                 if (os.path.exists(image_url)):
                     os.remove(image_url)
                     print(f"{item['bigdb']['name']} 入库失败 删除图片 {image_url} {item['bigdb']['norm']}")
-
+            logger.error(
+                f"{item['bigdb']['name']} 入库失败 {item['bigdb']['norm']}")
             return Exception(traceback.format_exc())
 
 class BigDbImagePipeline(ImagesPipeline):
