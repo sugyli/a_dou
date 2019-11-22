@@ -136,34 +136,20 @@ class BigDbSpiderPipeline(object):
                 .replace('<p><p>','<p>')\
                 .replace('</p></p>','</p>')
 
-        try:
-            #入库
-            if item['bigdb']['content'].strip():
-                category = BigDbCategory.objects.get(name=item['category'])
-                item['bigdb']['category'] = category
-                BigDb.objects.create(**item['bigdb'])
-                return f"{item['bigdb']['name']} 入库完成 {item['bigdb']['norm']}"
+        # 入库
+        if item['bigdb']['content'].strip():
+            category=BigDbCategory.objects.get(name=item['category'])
+            item['bigdb']['category']=category
+            BigDb.objects.create(**item['bigdb'])
+            return f"{item['bigdb']['name']} 入库完成 {item['bigdb']['norm']}"
 
-            else:
+        else:
 
-                print(
-                    f"{item['bigdb']['name']} 内容不能为空 {item['bigdb']['norm']}")
-                logger.error(
-                    f"{item['bigdb']['name']} 内容不能为空 {item['bigdb']['norm']}")
-                return
-
-
-        except Exception:
-
-            for image in item['images']:
-                image_url = scrapy_settings['IMAGES_STORE'] +'/'+image
-                # 判断文件是否存在
-                if (os.path.exists(image_url)):
-                    os.remove(image_url)
-                    print(f"{item['bigdb']['name']} 入库失败 删除图片 {image_url} {item['bigdb']['norm']}")
-            # logger.error(
-            #     f"{item['bigdb']['name']} 入库失败 {item['bigdb']['norm']}")
-            raise Exception(traceback.format_exc())
+            print(
+                f"{item['bigdb']['name']} 内容不能为空 {item['bigdb']['norm']}")
+            logger.error(
+                f"{item['bigdb']['name']} 内容不能为空 {item['bigdb']['norm']}")
+            return
 
 class BigDbImagePipeline(ImagesPipeline):
 
@@ -211,16 +197,6 @@ class BigDbImagePipeline(ImagesPipeline):
                         item[self.images_urls_field][i] = results[i][1]['path']
                         #break
                 else:
-                    for image in item[self.images_urls_field]:
-                        #不是网站地址的时候
-                        if not re.match(r'^https?:/{2}\w.+$', image):
-                            image_url=scrapy_settings['IMAGES_STORE']+'/'+image
-                            # 判断文件是否存在
-                            if (os.path.exists(image_url)):
-                                os.remove(image_url)
-                                print(
-                                    f"{item['bigdb']['name']} 下载图片失败 删除图片 {image_url} {item['bigdb']['norm']}")
-
 
                     print(f"{item['bigdb']['name']} 下载图片失败 不入库 {item['bigdb']['norm']}")
                     logger.error(f"{item['bigdb']['name']} 下载图片失败 不入库 {item['bigdb']['norm']}")

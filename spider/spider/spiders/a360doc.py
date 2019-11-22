@@ -36,7 +36,11 @@ class A360docSpider(scrapy.Spider):
         'http://www.360doc.cn/article/54623748_871222082.html',
         'http://www.360doc.cn/article/28625038_871239766.html',
         'http://www.360doc.cn/article/273090_240724762.html',
-        'http://www.360doc.cn/article/52901360_871157169.html'
+        'http://www.360doc.cn/article/52901360_871157169.html',
+        'http://www.360doc.cn/article/6748870_871057964.html',
+        'http://www.360doc.cn/article/1427138_873834882.html',
+        'http://www.360doc.cn/article/10813888_870045548.html',
+        'http://www.360doc.cn/article/34614342_760046274.html'
     ]
 
     def start_requests(self):
