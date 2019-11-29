@@ -19,6 +19,7 @@ class BigDbAdmin(object):
     search_fields=['name','slug']
     readonly_fields=['appendix','thumbnails']
     #ordering=['-updated_at']
+    show_bookmarks = False
 
     def apply_prove(self, obj):
         return f"<a href='{obj.get_url()}' target='_blank'>前端</a>&nbsp;" \
