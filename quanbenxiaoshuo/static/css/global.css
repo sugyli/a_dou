@@ -3966,3 +3966,12 @@ code {
 .code-line .il {
     color: #666666
 }
+
+/* Table Styles */
+
+.table, .table * {margin: 0 auto; padding: 0;font-size: 14px;font-family: Arial, 宋体, Helvetica, sans-serif;}
+.table {display: table; width: 80%; border-collapse: collapse;}
+.table-tr {display: table-row; height: 30px;}
+.table-th {background: #F8F8F8;display: table-cell;font-weight: bold;height: 100%;border: 1px solid gray;text-align: center;vertical-align: middle;}
+.table-td {display: table-cell; height: 100%;border: 1px solid gray; text-align: center;vertical-align: middle;}
+.table-td p,.table-tr p,.table-th p{text-align: center;}

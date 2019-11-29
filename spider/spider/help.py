@@ -1,6 +1,7 @@
 from scrapy.selector import Selector
 import requests,traceback
 from urllib import parse
+import re,helpers,emoji,html
 
 
 
@@ -85,3 +86,87 @@ def parse_info(response):
     except Exception:
         raise Exception(traceback.format_exc())
 
+
+
+
+def get_rep_html(html):
+
+    return "$$$$$${}$$$$$$".format(html)
+
+
+def get_endrep_html(html):
+
+    return "$$$$$$end{}$$$$$$".format(html)
+
+
+def handle_content(htmlstr):
+
+    def rep_html(html,htmlstr):
+        rep_html = get_rep_html(html)
+        rep_endhtml = get_endrep_html(html)
+
+        rex_html = "(<\s*{}[^>]*>)".format(html)
+        compile_html = re.compile(rex_html, re.I)
+        htmlstr = compile_html.sub(rep_html, htmlstr)
+
+        rex_endhtml = "(<\s*/\s*{}\s*>)".format(html)
+        compile_endhtml = re.compile(rex_endhtml, re.I)
+        return compile_endhtml.sub(rep_endhtml, htmlstr)
+
+    htmlstr = rep_html('p',htmlstr)
+    htmlstr = rep_html('table',htmlstr)
+    htmlstr = rep_html('tbody',htmlstr)
+    htmlstr = rep_html('tr',htmlstr)
+    htmlstr = rep_html('td',htmlstr)
+
+    # 过滤
+    htmlstr=htmlstr \
+        .replace('\r', '') \
+        .replace('\t', '') \
+        .replace('\n', '') \
+        .replace('𠴂', '口') \
+        .replace('&#134402;', '口').strip()
+
+    # 过滤空格
+    re_stopwords=re.compile('\u3000', re.I)
+    htmlstr=re_stopwords.sub('', htmlstr)
+    re_stopwords2=re.compile('\xa0', re.I)
+    htmlstr=re_stopwords2.sub('', htmlstr)
+    # 过滤垃圾
+    re_script=re.compile('<\s*script[^>]*>[^<]*<\s*/\s*script\s*>',
+                         re.I)  # Script
+    re_style=re.compile('<\s*style[^>]*>[^<]*<\s*/\s*style\s*>', re.I)  # style
+    re_a=re.compile('<\s*a[^>]*>', re.I)  # a
+    re_enda=re.compile('<\s*/\s*a\s*>', re.I)  # a
+
+
+    htmlstr=re_script.sub('', htmlstr)
+    htmlstr=re_style.sub('', htmlstr)
+    htmlstr=re_a.sub('', htmlstr)
+    htmlstr=re_enda.sub('', htmlstr)
+
+    # 过滤HTML
+    htmlstr=helpers.strip_tags(htmlstr)
+    # 转译emoji
+    htmlstr=emoji.demojize(htmlstr)
+    # 遗漏的HTML转义
+    htmlstr=html.unescape(htmlstr)
+    htmlstr=html.escape(htmlstr)
+    htmlstr=htmlstr.strip()
+    return htmlstr
+
+
+def reduction_content(content):
+    rs = content\
+        .replace(get_rep_html('p'),'<p>')\
+        .replace(get_endrep_html('p'),'</p>') \
+        .replace(get_rep_html('table'), '<div class=\"table\">') \
+        .replace(get_endrep_html('table'), '</div>') \
+        .replace(get_rep_html('tbody'), '') \
+        .replace(get_endrep_html('tbody'), '') \
+        .replace(get_rep_html('tr'), '<div class=\"table-tr\">') \
+        .replace(get_endrep_html('tr'), '</div>') \
+        .replace(get_rep_html('td'), '<div class=\"table-td\">') \
+        .replace(get_endrep_html('td'), '</div>')
+
+    return rs

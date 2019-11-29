@@ -25,3 +25,5 @@ class BigDbSpiderItem(scrapy.Item):
     bigdb = scrapy.Field()
     category = scrapy.Field()
     rep =  scrapy.Field()
+    image_headers = scrapy.Field()
+    image_prefix=scrapy.Field()

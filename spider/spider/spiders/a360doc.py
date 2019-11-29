@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 import scrapy,traceback,json,emoji,html,copy
-import  logging
+import logging
 logger = logging.getLogger(__name__)
 from urllib import parse
 
 import helpers,re
 from bigdbs.models import BigDb
 from ..items import BigDbSpiderItem
+from .. import help
 
 from scrapy.utils.project import get_project_settings
 settings = get_project_settings()
@@ -239,8 +240,10 @@ class A360docSpider(scrapy.Spider):
 
                             else:
                                 print(f"{name} 已经存在不添加")
+
                         else:
                             print(f"{wapurl} 设置不采集")
+
             else:
                 logger.error(f"出错来源 {response.url} 请求失败 状态码 {response.status}")
         except Exception:
@@ -254,9 +257,7 @@ class A360docSpider(scrapy.Spider):
             print re.sub(rex,"Bye",tempstr)
         """
         try:
-            rep_image = "%%%%%%%%%%"
-            rep_p = "$$$$$$p$$$$$$"
-            rep_endp="$$$$$$endp$$$$$$"
+
             htmlstr = response.css('#artcontentdiv').extract()[0]
             compile_br = re.compile(r'<\s*br[^>]*>', re.I)
             htmllist = compile_br.split(htmlstr)
@@ -272,52 +273,20 @@ class A360docSpider(scrapy.Spider):
                 if not re.match(r'^https?:/{2}\w.+$', images[i]):
                     images[i] = parse.urljoin(response.url,images[i])
 
-
-            rex = r"""(<img\s.*?\s?src\s*=\s*['|"]?[^\s'"]+.*?>)"""
-            #这么写的目的是不区分大小
+            rep_image="%%%%%%%%%%"
+            rex=r"""(<img\s.*?\s?src\s*=\s*['|"]?[^\s'"]+.*?>)"""
+            # 这么写的目的是不区分大小
             compile_img=re.compile(rex, re.I)
             htmlstr=compile_img.sub(rep_image, htmlstr)
-            #替换p 标签
-            rex_p = r"""(<\s*p[^>]*>)"""
-            compile_p=re.compile(rex_p, re.I)
-            htmlstr=compile_p.sub(rep_p, htmlstr)
 
-            rex_endp=r"""(<\s*/\s*p\s*>)"""
-            compile_endp=re.compile(rex_endp, re.I)
-            htmlstr=compile_endp.sub(rep_endp, htmlstr)
-
-            #过滤
-            htmlstr=htmlstr\
-                .replace('\r', '')\
-                .replace('\t', '')\
-                .replace('\n', '')\
-                .replace('𠴂','口')\
-                .replace('&#134402;','口').strip()
-
-            #过滤空格
-            re_stopwords=re.compile('\u3000', re.I)
-            htmlstr=re_stopwords.sub('', htmlstr)
-            re_stopwords2=re.compile('\xa0', re.I)
-            htmlstr=re_stopwords2.sub('', htmlstr)
-            #过滤垃圾
-            re_script=re.compile('<\s*script[^>]*>[^<]*<\s*/\s*script\s*>',re.I)  # Script
-            re_style=re.compile('<\s*style[^>]*>[^<]*<\s*/\s*style\s*>',re.I)  # style
-            re_a=re.compile('<\s*a[^>]*>[^<]*<\s*/\s*a\s*>', re.I)  # a
-            htmlstr=re_script.sub('', htmlstr)
-            htmlstr=re_style.sub('', htmlstr)
-            htmlstr=re_a.sub('', htmlstr)
-            #过滤HTML
-            htmlstr = helpers.strip_tags(htmlstr)
-            #转译emoji
-            htmlstr=emoji.demojize(htmlstr)
-            # 遗漏的HTML转义
-            htmlstr=html.unescape(htmlstr)
-            htmlstr=html.escape(htmlstr)
-            htmlstr=htmlstr.strip()
+            htmlstr = help.handle_content(htmlstr)
 
             if htmlstr:
                 item = BigDbSpiderItem()
                 item['images'] = images
+                item['image_headers']={
+
+                }
                 item['bigdb'] = {
                     'name': response.meta.get("name"),
                     'norm': response.meta.get("norm"),
@@ -327,15 +296,13 @@ class A360docSpider(scrapy.Spider):
                 }
                 item['category'] = response.meta.get("category")
                 item['rep'] = {
-                    'rep_image':rep_image,
-                    'rep_p': rep_p,
-                    'rep_endp': rep_endp
+                    'rep_image':rep_image
                 }
-
+                item['image_prefix']= '360doc'
                 yield item
             else:
                 logger.error(f"{response.meta.get('name')} 内容为空 不入库 {response.meta.get('norm')}")
-                return
+
 
         except Exception:
             raise Exception('parse 开头',traceback.format_exc())

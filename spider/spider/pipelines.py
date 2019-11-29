@@ -29,6 +29,9 @@ import  logging
 logger = logging.getLogger(__name__)
 
 
+from . import help
+
+
 
 class NovelInfoSpiderPipeline(object):
     def process_item(self, item, spider):
@@ -119,9 +122,7 @@ class BigDbSpiderPipeline(object):
             return
 
         item['bigdb']['content'] = \
-                    item['bigdb']['content']\
-                        .replace(item['rep']['rep_p'], '<p>')\
-                        .replace(item['rep']['rep_endp'], '</p>')
+            help.reduction_content(item['bigdb']['content'])
 
         for image in item['images']:
             item['bigdb']['content'] = \
@@ -130,11 +131,15 @@ class BigDbSpiderPipeline(object):
                              ,'<p class="dianshiju"><img src="{}" /></p>'.format('/'+settings.MAKEUP[-1]['prefix']+'/'+image),1)
 
         #过滤无用的标签
+
         item['bigdb']['content'] = \
             item['bigdb']['content']\
                 .replace('<p></p>','')\
                 .replace('<p><p>','<p>')\
                 .replace('</p></p>','</p>')
+
+        item['bigdb']['content'] \
+            = re.sub(r'(<p>\s*</p>)', '', item['bigdb']['content'])
 
         # 入库
         if item['bigdb']['content'].strip():
@@ -144,7 +149,6 @@ class BigDbSpiderPipeline(object):
             return f"{item['bigdb']['name']} 入库完成 {item['bigdb']['norm']}"
 
         else:
-
             print(
                 f"{item['bigdb']['name']} 内容不能为空 {item['bigdb']['norm']}")
             logger.error(
@@ -152,15 +156,17 @@ class BigDbSpiderPipeline(object):
             return
 
 class BigDbImagePipeline(ImagesPipeline):
-
+    image_prefix = 'weizhi'
 
     def get_media_requests(self, item, info):
-
-        headers={
-            # "Host": "image109.360doc.cn",
-            "Referer": item['bigdb']['norm'],
-            'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36"
-        }
+        self.image_prefix = item['image_prefix']
+        if not item['image_headers']:
+            headers={
+                "Referer": item['bigdb']['norm'],
+                'User-Agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.70 Safari/537.36"
+            }
+        else:
+            headers = item['image_headers']
         # 循环每一张图片地址下载，若传过来的不是集合则无需循环直接yield
 
         for image_url in item[self.images_urls_field]:
@@ -172,7 +178,7 @@ class BigDbImagePipeline(ImagesPipeline):
     def file_path(self, request, response=None, info=None):
         # 定义文件名，年月日时分秒随机数
         fn = helpers.Md5(request.url)
-        filename = u'360doc/{0}/{1}/{2}.jpg'.format(time.strftime('%Y'),time.strftime('%m'), fn)
+        filename = u'{3}/{0}/{1}/{2}.jpg'.format(time.strftime('%Y'),time.strftime('%m'), fn,self.image_prefix)
         return filename
 
         # 项目管道里面的每一个item最终都会经过item_completd，也就是意味着有多少个item，这个item_completed函数就会被调用多少次。(不管下载成功，还是失败都会被调用)，如果不重写该方法，item默认都会返回出去。item_completed里面的return出去的item是经过整个项目管道处理完成之后的最终的一个item。
@@ -193,9 +199,7 @@ class BigDbImagePipeline(ImagesPipeline):
         for i in range(len(results)):
             for x in range(len(item[self.images_urls_field])):
                 if results[i][0]:
-                    if item[self.images_urls_field][i] == results[i][1]['url']:
-                        item[self.images_urls_field][i] = results[i][1]['path']
-                        #break
+                    item[self.images_urls_field][i]=results[i][1]['path']
                 else:
 
                     print(f"{item['bigdb']['name']} 下载图片失败 不入库 {item['bigdb']['norm']}")
