@@ -281,7 +281,7 @@ class A360docSpider(scrapy.Spider):
 
             htmlstr = help.handle_content(htmlstr)
 
-            if htmlstr:
+            if htmlstr or len(images) > 0:
                 item = BigDbSpiderItem()
                 item['images'] = images
                 item['image_headers']={
