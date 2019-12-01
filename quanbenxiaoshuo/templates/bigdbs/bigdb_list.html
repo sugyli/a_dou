@@ -24,11 +24,11 @@
           {% if bigdb.get_thumbnails|length > 0  and  bigdb.get_thumbnails|length <= 2 %}
           <div class="bigdbs">
             <h3 class="bigdbtitle">
-              <a href="{{ bigdb.get_url }}">{{ bigdb.name }}</a>
+              <a href="{{ bigdb.get_url }}">{{ bigdb.get_name }}</a>
             </h3>
             <span class="bigdbpic">
-              <a href="{{ bigdb.get_url }}" title="bigdb.name">
-                <img src="{{ bigdb.get_thumbnails.0 }}" onerror="this.src='{% static 'bigdb_noimage.jpg' %}'" alt="bigdb.name">
+              <a href="{{ bigdb.get_url }}" title="bigdb.get_name">
+                <img src="{{ bigdb.get_thumbnails.0 }}" onerror="this.src='{% static 'bigdb_noimage.jpg' %}'" alt="bigdb.get_name">
               </a>
             </span>
             <p class="bigdbtext">{{ bigdb.get_introduction|truncatechars:150 }}</p>
@@ -42,13 +42,13 @@
           {% elif bigdb.get_thumbnails|length >= 3 %}
             <div class="bigdbs">
               <h3 class="bigdbtitle">
-                <a href="{{ bigdb.get_url }}">{{ bigdb.name }}</a>
+                <a href="{{ bigdb.get_url }}">{{ bigdb.get_name }}</a>
               </h3>
               <span class="bplist">
-                <a href="{{ bigdb.get_url }}" title="{{ bigdb.name }}">
-                  <li><img src="{{ bigdb.get_thumbnails.0 }}" alt="{{ bigdb.name }}" onerror="this.src='{% static 'bigdb_noimage.jpg' %}'"></li>
-                  <li><img src="{{ bigdb.get_thumbnails.1 }}" alt="{{ bigdb.name }}" onerror="this.src='{% static 'bigdb_noimage.jpg' %}'"></li>
-                  <li><img src="{{ bigdb.get_thumbnails.2 }}" alt="{{ bigdb.name }}" onerror="this.src='{% static 'bigdb_noimage.jpg' %}'"></li>
+                <a href="{{ bigdb.get_url }}" title="{{ bigdb.get_name }}">
+                  <li><img src="{{ bigdb.get_thumbnails.0 }}" alt="{{ bigdb.get_name }}" onerror="this.src='{% static 'bigdb_noimage.jpg' %}'"></li>
+                  <li><img src="{{ bigdb.get_thumbnails.1 }}" alt="{{ bigdb.get_name }}" onerror="this.src='{% static 'bigdb_noimage.jpg' %}'"></li>
+                  <li><img src="{{ bigdb.get_thumbnails.2 }}" alt="{{ bigdb.get_name }}" onerror="this.src='{% static 'bigdb_noimage.jpg' %}'"></li>
                 </a>
               </span>
               <p class="bigdbtext">{{ bigdb.get_introduction|truncatechars:150 }}</p>
@@ -62,7 +62,7 @@
           {% else %}
             <div class="bigdbs">
               <h3 class="bigdbtitle">
-                <a href="{{ bigdb.get_url }}">{{ bigdb.name }}</a>
+                <a href="{{ bigdb.get_url }}">{{ bigdb.get_name }}</a>
               </h3>
               <p class="bigdbtext">{{ bigdb.get_introduction|truncatechars:150 }}</p>
               <div class="bigdbinfo">
