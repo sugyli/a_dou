@@ -51,7 +51,7 @@ class WeixinSpider(scrapy.Spider):
                 {
                     'url': 'https://weixin.sogou.com/wapindex/wap/0612/wap_15/@@@@@@.html',
                     'category': '教育',
-                    'num': 30
+                    'num': 20
                 }
             ]
             for row in parameter:
