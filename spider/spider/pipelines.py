@@ -8,8 +8,8 @@ import traceback,os,time,re
 from scrapy.pipelines.images import ImagesPipeline
 from scrapy import Request
 #DropItem是用来删除下载图片失败的item的
-from scrapy.exceptions import DropItem
-from scrapy.utils.misc import md5sum
+#from scrapy.exceptions import DropItem
+#from scrapy.utils.misc import md5sum
 
 from novels.models import Novel
 from albums.models import Album
@@ -179,17 +179,21 @@ class BigDbImagePipeline(ImagesPipeline):
     def file_path(self, request, response=None, info=None):
         # 定义文件名，年月日时分秒随机数
         fn = helpers.Md5(request.url)
-
-        if ".gif" in request.url.lower():
-            filename=u'{3}/{0}/{1}/{2}.gif'.format(time.strftime('%Y')
-                                                   ,time.strftime('%m')
-                                                   ,fn
-                                                   ,self.image_prefix)
-        else:
-            filename = u'{3}/{0}/{1}/{2}.jpg'.format(time.strftime('%Y')
+        filename=u'{3}/{0}/{1}/{2}.jpg'.format(time.strftime('%Y')
                                                      ,time.strftime('%m')
                                                      ,fn
                                                      ,self.image_prefix)
+
+        # if ".gif" in request.url.lower():
+        #     filename=u'{3}/{0}/{1}/{2}.gif'.format(time.strftime('%Y')
+        #                                            ,time.strftime('%m')
+        #                                            ,fn
+        #                                            ,self.image_prefix)
+        # else:
+        #     filename = u'{3}/{0}/{1}/{2}.jpg'.format(time.strftime('%Y')
+        #                                              ,time.strftime('%m')
+        #                                              ,fn
+        #                                              ,self.image_prefix)
 
         return filename
 
