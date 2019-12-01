@@ -3,9 +3,23 @@
   <ul id="main-nav" class="clearfix main-nav menu">
       <li class="cat-item current-cat-parent"><a href="/">首页</a></li>
       {% for navigation in 'navigations'|navigations %}
-      <li>
-        <a class="pr" href="{{ navigation.get_url }}" title="{{ navigation.name }}">{{ navigation.name }}</a>
-      </li>
+        {% if forloop.counter <= 10 %}
+        <li>
+          <a class="pr" href="{{ navigation.get_url }}" title="{{ navigation.name }}">{{ navigation.name }}</a>
+        </li>
+        {% elif forloop.counter == 11 %}
+        <li>
+          <a class="pr" href="javascript:void(0);">更多分类</a>
+          <ul class="sub-menu">
+          {% for navigation in 'navigations'|navigations %}
+            {% if forloop.counter >= 11 %}
+               <li><a href="{{ navigation.get_url }}" title="{{ navigation.name }}">{{ navigation.name }}</a></li>
+            {% endif %}
+          {% endfor %}
+          </ul>
+        </li>
+        {% endif %}
+
       {% endfor %}
   </ul>
 </nav>

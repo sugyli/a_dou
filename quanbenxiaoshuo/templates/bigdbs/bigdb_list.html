@@ -28,7 +28,7 @@
             </h3>
             <span class="bigdbpic">
               <a href="{{ bigdb.get_url }}" title="bigdb.name">
-                <img src="{{ bigdb.get_thumbnails.0 }}" alt="bigdb.name">
+                <img src="{{ bigdb.get_thumbnails.0 }}" onerror="this.src='{% static 'bigdb_noimage.jpg' %}'" alt="bigdb.name">
               </a>
             </span>
             <p class="bigdbtext">{{ bigdb.get_introduction|truncatechars:150 }}</p>
@@ -46,9 +46,9 @@
               </h3>
               <span class="bplist">
                 <a href="{{ bigdb.get_url }}" title="{{ bigdb.name }}">
-                  <li><img src="{{ bigdb.get_thumbnails.0 }}" alt="{{ bigdb.name }}"></li>
-                  <li><img src="{{ bigdb.get_thumbnails.1 }}" alt="{{ bigdb.name }}"></li>
-                  <li><img src="{{ bigdb.get_thumbnails.2 }}" alt="{{ bigdb.name }}"></li>
+                  <li><img src="{{ bigdb.get_thumbnails.0 }}" alt="{{ bigdb.name }}" onerror="this.src='{% static 'bigdb_noimage.jpg' %}'"></li>
+                  <li><img src="{{ bigdb.get_thumbnails.1 }}" alt="{{ bigdb.name }}" onerror="this.src='{% static 'bigdb_noimage.jpg' %}'"></li>
+                  <li><img src="{{ bigdb.get_thumbnails.2 }}" alt="{{ bigdb.name }}" onerror="this.src='{% static 'bigdb_noimage.jpg' %}'"></li>
                 </a>
               </span>
               <p class="bigdbtext">{{ bigdb.get_introduction|truncatechars:150 }}</p>

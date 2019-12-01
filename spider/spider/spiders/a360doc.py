@@ -229,7 +229,7 @@ class A360docSpider(scrapy.Spider):
                         if wapurl not in self.noneedurl:
                             obj=BigDb.objects.filter(norm=wapurl)
                             if not obj:
-                                yield scrapy.Request(wapurl
+                                yield scrapy.Request('http://www.360doc.cn/article/66088856_872433994.html'
                                                      , meta={
                                                             "norm": wapurl,
                                                             "name": name,

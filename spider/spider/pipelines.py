@@ -9,6 +9,7 @@ from scrapy.pipelines.images import ImagesPipeline
 from scrapy import Request
 #DropItem是用来删除下载图片失败的item的
 from scrapy.exceptions import DropItem
+from scrapy.utils.misc import md5sum
 
 from novels.models import Novel
 from albums.models import Album
@@ -178,7 +179,18 @@ class BigDbImagePipeline(ImagesPipeline):
     def file_path(self, request, response=None, info=None):
         # 定义文件名，年月日时分秒随机数
         fn = helpers.Md5(request.url)
-        filename = u'{3}/{0}/{1}/{2}.jpg'.format(time.strftime('%Y'),time.strftime('%m'), fn,self.image_prefix)
+
+        if ".gif" in request.url.lower():
+            filename=u'{3}/{0}/{1}/{2}.gif'.format(time.strftime('%Y')
+                                                   ,time.strftime('%m')
+                                                   ,fn
+                                                   ,self.image_prefix)
+        else:
+            filename = u'{3}/{0}/{1}/{2}.jpg'.format(time.strftime('%Y')
+                                                     ,time.strftime('%m')
+                                                     ,fn
+                                                     ,self.image_prefix)
+
         return filename
 
         # 项目管道里面的每一个item最终都会经过item_completd，也就是意味着有多少个item，这个item_completed函数就会被调用多少次。(不管下载成功，还是失败都会被调用)，如果不重写该方法，item默认都会返回出去。item_completed里面的return出去的item是经过整个项目管道处理完成之后的最终的一个item。
@@ -209,3 +221,8 @@ class BigDbImagePipeline(ImagesPipeline):
 
         return item
 
+    #
+    # def convert_image(self, image, size=None):
+    #     buf = StringIO()
+    #     image.save(buf)
+    #     return image, buf
