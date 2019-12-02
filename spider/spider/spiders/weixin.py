@@ -54,7 +54,7 @@ class WeixinSpider(scrapy.Spider):
                     'num': 20
                 },
                 {
-                    'url': 'https://weixin.sogou.com/wapindex/wap/0612/wap_0/@@@@@@.html',
+                    'url': 'https://weixin.sogou.com/wapindex/wap/0612/wap_11/@@@@@@.html',
                     'category': '旅游',
                     'num': 20
                 }
