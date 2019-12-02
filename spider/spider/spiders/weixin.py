@@ -46,11 +46,16 @@ class WeixinSpider(scrapy.Spider):
                 {
                     'url': 'https://weixin.sogou.com/wapindex/wap/0612/wap_10/@@@@@@.html',
                     'category': '育儿',
-                    'num': 30
+                    'num': 20
                 },
                 {
                     'url': 'https://weixin.sogou.com/wapindex/wap/0612/wap_15/@@@@@@.html',
                     'category': '教育',
+                    'num': 20
+                },
+                {
+                    'url': 'https://weixin.sogou.com/wapindex/wap/0612/wap_0/@@@@@@.html',
+                    'category': '旅游',
                     'num': 20
                 }
             ]
